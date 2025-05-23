@@ -60,20 +60,25 @@ a {
 /* ======== CARTÕES ======== */
 .acessos {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
   padding: 20px;
   gap: 20px;
 }
 
 .cartao {
+  flex: 1 1 300px;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
   background-color: #FDE6C6;
   border-radius: 12px;
   padding: 16px;
   text-align: center;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  width: 100%;
-  max-width: 300px;
 }
 
 .cartao img {
@@ -112,6 +117,7 @@ a {
   .boas-vindas {
     flex-direction: row;
     justify-content: center;
+    align-items: center;
     text-align: left;
   }
 
@@ -126,8 +132,10 @@ a {
 }
 
 @media (min-width: 768px) {
-
-    
+  .boas-vindas {
+    flex-direction: column;
+    text-align: center;
+  }
 
   .boas-vindas .texto h2 {
     font-size: 28px;
