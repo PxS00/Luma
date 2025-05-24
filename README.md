@@ -37,7 +37,7 @@ LumaHC/
 ## Funcionalidades
 
 - Página inicial com acesso rápido às principais funções
-- Páginas de auxílio para Teleconsulta e Cadastro no Portal do Paciente
+- Página de auxílio voltada para realização de Teleconsulta ou Cadastro dentro do Portal 
 - Página FAQ com dúvidas frequentes
 - Página de contato com dados e links úteis
 - Página dos integrantes com informações e redes sociais da equipe
@@ -45,16 +45,17 @@ LumaHC/
 - Design totalmente responsivo para diferentes tamanhos de tela
 - Validação de formulários via JavaScript
 - Interatividade com manipulação do DOM em algumas páginas
+- Integração com chatbot IBM
 
 ## Responsividade
 
 O site foi desenvolvido para funcionar corretamente nos seguintes dispositivos:
 
-- Mobile: até 600px
-- Tablet pequeno: acima de 600px
-- Tablet grande: acima de 768px
-- Desktop: acima de 992px
-- Tela grande: acima de 1300px
+- Extra small devices (phones): up to 600px
+- Small devices (portrait tablets and large phones): 600px and up
+- Medium devices (landscape tablets): 768px and up
+- Large devices (laptops/desktops): 992px and up
+- Extra-large devices (large desktops and high-resolution screens): 1300px and up
 
 ## Como Executar Localmente
 
