@@ -1,0 +1,29 @@
+# Diretórios de build
+dist
+build
+.vite
+
+# Dependências
+node_modules
+
+# Configurações e lockfiles
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Ambiente
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# Saídas diversas
+coverage
+*.svg
+*.ico
+
+# Arquivos que podem ter formatação própria
+*.md
+*.json
