@@ -5,8 +5,7 @@ export default function Header() {
     <header>
       <nav className="nav-bar">
         <div className="profile">
-          //*TODO: adicionar avatar quando assets estiverem no public
-          <img src="/assets/img/geral/avatar.png" alt="Imagem de um Avatar" />
+          <img src='/assets/img/logo/lumahc.png' alt='Imagem de um Avatar' />
           <h2>Olá, Usuário!</h2>
           <p>Vamos te ajudar</p>
         </div>

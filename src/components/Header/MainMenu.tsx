@@ -1,4 +1,4 @@
-import { MAIN_MENU } from '../../menu/items';
+import { MAIN_MENU } from '../../nav/items';
 
 export default function MainMenu() {
   return (

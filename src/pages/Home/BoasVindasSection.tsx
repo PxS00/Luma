@@ -1,8 +1,6 @@
 export default function BoasVindasSection() {
   return (
     <section className="boas-vindas">
-      //*TODO: mover logo para /public e revisar caminho
-      <img src="/assets/img/logo/lumahc.png" alt="Médica" />
       <div className="texto">
         <h2>Bem-vinda ao seu Portal de Apoio!</h2>
         <p>
