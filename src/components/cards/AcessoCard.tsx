@@ -14,7 +14,6 @@ export default function AcessoCard({ imgSrc, imgAlt, title, description, href }:
       </div>
       <h3>{title}</h3>
       <p>{description}</p>
-      //*TODO: migrar link para página React (Link) no futuro
       <a href={href} className="botao">
         Acessar
       </a>

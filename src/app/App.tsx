@@ -1,7 +1,7 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from '../pages/Home';
 import Layout from './layout/Layout';
-import Integrantes from "../pages/Integrantes"; 
+import Integrantes from '../pages/Integrantes';
 
 function App() {
   return (

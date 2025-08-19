@@ -5,7 +5,7 @@ export default function Header() {
     <header>
       <nav className="nav-bar">
         <div className="profile">
-          <img src='/assets/img/logo/lumahc.png' alt='Imagem de um Avatar' />
+          <img src="/assets/img/logo/lumahc.png" alt="Imagem de um Avatar" />
           <h2>Olá, Usuário!</h2>
           <p>Vamos te ajudar</p>
         </div>
