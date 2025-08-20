@@ -13,11 +13,10 @@ export default {
         fontPrimary: '#a84421',
         fontSecondary: '#9f5c32',
         fontTertiary: '#333',
-        clinkColor: '#BF360C',
+        clikColor: '#BF360C',
         borderColor: '#F77F00',
-      },
-      backgroundImage: {
-        gradient: 'linear-gradient(180deg, #F7941D, #FFCC80)',
+        fromColor: '#F7941D',
+        toColor: '#FFCC80',
       },
       fontFamily: {
         atkinson: ['Atkinson Hyperlegible', 'Source Sans Pro', 'Roboto', 'Arial', 'sans-serif'],
