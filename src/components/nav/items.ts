@@ -5,6 +5,7 @@ export interface MenuItem {
 }
 
 export const MAIN_MENU: MenuItem[] = [
+  { label: 'Home', href: '/' },
   { label: 'Auxílio Teleconsulta', href: '/teleconsulta' },
   { label: 'Auxílio Cadastro', href: '/cadastro' },
   { label: 'Integrantes', href: '/integrantes' },
