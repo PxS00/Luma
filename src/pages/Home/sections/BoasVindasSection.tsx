@@ -1,6 +1,5 @@
 import logo from '../../../img/logo/lumahc.png';
 
-
 export default function BoasVindasSection() {
   return (
     <section className='flex felx-col items-center text-left p-5 gap-4 '>
