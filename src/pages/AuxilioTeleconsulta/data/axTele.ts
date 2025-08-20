@@ -15,11 +15,11 @@ import {
   permissaoCamera,
   opcoesCamera,
   finalTeleconsulta,
-} from '../../img';
+} from '../../../img';
 
-export type Step = { title: string; img: string; alt: string };
+export type TeleconsultaStep = { title: string; img: string; alt: string };
 
-export const APP_STEPS: Step[] = [
+export const MOBILE_STEPS: TeleconsultaStep[] = [
   { title: 'Abra o App do Portal', img: abrindoApp, alt: 'Tela do app aberto' },
   { title: 'Clique em Acessar Portal', img: acessandoApp, alt: 'Tela inicial do app' },
   { title: 'Preencha CPF e Senha', img: entrandoApp, alt: 'Formulário de login' },
@@ -36,7 +36,7 @@ export const APP_STEPS: Step[] = [
   { title: 'Boa teleconsulta!', img: finalTeleconsulta, alt: 'Consulta em andamento' },
 ];
 
-export const NAV_STEPS: Step[] = [
+export const DESK_STEPS: TeleconsultaStep[] = [
   // se reaproveitar as mesmas imagens:
   { title: 'Clique em Acessar Portal', img: acessandoApp, alt: 'Portal do paciente (web)' },
   { title: 'Login com CPF e Senha', img: entrandoApp, alt: 'Formulário de login' },
