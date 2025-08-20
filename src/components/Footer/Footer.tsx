@@ -1,4 +1,4 @@
-import { FOOTER_MENU } from "../nav/Menuitems";
+import { FOOTER_MENU } from '../nav/items';
 
 export default function Footer() {
   return (

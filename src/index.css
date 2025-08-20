@@ -3,8 +3,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
   body {
-    @apply font-atkinson flex flex-col min-h-screen bg-backPrimary font-medium font-semibold text-fontTertiary;
+    @apply font-atkinson flex flex-col min-h-screen bg-backPrimary font-semibold text-fontTertiary;
   }
 }
