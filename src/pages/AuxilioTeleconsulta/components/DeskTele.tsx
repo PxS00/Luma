@@ -1,3 +1,4 @@
+import BtnExterno from '../../../components/Botao/BtnExterno';
 import { DESK_STEPS } from '../data/axTele';
 import StepsList from './AxTeleList';
 
@@ -7,9 +8,9 @@ export default function DeskTele() {
       <div>
         <h2>Acesse pelo Navegador</h2>
         <p>Você também pode acessar diretamente pelo site, sem instalar nada.</p>
-        <a href='https://portaldopaciente.hc.fm.usp.br/' target='_blank' rel='noreferrer'>
+        <BtnExterno href='https://portaldopaciente.hc.fm.usp.br/' target='_blank'>
           Acessar Site
-        </a>
+        </BtnExterno>
       </div>
 
       <StepsList title='Como usar o Navegador' steps={DESK_STEPS} showControls />

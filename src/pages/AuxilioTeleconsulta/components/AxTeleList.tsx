@@ -1,14 +1,15 @@
 import AxTeleCard from './AxTeleCard';
 import type { TeleconsultaStep } from '../data/axTele';
 import { usePassos } from '../hooks/usePassos';
+import BtnAcao from '../../../components/Botao/BtnAcao';
 
-type Props = {
+type AxTeleListProps = {
   title: string;
   steps: TeleconsultaStep[];
   showControls?: boolean; //* Voltar/Próximo
 };
 
-export default function AxTeleList({ title, steps, showControls = false }: Props) {
+export default function AxTeleList({ title, steps, showControls = false }: AxTeleListProps) {
   const { idx, canPrev, canNext, prev, next } = usePassos(steps.length);
 
   return (
@@ -19,13 +20,13 @@ export default function AxTeleList({ title, steps, showControls = false }: Props
           <ul>
             <AxTeleCard step={steps[idx]} />
           </ul>
-          <div>
-            <button onClick={prev} disabled={!canPrev}>
+          <div className='flex gap-2'>
+            <BtnAcao onClick={prev} disabled={!canPrev}>
               Voltar
-            </button>
-            <button onClick={next} disabled={!canNext}>
+            </BtnAcao>
+            <BtnAcao onClick={next} disabled={!canNext}>
               Próximo
-            </button>
+            </BtnAcao>
           </div>
         </>
       ) : (
