@@ -17,3 +17,11 @@ export { default as liberandoCamera } from "./passo-a-passo/liberando-camera.jpg
 export { default as permissaoCamera } from "./passo-a-passo/permicao-camera.jpg";
 export { default as opcoesCamera } from "./passo-a-passo/opcoes-camera.jpg";
 export { default as finalTeleconsulta } from "./passo-a-passo/final-teleconsulta.jpg";
+
+
+// Integrantes
+export { default as Alex} from "./integrantes/alexander.jpg"
+export { default as Kelson} from "./integrantes/kelson-zhang.jpg"
+export { default as Lucas} from "./integrantes/lucas-rossoni.png"
+export { default as GitHub} from "./icones/github.png"
+export { default as LinkedIn} from "./icones/linkedin.png"
