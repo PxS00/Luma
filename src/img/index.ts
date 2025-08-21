@@ -1,3 +1,10 @@
+// Avatares
+export { default as user } from './avatares/user.png';
+export { default as users } from './avatares/users.png';
+export { default as celular } from './avatares/celular.png';
+export { default as pessoa } from './avatares/pessoa.png';  
+export { default as logo } from './logo/lumahc.png';
+
 // Ícones
 export { default as playstore } from './icones/playstore.png';
 export { default as appstore } from './icones/app-store.png';
