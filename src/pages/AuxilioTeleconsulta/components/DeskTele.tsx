@@ -1,6 +1,6 @@
 import BtnExterno from '../../../components/Botao/BtnExterno';
 import { DESK_STEPS } from '../data/axTele';
-import StepsList from './AxTeleList';
+import AxTeleList from './AxTeleList';
 
 export default function DeskTele() {
   return (
@@ -13,7 +13,7 @@ export default function DeskTele() {
         </BtnExterno>
       </div>
 
-      <StepsList title='Como usar o Navegador' steps={DESK_STEPS} showControls />
+      <AxTeleList title='Como usar o Navegador' steps={DESK_STEPS} showControls />
     </section>
   );
 }

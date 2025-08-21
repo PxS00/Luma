@@ -1,4 +1,6 @@
-import { FOOTER_MENU } from '../nav/items';
+import BtnExterno from '../Botao/BtnExterno';
+import BtnNav from '../Botao/BtnNav';
+import { FOOTER_MENU } from '../data/navItems';
 
 export default function Footer() {
   return (
@@ -9,13 +11,15 @@ export default function Footer() {
         <ul className='list-none p-0 m-0 flex justify-center flex-wrap gap-4'>
           {FOOTER_MENU.map((item) => (
             <li key={item.href}>
-              <a
-                href={item.href}
-                className='text-white no-underline font-bold text-sm hover:underline'
-                {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-              >
-                {item.label}
-              </a>
+               {item.external ? (
+                <BtnExterno href={item.href} className="text-sm">
+                  {item.label}
+                </BtnExterno>
+              ) : (
+                <BtnNav to={item.href} className="text-sm">
+                  {item.label}
+                </BtnNav>
+              )}
             </li>
           ))}
         </ul>

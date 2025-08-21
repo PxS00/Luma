@@ -1,4 +1,4 @@
-import { Alex, Kelson, Lucas } from "../../img";
+import { Alex, Kelson, Lucas } from '../../../img';
 
 export type Membro = {
   nome: string;

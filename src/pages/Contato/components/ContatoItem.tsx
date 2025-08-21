@@ -1,4 +1,5 @@
-import type { Contato } from './contatos';
+import BtnExterno from '../../../components/Botao/BtnExterno';
+import type { Contato } from '../data/contatos';
 
 type Props = { item: Contato };
 
@@ -21,9 +22,9 @@ export default function ContatoItem({ item }: Props) {
 
       {item.linkExterno && (
         <p>
-          <a href={item.linkExterno.href} target='_blank' rel='noopener noreferrer'>
+          <BtnExterno href={item.linkExterno.href} target='_blank'>
             {item.linkExterno.rotulo}
-          </a>
+          </BtnExterno>
         </p>
       )}
     </div>

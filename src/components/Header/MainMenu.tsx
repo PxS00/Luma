@@ -1,34 +1,19 @@
-import { NavLink } from 'react-router-dom';
-import { HEADER_MENU } from '../nav/items';
-
-const LINK_CLS =
-  'inline-block px-4 py-2 bg-navBtn rounded-xl text-clikColor font-bold text-base no-underline ' +
-  'transition-colors transition-transform duration-300 ease-in-out ' +
-  'hover:bg-navHoverBtn hover:text-white hover:scale-105';
+import BtnExterno from '../Botao/BtnExterno';
+import BtnNav from '../Botao/BtnNav';
+import { HEADER_MENU } from '../data/navItems';
 
 export default function MainMenu() {
   return (
     <ul className='flex justify-center flex-wrap gap-3 py-2.5 list-none m-0'>
-      {HEADER_MENU.map((item) =>
-        item.external ? (
-          <li key={item.label}>
-            <a href={item.href} target='_blank' rel='noreferrer' className={LINK_CLS}>
-              {item.label}
-            </a>
-          </li>
-        ) : (
-          <li key={item.label}>
-            <NavLink
-              to={item.href}
-              className={({ isActive }) =>
-                isActive ? `${LINK_CLS} ring-2 ring-white/40` : LINK_CLS
-              }
-            >
-              {item.label}
-            </NavLink>
-          </li>
-        )
-      )}
+      {HEADER_MENU.map((item) => (
+        <li key={item.href}>
+          {item.external ? (
+            <BtnExterno href={item.href}>{item.label}</BtnExterno>
+          ) : (
+            <BtnNav to={item.href}>{item.label}</BtnNav>
+          )}
+        </li>
+      ))}
     </ul>
   );
 }

@@ -1,5 +1,5 @@
-import BotaoInterno from '../Botao/BtnInterno';
-import BotaoExterno from '../Botao/BtnExterno';
+import BtnInterno from '../Botao/BtnInterno';
+import BtnExterno from '../Botao/BtnExterno';
 
 type AcessoCardProps = {
   imgSrc: string;
@@ -7,7 +7,7 @@ type AcessoCardProps = {
   title: string;
   description: string;
   href: string;
-  external?: boolean; // 🔹 nova prop
+  external?: boolean;
 };
 
 export default function AcessoCard({
@@ -33,9 +33,9 @@ export default function AcessoCard({
       <p className='text-sm text-fontTertiary mb-3'>{description}</p>
 
       {external ? (
-        <BotaoExterno href={href}>Acessar</BotaoExterno>
+        <BtnExterno href={href}>Acessar</BtnExterno>
       ) : (
-        <BotaoInterno to={href}>Acessar</BotaoInterno>
+        <BtnInterno to={href}>Acessar</BtnInterno>
       )}
     </div>
   );

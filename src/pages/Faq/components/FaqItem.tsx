@@ -1,4 +1,5 @@
-import type { FaqData } from './faqData';
+import BtnExterno from '../../../components/Botao/BtnExterno';
+import type { FaqData } from '../data/faqData';
 
 type Props = { item: FaqData };
 
@@ -11,9 +12,9 @@ export default function FaqItem({ item }: Props) {
         {item.link && (
           <>
             {' '}
-            <a href={item.link} target='_blank' rel='noreferrer'>
+            <BtnExterno href={item.link} target='_blank' >
               Saiba mais
-            </a>
+            </BtnExterno>
           </>
         )}
       </p>
