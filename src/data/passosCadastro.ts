@@ -12,8 +12,8 @@ import {
   cadastrando,
   appstore,
   playstore,
-} from '../../../components/data/imagens';
-import type { Passo } from '../../../components/Passos/types';
+} from './imagens';
+import type { Passo } from '../types/passo';
 
 export const PASSOS_MOBILE: Passo[] = [
   { title: 'Baixe o app na loja', img: instalarPlaystore, alt: 'Play Store' },

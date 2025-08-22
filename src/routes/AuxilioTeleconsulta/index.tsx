@@ -1,6 +1,6 @@
-import Intro from './components/Intro';
-import MobileTele from './components/MobileTele';
-import DeskTele from './components/DeskTele';
+import Intro from '../../components/teleconsulta/Intro';
+import MobileTele from '../../components/teleconsulta/MobileTele';
+import DeskTele from '../../components/teleconsulta/DeskTele';
 
 export default function AuxilioTeleconsulta() {
   return (

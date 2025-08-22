@@ -1,10 +1,10 @@
-export type FaqData = {
+export type FaqType = {
   pergunta: string;
   resposta: string;
   link?: string;
 };
 
-export const faqData: FaqData[] = [
+export const faqDados: FaqType[] = [
   {
     pergunta: 'Como funciona a teleconsulta?',
     resposta:

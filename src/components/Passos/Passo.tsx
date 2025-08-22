@@ -1,4 +1,4 @@
-import type { Passo } from './types';
+import type { Passo } from '../../types/passo';
 
 type Props = { passo: Passo; numeracao?: number };
 

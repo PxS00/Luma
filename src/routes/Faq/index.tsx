@@ -1,4 +1,4 @@
-import { faqData } from './data/faqData';
+import { faqData } from '../../data/faqDados';
 import FaqItem from './components/FaqItem';
 
 export default function Faq() {

@@ -1,5 +1,5 @@
 import ContatoItem from './ContatoItem';
-import { contatos } from '../data/contatos';
+import { contatos } from '../../data/contatos';
 
 export default function ContatoList() {
   return (

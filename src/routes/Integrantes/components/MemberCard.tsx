@@ -1,5 +1,5 @@
-import type { Membro } from '../data/members';
-import { GitHub, LinkedIn } from '../../../components/data/imagens';
+import type { Membro } from '../../../types/membro';
+import { GitHub, LinkedIn } from '../../../data/imagens';
 import BtnExterno from '../../../components/Botao/BtnExterno';
 
 type Props = { m: Membro };

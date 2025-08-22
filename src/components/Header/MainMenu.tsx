@@ -1,6 +1,6 @@
 import BtnExterno from '../Botao/BtnExterno';
 import BtnNav from '../Botao/BtnNav';
-import { HEADER_MENU } from '../data/navItems';
+import { HEADER_MENU } from '../../data/navItems';
 
 export default function MainMenu() {
   return (

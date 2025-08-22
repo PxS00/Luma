@@ -15,7 +15,7 @@ import {
   permissaoCamera,
   opcoesCamera,
   finalTeleconsulta,
-} from '../../../components/data/imagens';
+} from './imagens';
 
 export type TeleconsultaStep = { title: string; img: string; alt: string };
 

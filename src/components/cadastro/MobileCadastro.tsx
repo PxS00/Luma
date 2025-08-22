@@ -1,6 +1,7 @@
-import BtnExterno from '../../../components/Botao/BtnExterno';
-import ListaPassos from '../../../components/Passos/ListaPassos';
-import { PASSOS_MOBILE, STORE_LINKS } from '../data/passosCadastro';
+import { PASSOS_MOBILE, STORE_LINKS } from "@/data/passosCadastro";
+import BtnExterno from "../Botao/BtnExterno";
+import ListaPassos from "../Passos/ListaPassos";
+
 
 export default function MobileCadastro() {
   return (

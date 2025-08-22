@@ -1,6 +1,6 @@
 import BtnExterno from '../Botao/BtnExterno';
 import BtnNav from '../Botao/BtnNav';
-import { FOOTER_MENU } from '../data/navItems';
+import { FOOTER_MENU } from '../../data/navItems';
 
 export default function Footer() {
   return (

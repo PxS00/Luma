@@ -1,5 +1,5 @@
 import MemberCard from './components/MemberCard.tsx';
-import { members } from './data/members.ts';
+import { members } from '../../types/membro.ts';
 
 export default function Integrantes() {
   return (

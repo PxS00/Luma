@@ -1,6 +1,6 @@
-import BtnExterno from '../../../components/Botao/BtnExterno';
-import ListaPassos from '../../../components/Passos/ListaPassos';
-import { DESK_PASSOS } from '../data/passosTeleconsulta';
+import BtnExterno from '../Botao/BtnExterno';
+import ListaPassos from '../Passos/ListaPassos';
+import { DESK_PASSOS } from '../../data/passosTeleconsulta';
 
 export default function DeskTele() {
   return (

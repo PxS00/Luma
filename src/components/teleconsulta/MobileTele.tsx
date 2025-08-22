@@ -1,6 +1,6 @@
-import { MOBILE_PASSOS, STORE_LINKS } from '../data/passosTeleconsulta';
-import BtnExterno from '../../../components/Botao/BtnExterno';
-import ListaPassos from '../../../components/Passos/ListaPassos';
+import { MOBILE_PASSOS, STORE_LINKS } from '../../data/passosTeleconsulta';
+import BtnExterno from '../Botao/BtnExterno';
+import ListaPassos from '../Passos/ListaPassos';
 
 export default function MobileTele() {
   return (

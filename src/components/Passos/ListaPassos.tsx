@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import PassoView from './Passo';
 import BtnAcao from '../../components/Botao/BtnAcao';
-import type { Passo } from './types';
-import { usePassos } from './hooks/usePassos';
+import type { Passo } from '../../types/passo';
+import { usePassos } from '../../hooks/usePassos';
 
 type Props = {
   titulo: string;
