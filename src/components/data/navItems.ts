@@ -5,10 +5,10 @@ export interface NavItem {
 }
 
 export interface HomeCard extends NavItem {
-  imgSrc: string
-  imgAlt: string
-  title: string
-  description: string
+  imgSrc: string;
+  imgAlt: string;
+  title: string;
+  description: string;
 }
 
 export const HEADER_MENU: NavItem[] = [

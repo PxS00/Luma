@@ -9,17 +9,17 @@ import {
   direcionamentoTermo,
   aceitandoTermo,
   detalhesTeleconsulta,
-  selecionandoNavegador,
+  selecNavegador,
   autorizandoAudio,
   liberandoCamera,
   permissaoCamera,
   opcoesCamera,
   finalTeleconsulta,
-} from '../../../img';
+} from '../../../components/data/imagens';
 
 export type TeleconsultaStep = { title: string; img: string; alt: string };
 
-export const MOBILE_STEPS: TeleconsultaStep[] = [
+export const MOBILE_PASSOS: TeleconsultaStep[] = [
   { title: 'Abra o App do Portal', img: abrindoApp, alt: 'Tela do app aberto' },
   { title: 'Clique em Acessar Portal', img: acessandoApp, alt: 'Tela inicial do app' },
   { title: 'Preencha CPF e Senha', img: entrandoApp, alt: 'Formulário de login' },
@@ -28,7 +28,7 @@ export const MOBILE_STEPS: TeleconsultaStep[] = [
   { title: 'Termo de consentimento', img: direcionamentoTermo, alt: 'Aviso do termo' },
   { title: 'Aceite o termo', img: aceitandoTermo, alt: 'Tela do termo' },
   { title: 'Entrar na teleconsulta', img: detalhesTeleconsulta, alt: 'Botão entrar' },
-  { title: 'Escolha o Chrome (uma vez)', img: selecionandoNavegador, alt: 'Escolha de navegador' },
+  { title: 'Escolha o Chrome (uma vez)', img: selecNavegador, alt: 'Escolha de navegador' },
   { title: 'Somente ouvir', img: autorizandoAudio, alt: 'Permissão de áudio' },
   { title: 'Ative a câmera', img: liberandoCamera, alt: 'Ativar câmera' },
   { title: 'Permitir câmera', img: permissaoCamera, alt: 'Permissão para câmera' },
@@ -36,8 +36,7 @@ export const MOBILE_STEPS: TeleconsultaStep[] = [
   { title: 'Boa teleconsulta!', img: finalTeleconsulta, alt: 'Consulta em andamento' },
 ];
 
-export const DESK_STEPS: TeleconsultaStep[] = [
-  // se reaproveitar as mesmas imagens:
+export const DESK_PASSOS: TeleconsultaStep[] = [
   { title: 'Clique em Acessar Portal', img: acessandoApp, alt: 'Portal do paciente (web)' },
   { title: 'Login com CPF e Senha', img: entrandoApp, alt: 'Formulário de login' },
   { title: 'Menu → Teleconsulta', img: acessandoMenu, alt: 'Menu web' },

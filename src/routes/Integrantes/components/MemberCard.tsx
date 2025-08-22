@@ -1,11 +1,11 @@
 import type { Membro } from '../data/members';
-import { GitHub, LinkedIn } from '../../../img';
+import { GitHub, LinkedIn } from '../../../components/data/imagens';
 import BtnExterno from '../../../components/Botao/BtnExterno';
 
 type Props = { m: Membro };
 
 export default function MemberCard({ m }: Props) {
-  const { nome, rm, foto, descricao, linkedin, github } = m;
+  const { nome, rm, img, descricao, linkedin, github } = m;
   const socials = [
     linkedin && { href: linkedin, icon: LinkedIn, alt: 'LinkedIn' },
     github && { href: github, icon: GitHub, alt: 'GitHub' },
@@ -18,8 +18,8 @@ export default function MemberCard({ m }: Props) {
       <li className='bg-backSecondary rounded-lg p-6 shadow-[0_4px_12px_rgba(0,0,0,0.1)] w-full max-w-[700px] box-border animate-fade'>
         <div className='flex justify-between items-center gap-5 text-left'>
           <img
-            src={foto}
-            alt={`Foto de ${nome}`}
+            src={img}
+            alt={`img de ${nome}`}
             className='w-[140px] h-auto rounded-full object-cover shrink-0'
             loading='lazy'
           />
@@ -31,9 +31,14 @@ export default function MemberCard({ m }: Props) {
             {socials.length > 0 && (
               <div className='flex gap-2.5 mt-1.5'>
                 {socials.map((s) => (
-                  <BtnExterno key={s.alt} href={s.href} target="_blank" className="p-0 bg-transparent hover:bg-transparent">
-                  <img src={s.icon} alt={s.alt} className={iconClass} />
-                </BtnExterno>
+                  <BtnExterno
+                    key={s.alt}
+                    href={s.href}
+                    target='_blank'
+                    className='p-0 bg-transparent hover:bg-transparent'
+                  >
+                    <img src={s.icon} alt={s.alt} className={iconClass} />
+                  </BtnExterno>
                 ))}
               </div>
             )}

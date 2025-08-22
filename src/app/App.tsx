@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from '../pages/Home';
+import Home from '../routes/Home';
 import Layout from './layout/Layout';
-import Integrantes from '../pages/Integrantes';
-import Faq from '../pages/Faq';
-import Contato from '../pages/Contato';
-import AuxilioTeleconsulta from '../pages/AuxilioTeleconsulta';
+import Integrantes from '../routes/Integrantes';
+import Faq from '../routes/Faq';
+import Contato from '../routes/Contato';
+import AuxilioTeleconsulta from '../routes/AuxilioTeleconsulta';
+import AuxilioCadastro from '../routes/AuxilioCadastro';
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
           <Route path='/contato' element={<Contato />} />
           <Route path='/faq' element={<Faq />} />
           <Route path='/teleconsulta' element={<AuxilioTeleconsulta />} />
-          <Route path='/cadastro' element={<div>Cadastro</div>} />
+          <Route path='/cadastro' element={<AuxilioCadastro />} />
           <Route path='*' element={<div>Página não encontrada</div>} />
         </Routes>
       </Layout>
