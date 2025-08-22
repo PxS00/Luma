@@ -11,8 +11,7 @@ export default function FaqItem({ item }: Props) {
         {item.resposta}
         {item.link && (
           <>
-            {' '}
-            <BtnExterno href={item.link} target='_blank' >
+            <BtnExterno href={item.link} target='_blank'>
               Saiba mais
             </BtnExterno>
           </>

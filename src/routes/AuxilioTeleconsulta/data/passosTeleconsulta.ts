@@ -37,7 +37,6 @@ export const MOBILE_PASSOS: TeleconsultaStep[] = [
 ];
 
 export const DESK_PASSOS: TeleconsultaStep[] = [
-  // se reaproveitar as mesmas imagens:
   { title: 'Clique em Acessar Portal', img: acessandoApp, alt: 'Portal do paciente (web)' },
   { title: 'Login com CPF e Senha', img: entrandoApp, alt: 'Formulário de login' },
   { title: 'Menu → Teleconsulta', img: acessandoMenu, alt: 'Menu web' },

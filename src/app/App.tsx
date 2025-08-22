@@ -17,7 +17,7 @@ function App() {
           <Route path='/contato' element={<Contato />} />
           <Route path='/faq' element={<Faq />} />
           <Route path='/teleconsulta' element={<AuxilioTeleconsulta />} />
-          <Route path='/cadastro' element={<AuxilioCadastro/>} />
+          <Route path='/cadastro' element={<AuxilioCadastro />} />
           <Route path='*' element={<div>Página não encontrada</div>} />
         </Routes>
       </Layout>

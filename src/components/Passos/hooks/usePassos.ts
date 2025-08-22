@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export function usePassos(total: number, start = 0) {
   const [indice, setIndice] = useState(start);

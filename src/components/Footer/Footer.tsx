@@ -11,12 +11,12 @@ export default function Footer() {
         <ul className='list-none p-0 m-0 flex justify-center flex-wrap gap-4'>
           {FOOTER_MENU.map((item) => (
             <li key={item.href}>
-               {item.external ? (
-                <BtnExterno href={item.href} className="text-sm">
+              {item.external ? (
+                <BtnExterno href={item.href} className='text-sm'>
                   {item.label}
                 </BtnExterno>
               ) : (
-                <BtnNav to={item.href} className="text-sm">
+                <BtnNav to={item.href} className='text-sm'>
                   {item.label}
                 </BtnNav>
               )}

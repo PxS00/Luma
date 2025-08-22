@@ -15,7 +15,6 @@ import {
 } from '../../../components/data/imagens';
 import type { Passo } from '../../../components/Passos/types';
 
-
 export const PASSOS_MOBILE: Passo[] = [
   { title: 'Baixe o app na loja', img: instalarPlaystore, alt: 'Play Store' },
   { title: 'Clique em Acessar Portal', img: acessandoApp, alt: 'Acessando app' },

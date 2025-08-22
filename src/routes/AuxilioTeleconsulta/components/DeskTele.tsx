@@ -8,12 +8,12 @@ export default function DeskTele() {
       <div>
         <h2>Acesse pelo Navegador</h2>
         <p>Você também pode acessar diretamente pelo site, sem instalar nada.</p>
-        <BtnExterno href="https://portaldopaciente.hc.fm.usp.br/" target="_blank">
+        <BtnExterno href='https://portaldopaciente.hc.fm.usp.br/' target='_blank'>
           Acessar Site
         </BtnExterno>
       </div>
 
-      <ListaPassos titulo="Como usar no Navegador" passos={DESK_PASSOS} mostrarControles />
+      <ListaPassos titulo='Como usar no Navegador' passos={DESK_PASSOS} mostrarControles />
     </section>
   );
 }
