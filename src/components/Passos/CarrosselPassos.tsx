@@ -9,7 +9,7 @@ export interface ListaPassosCarrosselProps {
   className?: string;
 }
 
-export default function ListaPassosCarrossel({
+export default function CarrosselPassos({
   passos,
   titulo,
   className,

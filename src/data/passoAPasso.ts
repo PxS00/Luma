@@ -1,8 +1,18 @@
 import {
-  playstore,
-  appstore,
-  abrindoApp,
+  instalarPlaystore,
   acessandoApp,
+  preenchendoCpf,
+  verificacaoDados,
+  dadosContato,
+  confirmacaoNomeMae,
+  confirmacaoAno,
+  cadastroSenha,
+  senhaCadastro,
+  acessoPortal,
+  cadastrando,
+  appstore,
+  playstore,
+  abrindoApp,
   entrandoApp,
   acessandoMenu,
   teleconsulta,
@@ -15,11 +25,34 @@ import {
   permissaoCamera,
   opcoesCamera,
   finalTeleconsulta,
-} from './imagens';
+} from '@data/imagens'
+import type { Passo } from '../types/passo';
 
-export type TeleconsultaStep = { title: string; img: string; alt: string };
+export const CADASTRO_MOBILE: Passo[] = [
+  { title: 'Baixe o app na loja', img: instalarPlaystore, alt: 'Play Store' },
+  { title: 'Clique em Acessar Portal', img: acessandoApp, alt: 'Acessando app' },
+  { title: 'Clique em Cadastrar Senha', img: cadastrando, alt: 'Cadastrando no app' },
+  { title: 'Informe seu CPF', img: preenchendoCpf, alt: 'Campo CPF' },
+  { title: 'Verifique seus dados', img: verificacaoDados, alt: 'Verificação' },
+  { title: 'Dados de contato', img: dadosContato, alt: 'E-mail e celular' },
+  { title: 'Confirme o nome da mãe', img: confirmacaoNomeMae, alt: 'Nome da mãe' },
+  { title: 'Selecione o ano de nasc.', img: confirmacaoAno, alt: 'Ano de nascimento' },
+  { title: 'Crie sua senha', img: cadastroSenha, alt: 'Criação de senha' },
+  { title: 'Cadastro concluído', img: senhaCadastro, alt: 'Sucesso' },
+];
 
-export const MOBILE_PASSOS: TeleconsultaStep[] = [
+export const CADASTRO_DESK: Passo[] = [
+  { title: 'Acesse o portal', img: acessoPortal, alt: 'Portal' },
+  { title: "Escolha 'Cadastrar Senha'", img: cadastrando, alt: 'Início do cadastro' },
+  { title: 'Informe seu CPF', img: preenchendoCpf, alt: 'Campo CPF' },
+  { title: 'Verifique seus dados', img: verificacaoDados, alt: 'Verificação' },
+  { title: 'Dados de contato', img: dadosContato, alt: 'E-mail e celular' },
+  { title: 'Confirme dados', img: confirmacaoAno, alt: 'Confirmações' },
+  { title: 'Crie sua senha', img: cadastroSenha, alt: 'Criação de senha' },
+  { title: 'Tudo certo!', img: senhaCadastro, alt: 'Sucesso' },
+];
+
+export const TELE_MOBILE: Passo[] = [
   { title: 'Abra o App do Portal', img: abrindoApp, alt: 'Tela do app aberto' },
   { title: 'Clique em Acessar Portal', img: acessandoApp, alt: 'Tela inicial do app' },
   { title: 'Preencha CPF e Senha', img: entrandoApp, alt: 'Formulário de login' },
@@ -36,7 +69,7 @@ export const MOBILE_PASSOS: TeleconsultaStep[] = [
   { title: 'Boa teleconsulta!', img: finalTeleconsulta, alt: 'Consulta em andamento' },
 ];
 
-export const DESK_PASSOS: TeleconsultaStep[] = [
+export const TELE_DESK: Passo[] = [
   { title: 'Clique em Acessar Portal', img: acessandoApp, alt: 'Portal do paciente (web)' },
   { title: 'Login com CPF e Senha', img: entrandoApp, alt: 'Formulário de login' },
   { title: 'Menu → Teleconsulta', img: acessandoMenu, alt: 'Menu web' },

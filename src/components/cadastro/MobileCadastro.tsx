@@ -1,6 +1,6 @@
-import { PASSOS_MOBILE, STORE_LINKS } from '@/data/passosCadastro';
+import { CADASTRO_MOBILE, STORE_LINKS } from '@/data/passoAPasso';
 import BtnExterno from '../Botao/BtnExterno';
-import ListaPassosCarrossel from '../Passos/ListaPassosCarrossel';
+import ListaPassosCarrossel from '../Passos/CarrosselPassos';
 
 export default function MobileCadastro() {
   return (
@@ -22,7 +22,7 @@ export default function MobileCadastro() {
 
       <ListaPassosCarrossel
         titulo='Como usar no App'
-        passos={PASSOS_MOBILE}
+        passos={CADASTRO_MOBILE}
         autoMs={8000}
         className='lista-passos-mobile'
       />
