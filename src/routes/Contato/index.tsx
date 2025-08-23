@@ -1,4 +1,4 @@
-import ContatoList from "@/components/contato/ContatoList";
+import ContatoList from '@/components/contato/ContatoList';
 
 export default function Contato() {
   return (

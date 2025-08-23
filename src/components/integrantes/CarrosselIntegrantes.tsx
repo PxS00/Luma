@@ -1,4 +1,3 @@
-
 import type { Membro } from '@/types/membro';
 import MembroCard from './MembroCard';
 import CarrosselBase from '../Carrossel/CarrosselBase';
@@ -6,9 +5,9 @@ import CarrosselBase from '../Carrossel/CarrosselBase';
 export interface CarrosselIntegrantesProps {
   membros: Membro[];
   titulo?: string;
-  autoMs?: number;               //* 0 desativa autoplay
-  mostrarControles?: boolean;    //* mostrar botões ‹ ›
-  mostrarIndicadores?: boolean;  //* bolinhas
+  autoMs?: number; //* 0 desativa autoplay
+  mostrarControles?: boolean; //* mostrar botões ‹ ›
+  mostrarIndicadores?: boolean; //* bolinhas
   className?: string;
 }
 
@@ -32,7 +31,7 @@ export default function CarrosselIntegrantes({
         showControls={mostrarControles}
         showIndicators={mostrarIndicadores}
         renderItem={(i) => (
-          <ul className="list-none p-0 m-0">
+          <ul className='list-none p-0 m-0'>
             <MembroCard m={membros[i]} />
           </ul>
         )}

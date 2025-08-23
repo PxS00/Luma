@@ -1,6 +1,5 @@
-
-import type { FaqDados } from "@/data/faqDados";
-import BtnExterno from "../Botao/BtnExterno";
+import type { FaqDados } from '@/data/faqDados';
+import BtnExterno from '../Botao/BtnExterno';
 
 type Props = { item: FaqDados };
 

@@ -1,21 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Roboto:wght@100..900&family=Source+Sans+3:wght@200..900&display=swap');
 
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  --font-atkinson: "Atkinson Hyperlegible", sans-serif;
-  --font-roboto: "Roboto", sans-serif;
-  --font-source: "Source Sans 3", sans-serif;
+  --font-atkinson: 'Atkinson Hyperlegible', sans-serif;
+  --font-roboto: 'Roboto', sans-serif;
+  --font-source: 'Source Sans 3', sans-serif;
 
-  --color-backPrimary: #FFEFD8;
-  --color-backSecondary: #FDE6C6;
+  --color-backPrimary: #ffefd8;
+  --color-backSecondary: #fde6c6;
   --color-backBtn: #f7941d;
   --color-hoverBtn: #e67e00;
-  --color-navBtn: #FFE0B2;
-  --color-navHoverBtn: #F7941D;
+  --color-navBtn: #ffe0b2;
+  --color-navHoverBtn: #f7941d;
   --color-fontPrimary: #a84421;
   --color-fontSecondary: #9f5c32;
   --color-fontTertiary: #333333;
+  --color-clikColor: #bf360c;
+  --color-borderColor: #f77f00;
+  --color-fromColor: #f7941d;
+  --color-toColor: #ffcc80;
 }
 
 @layer base {

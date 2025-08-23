@@ -30,4 +30,3 @@ export const membros: Membro[] = [
       'Com 19 anos, estudante de Análise e Desenvolvimento de Sistemas na FIAP, apaixonado por tecnologia, inovação e desenvolvimento de soluções que realmente gerem impacto na vida das pessoas. Atualmente, desenvolvo projetos que envolvem programação, banco de dados, inteligência artificial e desenvolvimento web, sempre em busca de aprimoramento técnico e profissional. Gosto de desafios, de aprender e de colaborar, mantendo viva a essência do gaúcho: determinação, resiliência e espírito de equipe. Transformo complexidade em experiências digitais simples e acessíveis, com foco em usabilidade e inclusão, unindo tecnologia, empatia e propósito.',
   },
 ];
-

@@ -6,7 +6,7 @@ import { useCarrossel } from '@/hooks/useCarrosel';
 type Props = {
   total: number;
   renderItem: (i: number) => ReactNode;
-  autoMs?: number;          
+  autoMs?: number;
   loop?: boolean;
   showIndicators?: boolean;
   showControls?: boolean;
@@ -16,7 +16,7 @@ type Props = {
 export default function CarrosselBase({
   total,
   renderItem,
-  autoMs = 0,                  
+  autoMs = 0,
   loop = true,
   showIndicators = true,
   showControls = true,
@@ -27,25 +27,27 @@ export default function CarrosselBase({
 
   return (
     <div className={`relative w-full ${className ?? ''}`}>
-      <div className="overflow-hidden">
-        <div className="transition-opacity duration-500 ease-out">
-          {renderItem(indice)}
-        </div>
+      <div className='overflow-hidden'>
+        <div className='transition-opacity duration-500 ease-out'>{renderItem(indice)}</div>
       </div>
 
       {showControls && total > 1 && (
-        <div className="mt-4 flex gap-3 justify-center">
-          <BtnAcao variant="icon" onClick={anterior} aria-label="Anterior">‹</BtnAcao>
-          <BtnAcao variant="icon" onClick={proximo}  aria-label="Próximo">›</BtnAcao>
+        <div className='mt-4 flex gap-3 justify-center'>
+          <BtnAcao variant='icon' onClick={anterior} aria-label='Anterior'>
+            ‹
+          </BtnAcao>
+          <BtnAcao variant='icon' onClick={proximo} aria-label='Próximo'>
+            ›
+          </BtnAcao>
         </div>
       )}
 
       {showIndicators && total > 1 && (
-        <div className="mt-3 flex justify-center gap-2">
+        <div className='mt-3 flex justify-center gap-2'>
           {Array.from({ length: total }).map((_, i) => (
             <BtnAcao
               key={i}
-              variant="dot"
+              variant='dot'
               onClick={() => irPara(i)}
               aria-label={`Ir para item ${i + 1}`}
               aria-pressed={i === indice}

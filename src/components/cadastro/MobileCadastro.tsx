@@ -2,8 +2,6 @@ import { PASSOS_MOBILE, STORE_LINKS } from '@/data/passosCadastro';
 import BtnExterno from '../Botao/BtnExterno';
 import ListaPassosCarrossel from '../Passos/ListaPassosCarrossel';
 
-
-
 export default function MobileCadastro() {
   return (
     <section>
@@ -22,7 +20,12 @@ export default function MobileCadastro() {
         </div>
       </div>
 
-      <ListaPassosCarrossel titulo='Como usar no App' passos={PASSOS_MOBILE} autoMs={8000} className='lista-passos-mobile' />
+      <ListaPassosCarrossel
+        titulo='Como usar no App'
+        passos={PASSOS_MOBILE}
+        autoMs={8000}
+        className='lista-passos-mobile'
+      />
     </section>
   );
 }

@@ -1,4 +1,4 @@
-type Props = { src: string; alt: string; className?: string }
+type Props = { src: string; alt: string; className?: string };
 
 export default function MembroAvatar({ src, alt, className = '' }: Props) {
   return (
@@ -8,5 +8,5 @@ export default function MembroAvatar({ src, alt, className = '' }: Props) {
       className={`w-[140px] h-[140px] rounded-full object-cover shrink-0 ${className}`}
       loading='lazy'
     />
-  )
+  );
 }

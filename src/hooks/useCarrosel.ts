@@ -9,7 +9,9 @@ export function useCarrossel(total: number, { autoMs = 0, loop = true }: Opcoes 
   //* refs para evitar recriar funções no efeito
   const timerRef = useRef<number | null>(null);
   const idxRef = useRef(indice);
-  useEffect(() => { idxRef.current = indice; }, [indice]);
+  useEffect(() => {
+    idxRef.current = indice;
+  }, [indice]);
 
   useEffect(() => {
     //* sempre limpa qualquer timer antigo
@@ -34,7 +36,7 @@ export function useCarrossel(total: number, { autoMs = 0, loop = true }: Opcoes 
     };
   }, [autoMs, total, loop, irPara]);
 
-  const proximo  = () => irPara(loop ? (indice + 1) % total : Math.min(indice + 1, total - 1));
+  const proximo = () => irPara(loop ? (indice + 1) % total : Math.min(indice + 1, total - 1));
   const anterior = () => irPara(loop ? (indice - 1 + total) % total : Math.max(indice - 1, 0));
 
   return { indice, proximo, anterior, irPara, total };

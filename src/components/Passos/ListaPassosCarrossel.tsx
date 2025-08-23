@@ -1,4 +1,3 @@
-
 import type { Passo } from '@/types/passo';
 import PassoView from './PassoAPasso';
 import CarrosselBase from '../Carrossel/CarrosselBase';
@@ -24,7 +23,7 @@ export default function ListaPassosCarrossel({
       <CarrosselBase
         total={passos.length}
         renderItem={(i) => (
-          <ul className="list-none p-0 m-0">
+          <ul className='list-none p-0 m-0'>
             <PassoView passo={passos[i]} numeracao={i} />
           </ul>
         )}

@@ -1,4 +1,4 @@
-import { logo } from "@/data/imagens";
+import { logo } from '@/data/imagens';
 
 export default function BoasVindasSection() {
   return (

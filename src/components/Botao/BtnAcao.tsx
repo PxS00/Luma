@@ -24,9 +24,9 @@ export default function BtnAcao({
     variant === 'primary'
       ? 'bg-backBtn text-white px-4 py-2 rounded-md font-bold hover:bg-hoverBtn'
       : variant === 'icon'
-      ? 'bg-backBtn text-white p-2 rounded-full hover:bg-hoverBtn'
-      : // dot
-        'size-2 rounded-full';
+        ? 'bg-backBtn text-white p-2 rounded-full hover:bg-hoverBtn'
+        : // dot
+          'size-2 rounded-full';
 
   return (
     <button
