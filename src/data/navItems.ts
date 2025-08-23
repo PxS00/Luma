@@ -13,8 +13,8 @@ export interface HomeCard extends NavItem {
 
 export const HEADER_MENU: NavItem[] = [
   { label: 'Home', href: '/' },
-  { label: 'Auxílio Teleconsulta', href: '/teleconsulta' },
-  { label: 'Auxílio Cadastro', href: '/cadastro' },
+  { label: 'Auxílio Teleconsulta', href: '/auxilio/teleconsulta' },
+  { label: 'Auxílio Cadastro', href: '/auxilio/cadastro' },
   { label: 'Integrantes', href: '/integrantes' },
   { label: 'Contato', href: '/contato' },
   { label: 'FAQ', href: '/faq' },
