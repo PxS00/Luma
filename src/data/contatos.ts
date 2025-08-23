@@ -4,7 +4,7 @@ export type Contato = {
   email?: string;
   tel?: string;
   funcionamento?: string;
-  linkExterno?: { href: string; rotulo: string }; // opcional p/ "FALE CONOSCO"
+  linkExterno?: { href: string; rotulo: string };
 };
 
 export const contatos: Contato[] = [
