@@ -1,6 +1,6 @@
 import { MOBILE_PASSOS, STORE_LINKS } from '../../data/passosTeleconsulta';
 import BtnExterno from '../Botao/BtnExterno';
-import ListaPassos from '../Passos/ListaPassos';
+import ListaPassos from '../Passos/ListaPassosCarrossel';
 
 export default function MobileTele() {
   return (
@@ -23,7 +23,7 @@ export default function MobileTele() {
         </div>
       </div>
 
-      <ListaPassos titulo='Como usar no App' passos={MOBILE_PASSOS} mostrarControles />
+      <ListaPassos titulo='Como usar no App' passos={MOBILE_PASSOS} autoMs={8000} />
     </section>
   );
 }

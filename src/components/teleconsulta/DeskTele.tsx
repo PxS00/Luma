@@ -1,5 +1,5 @@
 import BtnExterno from '../Botao/BtnExterno';
-import ListaPassos from '../Passos/ListaPassos';
+import ListaPassos from '../Passos/ListaPassosCarrossel';
 import { DESK_PASSOS } from '../../data/passosTeleconsulta';
 
 export default function DeskTele() {
@@ -13,7 +13,7 @@ export default function DeskTele() {
         </BtnExterno>
       </div>
 
-      <ListaPassos titulo='Como usar no Navegador' passos={DESK_PASSOS} mostrarControles />
+      <ListaPassos titulo='Como usar no Navegador' passos={DESK_PASSOS} autoMs={8000} />
     </section>
   );
 }

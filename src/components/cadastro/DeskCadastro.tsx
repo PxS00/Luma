@@ -1,6 +1,6 @@
-import { PASSOS_DESK } from "@/data/passosCadastro";
-import BtnExterno from "../Botao/BtnExterno";
-import ListaPassos from "../Passos/ListaPassos";
+import { PASSOS_DESK } from '@/data/passosCadastro';
+import BtnExterno from '../Botao/BtnExterno';
+import ListaPassos from '../Passos/ListaPassosCarrossel';
 
 export default function DeskCadastro() {
   return (
@@ -17,8 +17,8 @@ export default function DeskCadastro() {
       <ListaPassos
         titulo='Como fazer o cadastro no navegador'
         passos={PASSOS_DESK}
-        mostrarControles
-        className='lista-passos' //! hook p/ Tailwind
+        autoMs={8000}
+        className='lista-passos-desk' //! hook p/ Tailwind
       />
     </section>
   );

@@ -1,11 +1,16 @@
-import { membros } from '@/data/membrosDados.ts';
-import MembersList from '../../components/integrantes/MembrosList.tsx';
+import { membros } from '@/data/membrosDados';
+import CarrosselIntegrantes from '@components/integrantes/CarrosselIntegrantes';
 
-export default function Integrantes() {
+export default function IntegrantesPage() {
   return (
-    <main>
-      <h1 className='sr-only'>Integrantes</h1>
-      <MembersList membros={membros} />
+    <main className="container mx-auto px-4 py-8">
+      <CarrosselIntegrantes
+        titulo="Nossa equipe"
+        membros={membros}
+        autoMs={8000}
+        mostrarControles
+        mostrarIndicadores
+      />
     </main>
   );
 }
