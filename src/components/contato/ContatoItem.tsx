@@ -1,5 +1,5 @@
+import type { Contato } from '@/types/contato';
 import BtnExterno from '../Botao/BtnExterno';
-import type { Contato } from '../../data/contatos';
 
 type Props = { item: Contato };
 
