@@ -1,15 +1,15 @@
 //! Avatares
-export { default as user } from '../img/avatares/user.png';
-export { default as users } from '../img/avatares/users.png';
-export { default as celular } from '../img/avatares/celular.png';
-export { default as pessoa } from '../img/avatares/pessoa.png';
-export { default as logo } from '../img/logo/lumahc.png';
+export { default as user } from '../img/avatares/user.svg';
+export { default as users } from '../img/avatares/users.svg';
+export { default as celular } from '../img/avatares/celular.svg';
+export { default as pessoa } from '../img/avatares/pessoa.svg';
+export { default as logo } from '../img/logo/lumahc.svg';
 
 //! Ícones
-export { default as playstore } from '../img/icones/playstore.png';
-export { default as appstore } from '../img/icones/app-store.png';
-export { default as GitHub } from '../img/icones/github.png';
-export { default as LinkedIn } from '../img/icones/linkedin.png';
+export { default as playstore } from '../img/icones/playstore.svg';
+export { default as appstore } from '../img/icones/app-store.svg';
+export { default as GitHub } from '../img/icones/github.svg';
+export { default as LinkedIn } from '../img/icones/linkedin.svg';
 
 //! Passo a passo
 //* Iniciais

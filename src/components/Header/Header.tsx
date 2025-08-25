@@ -1,5 +1,5 @@
+import { user } from '@/data/imagens';
 import MainMenu from './MainMenu';
-import user from '../../img/avatares/user.png';
 export default function Header() {
   return (
     <header className='relative w-full h-auto bg-gradient-to-b from-fromColor to-toColor py-5 z-[2] '>
