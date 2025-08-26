@@ -8,7 +8,7 @@ export default function Contato() {
         <p className='text-base text-fontSecondary mb-5 text-center '>
           Este é um canal de diálogo entre a Instituição e o paciente, cuidador e família
         </p>
-        <ContatoList/>
+        <ContatoList />
       </div>
     </main>
   );

@@ -7,14 +7,10 @@ type Props = { item: FaqDados };
 export default function FaqItem({ item }: Props) {
   return (
     <ToggleSection title={item.pergunta}>
-      <div >
+      <div>
         {item.resposta}
         {item.link && (
-          <BtnExterno
-            href={item.link}
-            target='_blank'
-            className='py-0.3 px-0.5 text-[12px] ml-3'
-          >
+          <BtnExterno href={item.link} target='_blank' className='py-0.3 px-0.5 text-[12px] ml-3'>
             Teleconsulta
           </BtnExterno>
         )}
