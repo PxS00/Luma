@@ -16,6 +16,7 @@ export default function MobileCadastro() {
       <CarrosselPassos
         title='Como usar no App'
         passos={CADASTRO_MOBILE}
+        autoMs={8000}
         className='lista-passos-mobile'
         contentClassName='max-w-[420px] md:max-w-[520px] mx-auto'
         imgClassName='max-h-[420px]' // controla altura máxima da imagem
