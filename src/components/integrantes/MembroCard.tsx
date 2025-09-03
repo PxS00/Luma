@@ -5,6 +5,10 @@ import { mapearRedesDoMembro } from '@/lib/redesSociais';
 
 type Props = { m: Membro };
 
+/**
+ * Card de exibição de membro da equipe
+ * Mostra foto, dados pessoais, redes sociais e descrição
+ */
 export default function MembroCard({ m }: Props) {
   const { nome, rm, turma, img, descricao } = m;
   const redes = mapearRedesDoMembro(m);

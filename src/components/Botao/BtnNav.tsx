@@ -6,6 +6,10 @@ type BtnNavProps = {
   className?: string;
 };
 
+/**
+ * Botão de navegação com estado ativo
+ * Usado para links internos da aplicação
+ */
 export default function BtnNav({ to, children, className = '' }: BtnNavProps) {
   const base =
     'inline-block px-4 py-2 bg-navBtn rounded-xl text-clikColor font-bold text-base no-underline ' +

@@ -1,6 +1,10 @@
 import { CADASTRO_DESK } from '@/data/passoAPasso';
 import TutorialSection from '../Tutorial/shared/TutorialSection';
 
+/**
+ * Tutorial de cadastro para desktop/navegador
+ * Exibe passos para cadastro via site com link direto
+ */
 export default function DeskCadastro() {
   return (
     <TutorialSection

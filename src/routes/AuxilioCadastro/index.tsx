@@ -4,6 +4,11 @@ import DeskCadastro from '@/components/Tutorial/cadastro/DeskCadastro';
 import IntroCadastro from '@/components/Tutorial/cadastro/IntroCadastro';
 import MobileCadastro from '@/components/Tutorial/cadastro/MobileCadastro';
 
+/**
+ * Página de auxílio ao cadastro
+ * Sistema de tabs para escolher entre tutorial do App ou Navegador
+ * Inclui introdução e tutoriais específicos para cada plataforma
+ */
 export default function AuxilioCadastro() {
   return (
     <main className='flex flex-col justify-center items-center p-5 gap-5'>

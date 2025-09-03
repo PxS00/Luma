@@ -1,5 +1,9 @@
 type Props = { src: string; alt: string; className?: string };
 
+/**
+ * Avatar circular para foto de membro
+ * Exibe imagem do membro da equipe com bordas arredondadas
+ */
 export default function MembroAvatar({ src, alt, className = '' }: Props) {
   return (
     <img

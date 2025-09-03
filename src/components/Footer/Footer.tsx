@@ -2,6 +2,10 @@ import BtnExterno from '../Botao/BtnExterno';
 import BtnNav from '../Botao/BtnNav';
 import { FOOTER_MENU } from '../../data/navItems';
 
+/**
+ * Rodapé da aplicação
+ * Contém copyright e links de navegação
+ */
 export default function Footer() {
   return (
     <footer className='relative bottom-0 mt-auto w-full box-border bg-gradient-to-r from-toColor to-fromColor text-white py-6 text-center'>

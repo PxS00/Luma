@@ -11,6 +11,11 @@ export interface CarrosselIntegrantesProps extends CarouselOptions {
   className?: string;
 }
 
+/**
+ * Carrossel específico para exibição de membros da equipe
+ * Usa CarrosselBase com autoplay configurado para 8 segundos
+ * Renderiza cards de membros com navegação automática e manual
+ */
 export default function CarrosselIntegrantes({
   membros,
   title,

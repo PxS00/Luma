@@ -1,6 +1,10 @@
 import { TELE_DESK } from '@/data/passoAPasso';
 import TutorialSection from '../shared/TutorialSection';
 
+/**
+ * Tutorial de teleconsulta para desktop/navegador
+ * Exibe passos para teleconsulta via site com link direto
+ */
 export default function DeskTele() {
   return (
     <TutorialSection

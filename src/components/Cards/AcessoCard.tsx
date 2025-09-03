@@ -10,6 +10,10 @@ type AcessoCardProps = {
   external?: boolean;
 };
 
+/**
+ * Card de acesso rápido para funcionalidades
+ * Usado na página inicial para navegação principal
+ */
 export default function AcessoCard({
   imgSrc,
   imgAlt,

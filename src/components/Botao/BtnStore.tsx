@@ -1,6 +1,10 @@
 import { STORE_LINKS } from '@/data/passoAPasso';
 import BtnExterno from './BtnExterno';
 
+/**
+ * Botões para download de aplicativos
+ * Exibe links para Play Store e App Store
+ */
 export default function BtnStore() {
   return (
     <nav aria-label='Links para download de aplicativos' className='w-full'>

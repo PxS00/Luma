@@ -11,6 +11,9 @@ import Contato from '@routes/Contato';
 import AuxilioCadastro from '@routes/AuxilioCadastro';
 import AuxilioTeleconsulta from '@routes/AuxilioTeleconsulta';
 
+/**
+ * Configuração das rotas da aplicação
+ */
 const router = createBrowserRouter([
   {
     path: '/',
@@ -27,6 +30,9 @@ const router = createBrowserRouter([
   },
 ]);
 
+/**
+ * Ponto de entrada da aplicação React
+ */
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <RouterProvider router={router} />

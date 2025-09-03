@@ -13,6 +13,12 @@ type Props = {
   className?: string;
 };
 
+/**
+ * Componente base de carrossel reutilizável
+ * Sistema completo com controles laterais, indicadores e autoplay
+ * Suporta navegação manual e automática com loop infinito
+ * Usado como base para carrosseis de tutorial e membros
+ */
 export default function CarrosselBase({
   total,
   renderItem,

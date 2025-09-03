@@ -1,6 +1,10 @@
 import FaqItem from '@/components/faq/FaqItem';
 import { faqDados } from '@/data/faqDados';
 
+/**
+ * Página de perguntas frequentes (FAQ)
+ * Lista questões e respostas sobre o uso da plataforma
+ */
 export default function Faq() {
   return (
     <main className='ml-0 p-5 w-full flex-1'>

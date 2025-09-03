@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 
+/**
+ * Página de erro 404
+ * Exibida quando uma rota não é encontrada
+ */
 export default function Error() {
   const err = useRouteError();
   const msg = isRouteErrorResponse(err)

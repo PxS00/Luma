@@ -1,5 +1,10 @@
 import { user } from '@/data/imagens';
 import MainMenu from './MainMenu';
+
+/**
+ * Componente de cabeçalho da aplicação
+ * Exibe avatar do usuário, saudação e menu principal
+ */
 export default function Header() {
   return (
     <header className='relative w-full h-auto bg-gradient-to-b from-fromColor to-toColor py-5 z-[2] '>

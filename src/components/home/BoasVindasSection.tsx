@@ -1,5 +1,9 @@
 import { logo } from '@/data/imagens';
 
+/**
+ * Seção de boas-vindas da página inicial
+ * Exibe logo, mensagem de boas-vindas e link para formulário
+ */
 export default function BoasVindasSection() {
   return (
     <section className='flex felx-col items-center text-left p-5 gap-4 '>
@@ -11,7 +15,7 @@ export default function BoasVindasSection() {
           Clínicas. Se quiser, você pode preencher um breve formulário para que possamos oferecer um
           suporte ainda mais personalizado. É só clicar no botão abaixo quando estiver pronta!
         </p>
-        //*TODO: migrar formulário para página React (Link) no futuro
+        {/* TODO: migrar formulário para página React (Link) no futuro */}
         <a href='/assets/formulario/formulario.html' className='botao-destaque'>
           Formulário
         </a>

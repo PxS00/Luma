@@ -4,6 +4,10 @@ import ToggleSection from '../ToggleSection/ToggleSection';
 
 type Props = { item: FaqDados };
 
+/**
+ * Item individual do FAQ
+ * Exibe pergunta expansível com resposta e link opcional
+ */
 export default function FaqItem({ item }: Props) {
   return (
     <ToggleSection title={item.pergunta}>

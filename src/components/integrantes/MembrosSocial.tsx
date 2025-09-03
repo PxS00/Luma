@@ -3,6 +3,10 @@ import BtnExterno from '@components/Botao/BtnExterno';
 
 type Props = { socials: RedeSocial[] };
 
+/**
+ * Links para redes sociais de um membro
+ * Exibe ícones clicáveis para GitHub, LinkedIn, etc.
+ */
 export default function MembrosSocial({ socials }: Props) {
   return (
     <div className='flex mt-1.5'>

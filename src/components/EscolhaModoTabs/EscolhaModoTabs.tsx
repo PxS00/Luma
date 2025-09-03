@@ -16,6 +16,12 @@ type EscolhaModoTabsProps = {
   unmountInactive?: boolean; // se true, desmonta o painel inativo
 };
 
+/**
+ * Componente de abas para escolha entre App e Navegador
+ * Sistema completo de tabs com acessibilidade (WAI-ARIA)
+ * Suporta navegação por teclado e controle de foco
+ * Usado nas páginas de tutorial para alternar entre modos
+ */
 export default function EscolhaModoTabs({
   app,
   nav,

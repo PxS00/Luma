@@ -1,5 +1,13 @@
 import { useState } from 'react';
 
+/**
+ * Hook para navegação em sequência de passos
+ * Usado em carrosseis, wizards e navegação step-by-step
+ * 
+ * @param total - Número total de passos
+ * @param start - Índice inicial (padrão: 0)
+ * @returns Estado e funções para controlar navegação
+ */
 export function usePassos(total: number, start = 0) {
   const [indice, setIndice] = useState(start);
 

@@ -5,6 +5,10 @@ type BtnExternoProps = {
   target?: '_blank' | '_self';
 };
 
+/**
+ * Botão para links externos
+ * Usado para navegação para fora da aplicação
+ */
 export default function BtnExterno({
   href,
   children,

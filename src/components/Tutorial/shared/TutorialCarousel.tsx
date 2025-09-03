@@ -11,6 +11,11 @@ export interface TutorialCarouselProps {
   imgClassName?: string; // classe aplicada na <img> do TutorialStep
 }
 
+/**
+ * Carrossel específico para tutoriais step-by-step
+ * Usa CarrosselBase para navegar entre passos do tutorial
+ * Cada slide exibe um TutorialStep numerado
+ */
 export default function TutorialCarousel({
   passos,
   title,

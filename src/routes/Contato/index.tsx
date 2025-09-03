@@ -1,5 +1,9 @@
 import ContatoList from '@/components/contato/ContatoList';
 
+/**
+ * Página de contatos
+ * Exibe informações de contato da instituição
+ */
 export default function Contato() {
   return (
     <main className='ml-0 p-5 w-full flex-1'>

@@ -5,6 +5,10 @@ type Props = {
   children: React.ReactNode;
 };
 
+/**
+ * Seção expansível/colapsável
+ * Usado para FAQ e outros conteúdos que precisam ser expandidos
+ */
 export default function ToggleSection({ title, children }: Props) {
   const [open, setOpen] = useState(false);
 

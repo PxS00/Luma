@@ -7,6 +7,10 @@ type TutorialStepProps = {
   imgClassName?: string;
 };
 
+/**
+ * Item individual de um passo do tutorial
+ * Exibe número, título e imagem com numeração automática
+ */
 export default function TutorialStep({ passo, numeracao, imgClassName }: TutorialStepProps) {
   const titulo = passo.titulo ?? passo.alt; // sem 'any'
 

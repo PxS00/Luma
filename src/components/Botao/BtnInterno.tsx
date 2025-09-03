@@ -6,6 +6,10 @@ type BtnInternoProps = {
   className?: string;
 };
 
+/**
+ * Botão estilizado para navegação interna
+ * Usado para ações que levam a outras páginas da aplicação
+ */
 export default function BtnInterno({ to, children, className = '' }: BtnInternoProps) {
   return (
     <Link

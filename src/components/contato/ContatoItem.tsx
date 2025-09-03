@@ -4,6 +4,10 @@ import ToggleSection from '../ToggleSection/ToggleSection';
 
 type Props = { item: Contato };
 
+/**
+ * Item de contato expansível
+ * Exibe informações de contato como telefone, email e endereço
+ */
 export default function ContatoItem({ item }: Props) {
   return (
     <div className='contato '>
