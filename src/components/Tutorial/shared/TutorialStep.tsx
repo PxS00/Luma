@@ -1,3 +1,5 @@
+import BtnExterno from '@/components/Botao/BtnExterno';
+import BtnInterno from '@/components/Botao/BtnInterno';
 import type { TutorialStepData } from '@/types/tutorialStep';
 
 // Props para um passo individual do tutorial
@@ -16,8 +18,18 @@ export default function TutorialStep({ step, stepNumber, imgClassName }: Tutoria
 
   return (
     <li aria-label={`Passo ${stepNumber + 1}: ${title}`}>
-      <h4 className='mt-2 font-semibold text-fontTertiary'>
-        {stepNumber + 1}. {title}
+      <h4 className='mt-2 font-semibold text-fontTertiary pb-6'>
+        {stepNumber + 1}.{step.title}
+          {step.actionButton &&
+          (step.actionButton.external ? (
+            <BtnExterno href={step.actionButton.href} className="px-3 py-1">
+              {step.actionButton.label}
+            </BtnExterno>
+          ) : (
+            <BtnInterno to={step.actionButton.href} className="px-3 py-1">
+              {step.actionButton.label}
+            </BtnInterno>
+          ))}
       </h4>
       <img
         src={step.img}

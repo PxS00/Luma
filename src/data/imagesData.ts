@@ -19,6 +19,9 @@ export { default as acessandoApp } from '../img/passo-a-passo/acessando-app.jpg'
 export { default as entrandoApp } from '../img/passo-a-passo/entrando-app.jpg';
 export { default as acessoPortal } from '../img/passo-a-passo/acessando-portal.png';
 export { default as acessoNav } from '../img/passo-a-passo/acesso-nav.png';
+export { default as acessandoWeb } from '../img/passo-a-passo/acessando-web.svg';
+export { default as acessandoTele } from '../img/passo-a-passo/acessando-tele.svg';
+
 
 //* Navegação dentro do app/portal
 export { default as acessandoMenu } from '../img/passo-a-passo/acessando-menu.jpg';
@@ -26,8 +29,11 @@ export { default as teleconsulta } from '../img/passo-a-passo/teleconsulta.jpg';
 
 //* Termo / confirmação
 export { default as direcionamentoTermo } from '../img/passo-a-passo/direcionamento-termo.jpg';
+export { default as direcionamentoTermoDesk } from '../img/passo-a-passo/direcionamento-termo-desk.svg';
 export { default as aceitandoTermo } from '../img/passo-a-passo/aceitando-termo.jpg';
+export { default as aceitandoTermoDesk } from '../img/passo-a-passo/aceitando-termo-desk.svg';
 export { default as detalhesTeleconsulta } from '../img/passo-a-passo/detalhes-teleconsulta.jpg';
+export { default as detalhesTeleconsultaDesk } from '../img/passo-a-passo/detalhes-teleconsulta-desk.svg';
 
 //* Cadastro
 export { default as cadastroSenha } from '../img/passo-a-passo/cadastro-senha.jpg';

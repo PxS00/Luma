@@ -1,5 +1,5 @@
 import type { HomeCard } from '@/types/navigation';
-import { celular, pessoa, users } from './imagens';
+import { celular, pessoa, users } from './imagesData';
 
 export const HOME_CARDS: HomeCard[] = [
   {

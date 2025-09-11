@@ -11,4 +11,9 @@ export type TutorialStepData = {
   title?: string;
   /** Descrição detalhada do passo (opcional) */
   description?: string;
+ actionButton?: {
+    href: string;
+    label: string;
+    external?: boolean;
+  };
 };

@@ -15,7 +15,7 @@ interface IntroSectionProps {
  */
 export default function IntroSection({ 
   type, 
-  description = 'Escolha como deseja continuar o cadastro.' 
+  description = 'Escolha como deseja continuar a teleconsulta.' 
 }: IntroSectionProps) {
   return (
     <section className='flex flex-col items-center justify-center gap-3 text-center'>
