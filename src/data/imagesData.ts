@@ -14,9 +14,9 @@ export { default as LinkedIn } from '../img/icones/linkedin.svg';
 //! Passo a passo
 //* Iniciais
 export { default as instalarPlaystore } from '../img/passo-a-passo/instalar-playstore.jpg';
-export { default as abrindoApp } from '../img/passo-a-passo/abrindo-app.jpg';
-export { default as acessandoApp } from '../img/passo-a-passo/acessando-app.jpg';
-export { default as entrandoApp } from '../img/passo-a-passo/entrando-app.jpg';
+export { default as abrindoApp } from '../img/passo-a-passo/abrindo-app.svg';
+export { default as acessandoApp } from '../img/passo-a-passo/acessando-app.svg';
+export { default as entrandoApp } from '../img/passo-a-passo/entrando-app.svg';
 export { default as acessoPortal } from '../img/passo-a-passo/acessando-portal.png';
 export { default as acessoNav } from '../img/passo-a-passo/acesso-nav.png';
 export { default as acessandoWeb } from '../img/passo-a-passo/acessando-web.svg';
@@ -24,15 +24,15 @@ export { default as acessandoTele } from '../img/passo-a-passo/acessando-tele.sv
 
 
 //* Navegação dentro do app/portal
-export { default as acessandoMenu } from '../img/passo-a-passo/acessando-menu.jpg';
-export { default as teleconsulta } from '../img/passo-a-passo/teleconsulta.jpg';
+export { default as acessandoMenu } from '../img/passo-a-passo/acessando-menu.svg';
+export { default as teleconsulta } from '../img/passo-a-passo/teleconsulta.svg';
 
 //* Termo / confirmação
-export { default as direcionamentoTermo } from '../img/passo-a-passo/direcionamento-termo.jpg';
+export { default as direcionamentoTermo } from '../img/passo-a-passo/direcionamento-termo.svg';
 export { default as direcionamentoTermoDesk } from '../img/passo-a-passo/direcionamento-termo-desk.svg';
-export { default as aceitandoTermo } from '../img/passo-a-passo/aceitando-termo.jpg';
+export { default as aceitandoTermo } from '../img/passo-a-passo/aceitando-termo.svg';
 export { default as aceitandoTermoDesk } from '../img/passo-a-passo/aceitando-termo-desk.svg';
-export { default as detalhesTeleconsulta } from '../img/passo-a-passo/detalhes-teleconsulta.jpg';
+export { default as detalhesTeleconsulta } from '../img/passo-a-passo/detalhes-teleconsulta.svg';
 export { default as detalhesTeleconsultaDesk } from '../img/passo-a-passo/detalhes-teleconsulta-desk.svg';
 
 //* Cadastro
@@ -46,14 +46,18 @@ export { default as senhaCadastro } from '../img/passo-a-passo/senha-cadastro.jp
 export { default as verificacaoDados } from '../img/passo-a-passo/verificacao-dados.png';
 
 //* Seleção de navegador / permissões
-export { default as selecNavegador } from '../img/passo-a-passo/selecionando-navegador.jpg';
-export { default as autorizandoAudio } from '../img/passo-a-passo/autorizando-audio.png';
-export { default as liberandoCamera } from '../img/passo-a-passo/liberando-camera.jpg';
-export { default as permissaoCamera } from '../img/passo-a-passo/permissao-camera.jpg';
-export { default as opcoesCamera } from '../img/passo-a-passo/opcoes-camera.jpg';
+export { default as selecNavegador } from '../img/passo-a-passo/selecionando-navegador.svg';
+export { default as autorizandoAudio } from '../img/passo-a-passo/autorizando-audio.svg';
+export { default as autorizandoAudioDesk } from '../img/passo-a-passo/autorizando-audio-desk.svg';
+export { default as liberandoCamera } from '../img/passo-a-passo/liberando-camera.svg';
+export { default as liberandoCameraDesk } from '../img/passo-a-passo/liberando-camera-desk.svg';
+export { default as permissaoCamera } from '../img/passo-a-passo/permissao-camera.svg';
+export { default as opcoesCameraDesk } from '../img/passo-a-passo/permissao-camera-desk.svg';
+export { default as opcoesCamera } from '../img/passo-a-passo/opcoes-camera.svg';
 
 //* Encerramento
-export { default as finalTeleconsulta } from '../img/passo-a-passo/final-teleconsulta.jpg';
+export { default as finalTeleconsulta } from '../img/passo-a-passo/final-teleconsulta.svg';
+export { default as finalTeleconsultaDesk } from '../img/passo-a-passo/final-teleconsulta-desk.svg';
 
 //! Integrantes
 export { default as Alex } from '../img/integrantes/alexander.jpg';
