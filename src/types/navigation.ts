@@ -35,4 +35,4 @@ export type CarouselOptions = {
   autoMs?: number;
   /** Se deve fazer loop infinito dos itens */
   loop?: boolean;
-}
+};

@@ -3,7 +3,7 @@ import { useState } from 'react';
 /**
  * Hook para navegação em carrossel/slider
  * Controla índice atual e fornece funções de navegação
- * 
+ *
  * @param total - Número total de itens
  * @param start - Índice inicial (padrão: 0)
  * @returns Estado e funções para controlar navegação

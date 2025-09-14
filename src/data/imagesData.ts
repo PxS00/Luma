@@ -22,7 +22,6 @@ export { default as acessoNav } from '../img/passo-a-passo/acesso-nav.png';
 export { default as acessandoWeb } from '../img/passo-a-passo/acessando-web.svg';
 export { default as acessandoTele } from '../img/passo-a-passo/acessando-tele.svg';
 
-
 //* Navegação dentro do app/portal
 export { default as acessandoMenu } from '../img/passo-a-passo/acessando-menu.svg';
 export { default as teleconsulta } from '../img/passo-a-passo/teleconsulta.svg';

@@ -1,7 +1,7 @@
 import type { Member } from '@/types/member';
 import type { CarouselOptions } from '@/types/navigation';
-import MembroCard from './MembroCard';
 import CarrosselBase from '../Carrossel/CarrosselBase';
+import MembroCard from './MembroCard';
 
 export interface CarrosselIntegrantesProps extends CarouselOptions {
   members: Member[];
@@ -37,7 +37,7 @@ export default function CarrosselIntegrantes({
         showIndicators={showIndicators}
         renderItem={(i) => (
           <ul className='list-none p-0 m-0'>
-            <MembroCard m={members[i]} />
+            <MembroCard member={members[i]} />
           </ul>
         )}
       />

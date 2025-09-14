@@ -2,13 +2,13 @@ import type { FaqData } from '@/types/faq';
 import BtnExterno from '../Botao/BtnExterno';
 import ToggleSection from '../ToggleSection/ToggleSection';
 
-type Props = { item: FaqData };
+type FaqItemProps = { item: FaqData };
 
 /**
  * Item individual do FAQ
  * Exibe pergunta expansível com resposta e link opcional
  */
-export default function FaqItem({ item }: Props) {
+export default function FaqItem({ item }: FaqItemProps) {
   return (
     <ToggleSection title={item.question}>
       <div>

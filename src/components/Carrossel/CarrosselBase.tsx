@@ -1,9 +1,9 @@
 // src/components/Carrossel/CarrosselBase.tsx
-import type { ReactNode } from 'react';
-import BtnAcao from '@components/Botao/BtnAcao';
 import { useCarousel } from '@/hooks/useCarousel';
+import BtnAcao from '@components/Botao/BtnAcao';
+import type { ReactNode } from 'react';
 
-type Props = {
+type CarrosselBaseProps = {
   total: number;
   renderItem: (i: number) => ReactNode;
   autoMs?: number;
@@ -27,7 +27,7 @@ export default function CarrosselBase({
   showIndicators = true,
   showControls = true,
   className,
-}: Props) {
+}: CarrosselBaseProps) {
   const { index, next, previous, goTo } = useCarousel(total, { autoMs, loop });
   if (!total) return null;
 

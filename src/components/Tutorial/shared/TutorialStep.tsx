@@ -20,13 +20,13 @@ export default function TutorialStep({ step, stepNumber, imgClassName }: Tutoria
     <li aria-label={`Passo ${stepNumber + 1}: ${title}`}>
       <h4 className='mt-2 font-semibold text-fontTertiary pb-6'>
         {stepNumber + 1}.{step.title}
-          {step.actionButton &&
+        {step.actionButton &&
           (step.actionButton.external ? (
-            <BtnExterno href={step.actionButton.href} className="px-3 py-1">
+            <BtnExterno href={step.actionButton.href} className='px-3 py-1'>
               {step.actionButton.label}
             </BtnExterno>
           ) : (
-            <BtnInterno to={step.actionButton.href} className="px-3 py-1">
+            <BtnInterno to={step.actionButton.href} className='px-3 py-1'>
               {step.actionButton.label}
             </BtnInterno>
           ))}

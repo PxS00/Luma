@@ -1,17 +1,17 @@
+import { mapMemberSocialNetworks } from '@/lib/socialNetworks';
 import type { Member } from '@/types/member';
 import MembroAvatar from './MembroAvatar';
 import MembrosSocial from './MembrosSocial';
-import { mapMemberSocialNetworks } from '@/lib/socialNetworks';
 
-type Props = { m: Member };
+type MembroCardProps = { member: Member };
 
 /**
  * Card de exibição de membro da equipe
  * Mostra foto, dados pessoais, redes sociais e descrição
  */
-export default function MembroCard({ m }: Props) {
-  const { name, rm, class: memberClass, img, description } = m;
-  const socialNetworks = mapMemberSocialNetworks(m);
+export default function MembroCard({ member }: MembroCardProps) {
+  const { name, rm, class: memberClass, img, description } = member;
+  const socialNetworks = mapMemberSocialNetworks(member);
 
   return (
     <ul className='flex justify-center'>

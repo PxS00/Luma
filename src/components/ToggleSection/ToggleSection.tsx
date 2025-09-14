@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-type Props = {
+type ToggleSectionProps = {
   title: string;
   children: React.ReactNode;
 };
@@ -9,7 +9,7 @@ type Props = {
  * Seção expansível/colapsável
  * Usado para FAQ e outros conteúdos que precisam ser expandidos
  */
-export default function ToggleSection({ title, children }: Props) {
+export default function ToggleSection({ title, children }: ToggleSectionProps) {
   const [open, setOpen] = useState(false);
 
   return (

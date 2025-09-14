@@ -1,13 +1,13 @@
 import type { SocialNetwork } from '@/types/socialNetwork';
 import BtnExterno from '@components/Botao/BtnExterno';
 
-type Props = { socials: SocialNetwork[] };
+type MembrosSocialProps = { socials: SocialNetwork[] };
 
 /**
  * Links para redes sociais de um membro
  * Exibe ícones clicáveis para GitHub, LinkedIn, etc.
  */
-export default function MembrosSocial({ socials }: Props) {
+export default function MembrosSocial({ socials }: MembrosSocialProps) {
   return (
     <div className='flex mt-1.5'>
       {socials.map((s) => (

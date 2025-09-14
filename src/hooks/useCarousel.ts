@@ -4,11 +4,11 @@ import type { CarouselOptions } from '@/types/navigation';
 
 /**
  * Hook para gerenciar carrosseis com autoplay e navegação
- * 
+ *
  * @param total - Número total de itens no carrossel
  * @param options - Opções de configuração (autoplay, loop)
  * @returns Objeto com estado e funções de controle do carrossel
- * 
+ *
  * @example
  * const { index, next, previous } = useCarousel(5, { autoMs: 3000 });
  */
@@ -18,7 +18,7 @@ export function useCarousel(total: number, { autoMs = 0, loop = true }: Carousel
   // Refs para evitar recriar funções no efeito
   const timerRef = useRef<number | null>(null);
   const idxRef = useRef(index);
-  
+
   useEffect(() => {
     idxRef.current = index;
   }, [index]);
@@ -29,7 +29,7 @@ export function useCarousel(total: number, { autoMs = 0, loop = true }: Carousel
       clearInterval(timerRef.current);
       timerRef.current = null;
     }
-    
+
     // Não cria timer se autoMs <= 0 ou total <= 1
     if (!autoMs || autoMs <= 0 || total <= 1) return;
 

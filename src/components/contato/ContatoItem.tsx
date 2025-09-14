@@ -2,13 +2,13 @@ import type { Contact } from '@/types/contact';
 import BtnExterno from '../Botao/BtnExterno';
 import ToggleSection from '../ToggleSection/ToggleSection';
 
-type Props = { item: Contact };
+type ContatoItemProps = { item: Contact };
 
 /**
  * Item de contato expansível
  * Exibe informações de contato como telefone, email e endereço
  */
-export default function ContatoItem({ item }: Props) {
+export default function ContatoItem({ item }: ContatoItemProps) {
   return (
     <div className='contato '>
       <ToggleSection title={item.title}>
