@@ -8,7 +8,7 @@ import { HEADER_MENU } from '../../data/navigationData';
  */
 export default function MainMenu() {
   return (
-    <ul className='flex justify-center flex-wrap gap-3 py-2.5 list-none m-0'>
+    <ul role="menu"className='flex flex-col items-end gap-3 py-2.5 list-none m-0'>
       {HEADER_MENU.map((item) => (
         <li key={item.href}>
           {item.external ? (
