@@ -1,11 +1,15 @@
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 /**
  * Página de erro 404
  * Exibida quando uma rota não é encontrada
  */
 export default function Error() {
+  useEffect(() => {
+    document.title = 'Erro 404';
+  }, []);
   const err = useRouteError();
   const msg = isRouteErrorResponse(err)
     ? `${err.status} ${err.statusText}`
