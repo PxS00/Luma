@@ -5,8 +5,7 @@ import validators from '@/utils/validators';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-
-import type { FormData } from '@/types/form';
+import type { CadastroFormData } from '@/types/form';
 
 /**
  * Formulário de Atendimento
@@ -21,7 +20,7 @@ export default function FormCadastro() {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm<FormData>({
+  } = useForm<CadastroFormData>({
     mode: 'onTouched',
     defaultValues: {
       nome: '',
@@ -33,12 +32,12 @@ export default function FormCadastro() {
   });
 
   // Manipula o envio do formulário
-  const onSubmit = (data: FormData) => {
+  const onSubmit = (data: CadastroFormData) => {
     setErrorMessage('');
     try {
       // Recupera cadastros existentes do localStorage
       const cadastrosStr = localStorage.getItem('cadastrosLumaHC');
-      let cadastros: FormData[] = [];
+      let cadastros: CadastroFormData[] = [];
       if (cadastrosStr) {
         try {
           cadastros = JSON.parse(cadastrosStr);
@@ -59,21 +58,18 @@ export default function FormCadastro() {
     }
   };
 
-  // Manipula o cancelamento do formulário
-  const handleCancel = () => {
-    if (window.confirm('Tem certeza que deseja cancelar? Todos os dados serão perdidos.')) {
-      reset();
-      navigate('/');
-    }
+  // Manipula a limpeza do formulário
+  const handleClear = () => {
+    reset();
   };
 
   return (
     <main>
-      <h1 className='text-center mb-5 text-fontPrimary text-2xl font-bold font-atkinson'>
+      <h1 className='text-center mb-5 text-fontPrimary text-2xl font-bold '>
         Formulário de Atendimento
       </h1>
 
-      <div className='alerta-obrigatorio bg-[color-mix(in_oklab,theme(colors.backBtn)_15%,white)] border-l-[5px] border-l-clikColor p-[10px_14px] mb-4 rounded-[5px] text-xs text-fontTertiary font-atkinson'>
+      <div className='alerta-obrigatorio bg-[color-mix(in_oklab,theme(colors.backBtn)_15%,white)] border-l-[5px] border-l-clikColor p-[10px_14px] mb-4 rounded-[5px] text-xs text-fontTertiary '>
         <p>
           Por favor, preencha todos os campos abaixo. Os campos marcados com <strong>*</strong> são
           obrigatórios.
@@ -204,7 +200,7 @@ export default function FormCadastro() {
           type='submit'
           id='botao-enviar'
           disabled={isSubmitting}
-          className='w-full mt-[15px] text-lg font-atkinson'
+          className='w-full mt-[15px] text-lg '
         >
           {isSubmitting ? 'ENVIANDO...' : 'ENVIAR'}
         </BtnAcao>
@@ -212,17 +208,17 @@ export default function FormCadastro() {
 
       <BtnAcao
         type='button'
-        id='botao-cancelar'
-        onClick={handleCancel}
-        className='w-full mt-[10px] text-lg font-atkinson'
+        id='botao-cadastro-limpar'
+        onClick={handleClear}
+        className='w-full mt-[10px] text-lg '
       >
-        CANCELAR
+        LIMPAR
       </BtnAcao>
 
       {errorMessage && (
         <div
           id='mensagem-erro'
-          className='mt-4 p-3 bg-red-50 text-red-700 border border-red-200 rounded-md text-center font-atkinson'
+          className='mt-4 p-3 bg-red-50 text-red-700 border border-red-200 rounded-md text-center '
         >
           {errorMessage}
         </div>

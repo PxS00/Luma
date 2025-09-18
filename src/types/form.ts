@@ -2,7 +2,7 @@
  * Dados do formulário de atendimento
  * Utilizado para cadastro de novos usuários
  */
-export type FormData = {
+export type CadastroFormData = {
   nome: string;
   cpf: string;
   dataNascimento: string;
@@ -23,7 +23,7 @@ export type LoginFormData = {
  * Estado de validação dos campos do formulário
  * Indica se cada campo está válido ou não
  */
-export type FormValidation = {
+export type CadastroFormValidation = {
   nome: boolean;
   cpf: boolean;
   dataNascimento: boolean;

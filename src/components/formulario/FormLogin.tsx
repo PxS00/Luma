@@ -1,7 +1,7 @@
 import BtnAcao from '@/components/Botao/BtnAcao';
 import FormField from '@/components/Formulario/FormField';
 import InputField from '@/components/Formulario/InputField';
-import type { FormData, LoginFormData } from '@/types/form';
+import type { CadastroFormData, LoginFormData } from '@/types/form';
 import validators from '@/utils/validators';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -44,7 +44,7 @@ export default function FormLogin() {
 
       // Verifica se existe usuário com CPF e data de nascimento
       const usuarioEncontrado = cadastros.find(
-        (cadastro: FormData) =>
+        (cadastro: CadastroFormData) =>
           cadastro.cpf === data.cpf && cadastro.dataNascimento === data.dataNascimento
       );
 
@@ -60,18 +60,14 @@ export default function FormLogin() {
     }
   };
 
-  const handleCancel = () => {
-    if (window.confirm('Deseja cancelar o login?')) {
-      reset();
-      navigate('/');
-    }
+  // Manipula a limpeza do formulário
+  const handleClear = () => {
+    reset();
   };
 
   return (
     <main>
-      <h1 className='text-center mb-5 text-fontPrimary text-2xl font-bold font-atkinson'>
-        Acesse sua conta
-      </h1>
+      <h1 className='text-center mb-5 text-fontPrimary text-2xl font-bold'>Acesse sua conta</h1>
       <form id='form-login' onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
         <FormField label='CPF' required>
           <Controller
@@ -121,7 +117,7 @@ export default function FormLogin() {
           type='submit'
           id='botao-login-enviar'
           disabled={isSubmitting}
-          className='w-full mt-[15px] text-lg font-atkinson'
+          className='w-full mt-[15px] text-lg'
         >
           {isSubmitting ? 'ENTRANDO...' : 'ENTRAR'}
         </BtnAcao>
@@ -129,17 +125,17 @@ export default function FormLogin() {
 
       <BtnAcao
         type='button'
-        id='botao-login-cancelar'
-        onClick={handleCancel}
-        className='w-full mt-[10px] text-lg font-atkinson'
+        id='botao-login-limpar'
+        onClick={handleClear}
+        className='w-full mt-[10px] text-lg'
       >
-        CANCELAR
+        LIMPAR
       </BtnAcao>
 
       {errorMessage && (
         <div
           id='mensagem-erro-login'
-          className='mt-4 p-3 bg-red-50 text-red-700 border border-red-200 rounded-md text-center font-atkinson'
+          className='mt-4 p-3 bg-red-50 text-red-700 border border-red-200 rounded-md text-center'
         >
           {errorMessage}
         </div>

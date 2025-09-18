@@ -1,9 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Roboto:wght@100..900&family=Source+Sans+3:wght@200..900&display=swap');
 @import 'tailwindcss';
 @theme {
-  --font-atkinson: 'Atkinson Hyperlegible', sans-serif;
-  --font-roboto: 'Roboto', sans-serif;
-  --font-source: 'Source Sans 3', sans-serif;
+  --font-inter: 'Inter', Arial, Helvetica, sans-serif;
 
   --color-backPrimary: #ffefd8;
   --color-backSecondary: #fde6c6;
@@ -21,6 +19,6 @@
 }
 @layer base {
   body {
-    @apply flex flex-col min-h-screen font-atkinson font-semibold text-fontTertiary bg-backPrimary;
+    @apply flex flex-col min-h-screen font-inter text-fontTertiary bg-backPrimary;
   }
 }

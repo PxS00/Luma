@@ -8,7 +8,7 @@ export default function FormField({
 }: FormFieldProps) {
   return (
     <div className={`${className}`}>
-      <label className='block my-[10px_0_4px] text-lg text-fontPrimary font-atkinson'>
+      <label className='block my-[10px_0_4px] text-lg text-fontPrimary '>
         {label}
         {required && <span className='text-red-500 ml-1'>*</span>}
       </label>
