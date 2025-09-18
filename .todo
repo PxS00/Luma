@@ -1,0 +1,19 @@
+- [x] Aplicar aria-label e atributos de acessibilidade em botões e ícones sem texto visível
+- [x] Garantir que todos os títulos de seção (<h2>, etc.) sejam únicos e descritivos para acessibilidade
+- [x] Revisar responsividade em telas muito pequenas (xs) e muito grandes (xl)
+- [x] Garantir contraste de cores suficiente para acessibilidade em todos os componentes
+- [x] Adicionar docstrings em português em todos os componentes e funções utilitárias que ainda não possuem
+- [x] Revisar se todos os componentes exportados têm nomes consistentes com o arquivo
+- [x] Remover qualquer import não utilizado em todos os arquivos
+- [x] Garantir que todos os campos de formulário tenham label associado corretamente
+- [x] Testar navegação apenas por teclado (tab/shift+tab) para garantir acessibilidade
+- [ ] Sugerir (opcional) criação de testes unitários para utilitários como validators
+- [x] Verificar se todos os botões utilizam componentes reutilizáveis (BtnAcao, BtnInterno, etc.)
+- [x] Garantir que não há comentários redundantes ou código morto
+- [x] Validar se todas as mensagens de erro são claras e amigáveis ao usuário
+- [x] Conferir se README.md está completo e atualizado para entrega final
+
+---
+
+Status: Projeto revisado, limpo, documentado e pronto para entrega!
+Observação: Caso edite manualmente arquivos após esta revisão, revalide os imports e docstrings.

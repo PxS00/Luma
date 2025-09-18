@@ -1,3 +1,9 @@
+/**
+ * Lista de cards exibidos na página inicial
+ * Cada card representa um acesso rápido a uma funcionalidade principal do sistema
+ *
+ * @type {HomeCard[]}
+ */
 import { celular, pessoa, users } from '@/assets/images';
 import type { HomeCard } from '@/types/navigation';
 

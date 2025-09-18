@@ -1,3 +1,9 @@
+/**
+ * Configuração dos itens de navegação do header e footer
+ * Define os menus principais e links externos da aplicação
+ *
+ * @type {NavItem[]}
+ */
 import type { NavItem } from '@/types/navigation';
 
 export const HEADER_MENU: NavItem[] = [

@@ -1,4 +1,7 @@
-// Tipos do formulário de atendimento
+/**
+ * Dados do formulário de atendimento
+ * Utilizado para cadastro de novos usuários
+ */
 export type FormData = {
   nome: string;
   cpf: string;
@@ -7,11 +10,52 @@ export type FormData = {
   telefone: string;
 };
 
-// Estado de validação dos campos
+/**
+ * Dados do formulário de login
+ * Utilizado para autenticação do usuário
+ */
+export type LoginFormData = {
+  cpf: string;
+  dataNascimento: string;
+};
+
+/**
+ * Estado de validação dos campos do formulário
+ * Indica se cada campo está válido ou não
+ */
 export type FormValidation = {
   nome: boolean;
   cpf: boolean;
   dataNascimento: boolean;
   email: boolean;
   telefone: boolean;
+};
+
+/**
+ * Propriedades do componente InputField
+ * Define os parâmetros aceitos para campos de input
+ */
+export type InputFieldProps = {
+  type: 'text' | 'email' | 'tel' | 'date';
+  name: string;
+  id: string;
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  required?: boolean;
+  maxLength?: number;
+  isValid?: boolean;
+  errorMessage?: string;
+  className?: string;
+};
+
+/**
+ * Propriedades do componente FormField
+ * Define os parâmetros aceitos para campos de formulário
+ */
+export type FormFieldProps = {
+  label: string;
+  required?: boolean;
+  children: React.ReactNode;
+  className?: string;
 };

@@ -1,4 +1,6 @@
 import { logo } from '@/assets/images';
+import BtnInterno from '../Botao/BtnInterno';
+
 
 /**
  * Seção de boas-vindas da página inicial
@@ -16,9 +18,9 @@ export default function BoasVindasSection() {
           suporte ainda mais personalizado. É só clicar no botão abaixo quando estiver pronta!
         </p>
         {/* TODO: migrar formulário para página React (Link) no futuro */}
-        <a href='/assets/formulario/formulario.html' className='botao-destaque'>
-          Formulário
-        </a>
+        <BtnInterno to="/formulario" className="bg-clikColor hover:bg-hoverBtn">
+          Preencher Formulário
+        </BtnInterno>
       </div>
     </section>
   );

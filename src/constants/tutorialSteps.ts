@@ -22,7 +22,6 @@ import {
   entrandoApp,
   finalTeleconsulta,
   finalTeleconsultaDesk,
-  instalarPlaystore,
   liberandoCamera,
   liberandoCameraDesk,
   opcoesCamera,
@@ -37,8 +36,14 @@ import {
 } from '@/assets/images';
 import type { TutorialStepData } from '../types/tutorialStep';
 
+/**
+ * Constantes de passos dos tutoriais (cadastro e teleconsulta)
+ * Usadas para exibir passo a passo ilustrado para o usuário
+ *
+ * @type {TutorialStepData[]}
+ */
+
 export const MOBILE_SIGNUP_STEPS: TutorialStepData[] = [
-  { title: 'Baixe o app na loja', img: instalarPlaystore, alt: 'Play Store' },
   { title: 'Clique em Acessar Portal', img: acessandoApp, alt: 'Acessando app' },
   { title: 'Clique em Cadastrar Senha', img: cadastrando, alt: 'Cadastrando no app' },
   { title: 'Informe seu CPF', img: preenchendoCpf, alt: 'Campo CPF' },
