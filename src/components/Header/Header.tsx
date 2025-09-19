@@ -28,7 +28,7 @@ export default function Header() {
             <img
               src={logo}
               alt="Imagem da logo do LumaHC"
-              className="h-10 w-auto sm:h-12 md:h-14 rounded-full p-[2px] select-none"
+              className="h-10 w-auto sm:h-12 md:h-14 rounded-full p-[2px] select-none mr-4"
             />
           </a>
           <div className="hidden lg:flex flex-1 justify-center">

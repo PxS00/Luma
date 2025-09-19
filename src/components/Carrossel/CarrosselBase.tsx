@@ -36,48 +36,46 @@ export default function CarrosselBase({
     <div className={`relative w-full ${className ?? ''}`}>
       <div className='flex justify-center'>
         {/* ↓ wrapper relativo do card */}
-        <div className='relative w-full max-w-[420px] md:max-w-[480px]'>
+        <div className="relative w-full max-w-[420px] md:max-w-[480px] px-6 sm:px-8 md:px-10 lg:px-0">
           {/* slide atual */}
-          <div className='transition-opacity duration-500 ease-out'>{renderItem(index)}</div>
+          <div className='transition-opacity duration-500 ease-out'>
+            {renderItem(index)}
+          </div>
 
-          {/* CONTROLES LATERAIS — AGORA aqui dentro */}
           {showControls && total > 1 && (
             <>
-              {/* ESQUERDA = VOLTAR */}
+              {/* ESQUERDA */}
               <BtnAcao
-                variant='icon'
+                variant="icon"
                 onClick={previous}
-                aria-label='Anterior'
-                className='
-    absolute -left-14 md:-left-20
-    top-1/2 -translate-y-1/2 z-10
-    w-10 h-10 md:w-12 md:h-12
+                aria-label="Anterior"
+                className="
+    absolute top-1/2 -translate-y-1/2 z-10
+    left-0 sm:left-1 md:left-2 lg:-left-12 xl:-left-16
+    w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 max-[360px]:w-7 max-[360px]:h-7
     flex items-center justify-center rounded-full
-    bg-backBtn text-white
-  '
+    bg-backBtn text-white shadow
+  "
               >
-                <span aria-hidden className='text-2xl leading-none'>
-                  ‹
-                </span>
+                <span aria-hidden className="text-lg sm:text-xl leading-none">‹</span>
               </BtnAcao>
 
-              {/* DIREITA = AVANÇAR */}
+              {/* DIREITA */}
               <BtnAcao
-                variant='icon'
+                variant="icon"
                 onClick={next}
-                aria-label='Próximo'
-                className='
-    absolute -right-14 md:-right-20
-    top-1/2 -translate-y-1/2 z-10
-    w-10 h-10 md:w-12 md:h-12
+                aria-label="Próximo"
+                className="
+    absolute top-1/2 -translate-y-1/2 z-10
+    right-0 sm:right-1 md:right-2 lg:-right-12 xl:-right-16
+    w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 max-[360px]:w-7 max-[360px]:h-7
     flex items-center justify-center rounded-full
-    bg-backBtn text-white
-  '
+    bg-backBtn text-white shadow
+  "
               >
-                <span aria-hidden className='text-2xl leading-none'>
-                  ›
-                </span>
+                <span aria-hidden className="text-lg sm:text-xl leading-none">›</span>
               </BtnAcao>
+
             </>
           )}
         </div>

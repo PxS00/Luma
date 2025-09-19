@@ -65,37 +65,68 @@ export default function TutorialSection({
   tutorialTitle,
   steps,
   carouselOptions = { autoMs: 0 },
-  className = '',
-  contentClassName = 'max-w-[420px] md:max-w-[520px] mx-auto',
-  imgClassName = 'max-h-[420px]',
+  className = "",
+  // + mais espaço pro conteúdo do carrossel em telas grandes
+  contentClassName = "max-w-[420px] sm:max-w-[480px] md:max-w-[600px] lg:max-w-[720px] mx-auto",
+  imgClassName = "max-h-[360px] sm:max-h-[400px] md:max-h-[440px] lg:max-h-[540px]",
 }: TutorialSectionProps) {
   return (
     <section
-      className={`flex flex-col p-5 text-center items-center justify-center font-bold ${className?.includes('gap-') ? className : `gap-6 ${className}`}`}
+      className={[
+        "mx-auto w-full max-w-screen-lg",
+        "px-4 sm:px-5 lg:px-6",
+        "py-6 sm:py-8 lg:py-12",
+        "flex flex-col lg:flex-row lg:items-start",
+        "gap-6 sm:gap-8 lg:gap-12",
+        "text-center lg:text-left",
+        className?.includes("gap-") ? className : className,
+      ].join(" ")}
     >
-      <div className='intro flex flex-col items-center text-center gap-3'>
-        <h2>{title}</h2>
-        <p>{description}</p>
-        {customActionButton && customActionButton}
-        {!customActionButton &&
-          actionButton &&
-          (actionButton.external ? (
-            <BtnExterno href={actionButton.href} className='p-2'>
+      {/* Intro (texto + CTA) */}
+      <div className="intro flex flex-col items-center lg:items-start text-center lg:text-left gap-3 lg:basis-4/12 xl:basis-3/12">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-3xl text-fontPrimary font-semibold">
+          {title}
+        </h2>
+
+        <p className="text-base sm:text-lg leading-relaxed">
+          {description}
+        </p>
+
+        {customActionButton ? (
+          <div className="mt-2">{customActionButton}</div>
+        ) : actionButton ? (
+          actionButton.external ? (
+            <BtnExterno
+              href={actionButton.href}
+              className="mt-3 inline-block text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3"
+            >
               {actionButton.label}
             </BtnExterno>
           ) : (
-            <BtnInterno to={actionButton.href} className='p-2'>
+            <BtnInterno
+              to={actionButton.href}
+              className="mt-3 inline-block text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3"
+            >
               {actionButton.label}
             </BtnInterno>
-          ))}
+          )
+        ) : null}
       </div>
-      <TutorialCarousel
-        title={tutorialTitle}
-        steps={steps}
-        autoMs={carouselOptions.autoMs}
-        contentClassName={contentClassName}
-        imgClassName={imgClassName}
-      />
+
+      {/* Carrossel / Passos */}
+      <div className="lg:basis-8/12 xl:basis-9/12">
+        <h3 className="text-xl sm:text-2xl lg:text-3xl font-semibold mb-3 text-fontPrimary text-center lg:text-left">
+          {tutorialTitle}
+        </h3>
+
+        <TutorialCarousel
+          title={tutorialTitle}
+          steps={steps}
+          autoMs={carouselOptions.autoMs}
+          contentClassName={contentClassName}
+          imgClassName={imgClassName}
+        />
+      </div>
     </section>
   );
 }
