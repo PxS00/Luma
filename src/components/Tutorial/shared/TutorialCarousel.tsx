@@ -28,7 +28,6 @@ export default function TutorialCarousel({
 
   return (
     <section aria-label={title} className={className}>
-      {title && <h2>{title}</h2>}
       <CarrosselBase
         total={steps.length}
         autoMs={autoMs}

@@ -36,26 +36,7 @@ interface TutorialSectionProps {
  * Componente unificado para seções de tutorial
  * Suporta tanto desktop (actionButton) quanto mobile (customActionButton)
  *
- * @example
- * // Desktop com botão externo
- * <TutorialSection
- *   title="Acesse pelo Navegador"
- *   description="Tutorial desktop"
- *   actionButton={{ href: "https://...", label: "Acessar", external: true }}
- *   tutorialTitle="Como usar"
- *   steps={TUTORIAL_STEPS}
- * />
- *
- * @example
- * // Mobile com botão customizado
- * <TutorialSection
- *   title="Baixe o App"
- *   description="Tutorial mobile"
- *   customActionButton={<BtnStore />}
- *   tutorialTitle="Como usar no App"
- *   steps={MOBILE_STEPS}
- * />
- */
+**/
 
 export default function TutorialSection({
   title,
@@ -67,7 +48,7 @@ export default function TutorialSection({
   carouselOptions = { autoMs: 0 },
   className = "",
   // + mais espaço pro conteúdo do carrossel em telas grandes
-  contentClassName = "max-w-[420px] sm:max-w-[480px] md:max-w-[600px] lg:max-w-[720px] mx-auto",
+  contentClassName = "max-w-[420px] sm:max-w-[480px] md:max-w-[600px] lg:max-w-[720px] mx-auto flex flex-col items-center text-center",
   imgClassName = "max-h-[360px] sm:max-h-[400px] md:max-h-[440px] lg:max-h-[540px]",
 }: TutorialSectionProps) {
   return (
@@ -83,8 +64,8 @@ export default function TutorialSection({
       ].join(" ")}
     >
       {/* Intro (texto + CTA) */}
-      <div className="intro flex flex-col items-center lg:items-start text-center lg:text-left gap-3 lg:basis-4/12 xl:basis-3/12">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-3xl text-fontPrimary font-semibold">
+      <div className="intro flex flex-col items-center lg:items-start text-center lg:text-left gap-3 lg:basis-4/12 mt-20">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-2xl text-fontPrimary font-semibold">
           {title}
         </h2>
 
@@ -96,12 +77,15 @@ export default function TutorialSection({
           <div className="mt-2">{customActionButton}</div>
         ) : actionButton ? (
           actionButton.external ? (
-            <BtnExterno
-              href={actionButton.href}
-              className="mt-3 inline-block text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3"
-            >
-              {actionButton.label}
-            </BtnExterno>
+            <div className="mt-3 flex justify-center w-full">
+              <BtnExterno
+                href={actionButton.href}
+                className="inline-block text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3"
+              >
+                {actionButton.label}
+              </BtnExterno>
+            </div>
+
           ) : (
             <BtnInterno
               to={actionButton.href}
@@ -114,10 +98,10 @@ export default function TutorialSection({
       </div>
 
       {/* Carrossel / Passos */}
-      <div className="lg:basis-8/12 xl:basis-9/12">
-        <h3 className="text-xl sm:text-2xl lg:text-3xl font-semibold mb-3 text-fontPrimary text-center lg:text-left">
+      <div className="lg:basis-8/12 xl:basis-9/12 flex flex-col items-center">
+        <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold mb-3 text-fontPrimary text-center lg:text-left">
           {tutorialTitle}
-        </h3>
+        </h2>
 
         <TutorialCarousel
           title={tutorialTitle}
