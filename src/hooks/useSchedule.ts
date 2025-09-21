@@ -1,10 +1,20 @@
-/**
- * Custom hook to manage the state and logic of the Medical Schedule.
- * Encapsulates all date, reminder, and form handling.
- */
 import type { Reminder } from '@/types/reminder';
 import { formatDate } from '@/utils/calendarUtils';
 import { useState } from 'react';
+
+/**
+ * Hook customizado para gerenciar o estado e lógica da Agenda Médica.
+ * Encapsula todo o controle de datas, lembretes e formulários.
+ *
+ * @returns Estado e handlers para navegação, lembretes e formulários da agenda
+ *
+ * @example
+ * // Exemplo de uso:
+ * const schedule = useSchedule();
+ * <button onClick={schedule.nextMonth}>Próximo mês</button>
+ * <button onClick={schedule.prevMonth}>Mês anterior</button>
+ * <button onClick={schedule.handleAddReminder}>Novo lembrete</button>
+ */
 
 export function useSchedule() {
   const today = new Date();

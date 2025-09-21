@@ -3,7 +3,8 @@ import type { KeyboardEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
 /**
- * Fornece estado, refs, navegação por teclado e utilitários para tabs.
+ * Fornece estado, refs, navegação por teclado e utilitários para tabs acessíveis.
+ * Ideal para componentes de navegação por abas (tabs) com foco em acessibilidade.
  *
  * @param {UseTabsProps} props - Propriedades opcionais para configuração do hook.
  *   - defaultMode: modo/tab inicial selecionado ('app' ou 'nav').
@@ -15,6 +16,18 @@ import { useEffect, useRef, useState } from 'react';
  *   - panelId: função utilitária para gerar id do painel
  *   - isActive: função para verificar se a tab está ativa
  *   - onKeyDown: handler para navegação por teclado
+ *
+ * @example
+ * // Exemplo de uso:
+ * const tabs = useTabs({ defaultMode: 'app', idBase: 'tutorial' });
+ * <div ref={tabs.listRef} role="tablist" onKeyDown={tabs.onKeyDown}>
+ *   <button id={tabs.tabId('app')} role="tab" aria-selected={tabs.isActive('app')}>App</button>
+ *   <button id={tabs.tabId('nav')} role="tab" aria-selected={tabs.isActive('nav')}>Navegador</button>
+ * </div>
+ * <div id={tabs.panelId('app')} role="tabpanel" hidden={!tabs.isActive('app')}>Conteúdo App</div>
+ * <div id={tabs.panelId('nav')} role="tabpanel" hidden={!tabs.isActive('nav')}>Conteúdo Navegador</div>
+ *
+ * // Observação: sempre utilize roles e atributos ARIA para garantir acessibilidade total.
  */
 export function useTabs({
   defaultMode = 'app',

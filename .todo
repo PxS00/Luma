@@ -1,3 +1,12 @@
+- [x] Hooks revisado: Todas as rotas utilizam useEffect para título da página, estão documentadas, seguem padrão de imports, acessibilidade e componentização.
+- [x] (Opcional) Adicionar exemplos de uso nos JSDoc dos componentes principais das rotas
+- [x] (Opcional) Padronizar a ordem dos imports em todas as rotas (React/hooks, depois componentes, depois dados, depois estilos)
+- [x] (Opcional) Adicionar comentários curtos em trechos de lógica condicional ou renderização dinâmica nas rotas, caso cresçam
+- [x] (Opcional) Garantir que todos os componentes utilizados nas rotas também estejam documentados e sigam o padrão de acessibilidade
+- [ ] Garantir que todos os tipos de src/types estejam sendo utilizados nos componentes correspondentes
+- [ ] (Opcional) Adicionar exemplos de uso nos JSDoc dos tipos mais complexos (ex: FormFieldProps, UseTabsReturn, TutorialStepData)
+- [ ] (Opcional) Padronizar a ordem das propriedades nos tipos para facilitar leitura (campos obrigatórios antes dos opcionais)
+- [ ] (Opcional) Documentar possíveis valores esperados para campos string que funcionam como enums (ex: type em ToastProps)
 - [x] Aplicar aria-label e atributos de acessibilidade em botões e ícones sem texto visível
 - [x] Garantir que todos os títulos de seção (<h2>, etc.) sejam únicos e descritivos para acessibilidade
 - [x] Revisar responsividade em telas muito pequenas (xs) e muito grandes (xl)
@@ -8,7 +17,12 @@
 - [x] Garantir que todos os campos de formulário tenham label associado corretamente
 - [x] Testar navegação apenas por teclado (tab/shift+tab) para garantir acessibilidade
 
-- [ ] Sugerir (opcional) criação de testes unitários para utilitários como validators
+- [ ] (Opcional/config, constants, data) Adicionar exemplos de uso nos JSDoc dos arquivos principais dessas pastas
+- [ ] (Opcional/config, constants, data) Garantir que todos os campos de acessibilidade (alt, imgAlt) estejam sempre preenchidos e descritivos
+- [ ] (Opcional/config, constants, data) Padronizar a ordem dos campos nos objetos exportados (campos obrigatórios antes dos opcionais)
+- [ ] (Opcional/config, constants, data) Adicionar comentários curtos em partes que possam gerar dúvidas, como links externos ou campos opcionais
+- [ ] (Opcional/config, constants, data) Garantir que todos os dados estejam sendo realmente utilizados nos componentes correspondentes
+- [ ] (Opcional/config, constants, data) Adicionar testes de tipagem para garantir que os dados seguem os tipos definidos
 - [ ] (Opcional) Adicionar função para remover lembretes em reminderStorage.ts
 - [ ] (Opcional) Adicionar função para remover usuários em userStorage.ts
 - [ ] (Opcional) Tornar mapMemberSocialNetworks mais genérica para outras redes sociais

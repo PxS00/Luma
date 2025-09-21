@@ -1,16 +1,25 @@
-import { useEffect, useRef } from 'react';
 import { useCarouselNavigation } from '@/hooks/useCarouselNavigation';
 import type { CarouselOptions } from '@/types/navigation';
+import { useEffect, useRef } from 'react';
 
 /**
- * Hook para gerenciar carrosseis com autoplay e navegação
+ * Hook para gerenciar carrosseis com autoplay e navegação.
+ * Fornece estado, funções de navegação e integração com acessibilidade.
  *
  * @param total - Número total de itens no carrossel
  * @param options - Opções de configuração (autoplay, loop)
  * @returns Objeto com estado e funções de controle do carrossel
  *
  * @example
- * const { index, next, previous } = useCarousel(5, { autoMs: 3000 });
+ * // Exemplo de uso em um componente:
+ * const { index, next, previous, goTo } = useCarousel(5, { autoMs: 3000 });
+ *
+ * // Renderização:
+ * <button onClick={previous}>Anterior</button>
+ * <div>Slide atual: {index + 1}</div>
+ * <button onClick={next}>Próximo</button>
+ *
+ * // Para acessibilidade, associe aria-live ou roles apropriados ao container do carrossel.
  */
 export function useCarousel(total: number, { autoMs = 0, loop = true }: CarouselOptions = {}) {
   const { index, goTo } = useCarouselNavigation(total, 0);
@@ -47,7 +56,13 @@ export function useCarousel(total: number, { autoMs = 0, loop = true }: Carousel
     };
   }, [autoMs, total, loop, goTo]);
 
+  /**
+   * Avança para o próximo item do carrossel.
+   */
   const next = () => goTo(loop ? (index + 1) % total : Math.min(index + 1, total - 1));
+  /**
+   * Volta para o item anterior do carrossel.
+   */
   const previous = () => goTo(loop ? (index - 1 + total) % total : Math.max(index - 1, 0));
 
   return { index, next, previous, goTo, total };
