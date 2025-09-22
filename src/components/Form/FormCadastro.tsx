@@ -56,7 +56,7 @@ export default function FormCadastro() {
   return (
     <main>
       <h1 className='text-center mb-5 text-fontPrimary text-2xl font-bold '>
-        Formulário de Atendimento
+        Registre seu Cadastro
       </h1>
 
       <div className='alerta-obrigatorio bg-[color-mix(in_oklab,theme(colors.backBtn)_15%,white)] border-l-[5px] border-l-clikColor p-[10px_14px] mb-4 rounded-[5px] text-xs text-fontTertiary '>

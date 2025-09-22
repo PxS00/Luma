@@ -10,8 +10,8 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
-import Agenda from './routes/Schedule';
 import Formulario from './routes/Formulario';
+import Schedule from './routes/Schedule';
 
 /**
  * Configuração das rotas da aplicação
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
       { path: '/auxilio/cadastro', element: <AuxilioCadastro /> },
       { path: '/auxilio/teleconsulta', element: <AuxilioTeleconsulta /> },
       { path: '/formulario/*', element: <Formulario /> },
-      { path: '/agenda', element: <Agenda /> },
+      { path: '/lembrete', element: <Schedule /> },
     ],
   },
 ]);

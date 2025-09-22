@@ -25,7 +25,7 @@ export default function Formulario() {
         {/* Tabs para alternar entre cadastro e login */}
         <EscolhaModoTabs
           defaultMode='app'
-          labelApp='Preencher Formulário'
+          labelApp='Cadastro'
           labelNav='Login'
           app={<FormularioCadastro />}
           nav={<Login />}

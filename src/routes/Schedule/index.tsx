@@ -6,17 +6,17 @@ import { useEffect } from 'react';
  * Permite ao usuário interagir com o calendário e gerenciar lembretes de consulta médica.
  *
  * @example
- * // Uso em rotas (React Router)
+ * / Uso em rotas (React Router)
  * <Route path="/schedule" element={<Schedule />} />
  */
 export default function Schedule() {
   useEffect(() => {
-    document.title = 'Agenda de Consultas';
+    document.title = 'Lembrete de Agendamento';
   }, []);
   return (
     <main
       className='min-h-screen flex flex-col items-center justify-center'
-      aria-label='Conteúdo principal da agenda de consultas'
+      aria-label='Conteúdo principal de uma agenda de lembretes de consultas'
     >
       {/* Componente principal de agendamento e lembretes */}
       <ScheduleComponent />
