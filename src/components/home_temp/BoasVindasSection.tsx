@@ -10,8 +10,8 @@ export default function BoasVindasSection() {
       {/* Container alinhado com header/cards */}
       <div className="mx-auto w-full max-w-screen-lg px-4 sm:px-5 lg:px-6">
         {/* Conteúdo da seção */}
-        <div className="flex flex-col items-start text-left gap-4 py-6 sm:py-8 lg:py-12">
-          <div className="texto max-w-prose">
+        <div className="flex flex-col items-center text-center gap-4 py-6 sm:py-8 lg:py-12">
+          <div className="texto max-w-3xl">
             <h2
               className="
                 text-2xl sm:text-3xl md:text-4xl lg:text-4xl 
