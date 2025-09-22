@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import AcessosSection from '@/components/home_temp/AcessosSection';
-import BoasVindasSection from '@/components/home_temp/BoasVindasSection';
+import AcessosSection from '@/components/Home/AcessosSection';
+import BoasVindasSection from '@/components/Home/BoasVindasSection';
 
 /**
  * Página inicial da aplicação
