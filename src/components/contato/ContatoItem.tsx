@@ -30,32 +30,29 @@ export default function ContatoItem({ item }: ContatoItemProps) {
             </div>
           )}
 
-{/* E-mail */}
-{item.email && (
-  <div className="p-3 sm:p-4 grid grid-cols-1 sm:grid-cols-[160px_minmax(0,1fr)] gap-2 sm:gap-4">
-    <dt className="font-semibold text-sm sm:text-base text-fontPrimary">
-      E-mail:
-    </dt>
-    {/* <- pode encolher dentro do grid */}
-    <dd className="text-sm sm:text-base min-w-0">
-      <BtnExterno
-        href={`mailto:${item.email}`}
-        target="_blank"
-        className="
-          inline-flex flex-wrap            /* permite quebrar linha */
-          w-full sm:w-auto items-center justify-center
-          px-3 py-1.5 sm:px-4 sm:py-2
-          text-sm sm:text-base text-center leading-tight
-          bg-backBtn hover:bg-hoverBtn rounded-md font-bold
-          break-all max-w-full            /* força quebra e limita largura */
-        "
-      >
-        {item.email}
-      </BtnExterno>
-    </dd>
-  </div>
-)}
-
+          {/* E-mail */}
+          {item.email && (
+            <div className="p-3 sm:p-4 grid grid-cols-1 sm:grid-cols-[160px_minmax(0,1fr)] gap-2 sm:gap-4">
+              <dt className="font-semibold text-sm sm:text-base text-fontPrimary">
+                E-mail:
+              </dt>
+              <dd className="text-sm sm:text-base">
+                <BtnExterno
+                  href={`mailto:${item.email}`}
+                  target="_blank"
+                  className="
+                    inline-flex w-full sm:w-auto items-center justify-center
+                    px-3 py-1.5 sm:px-4 sm:py-2
+                    text-sm sm:text-base
+                    bg-backBtn hover:bg-hoverBtn rounded-md font-bold
+                    break-words whitespace-normal
+                  "
+                >
+                  {item.email}
+                </BtnExterno>
+              </dd>
+            </div>
+          )}
 
           {/* Telefone */}
           {item.tel && (
