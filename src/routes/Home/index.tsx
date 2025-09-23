@@ -1,6 +1,6 @@
 
-import AcessosSection from '@/components/Home/AcessoSection';
-import BoasVindasSection from '@/components/Home/BoasVindasSection';
+import AcessosSection from '@/components/home-test/AcessoSection';
+import BoasVindasSection from '@/components/home-test/BoasVindasSection';
 import { useEffect } from 'react';
 
 /**

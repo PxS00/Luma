@@ -28,20 +28,36 @@ export default function Header() {
 <header className="w-full bg-gradient-to-b from-fromColor to-toColor">
   <div className="mx-auto w-full max-w-screen-xl px-6 sm:px-8 lg:px-10 xl:px-12">
     {/* linha do header */}
-    <div
-      className="
-        flex items-center justify-between h-14 sm:h-16 lg:h-20
-        lg:grid lg:grid-cols-[auto_1fr_auto] lg:justify-items-center lg:gap-4
-      "
-    >
-      {/* Logo */}
-      <a className="shrink-0 lg:pl-2 xl:pl-4" href="/">
-        <img
-          src={logo}
-          alt="Imagem da logo do LumaHC"
-          className="h-10 w-auto sm:h-12 md:h-14 rounded-full p-[2px] select-none"
-        />
-      </a>
+<div
+  className="
+    flex items-center justify-between 
+    h-16 sm:h-20 lg:h-24            /* <<< aumentei a altura do header */
+    lg:grid lg:grid-cols-[auto_1fr_auto] lg:justify-items-center lg:gap-4
+    min-w-0
+  "
+>
+{/* Logo */}
+<a className="shrink-0 lg:pl-2 xl:pl-4" href="/">
+  {/* Wrapper controla o TAMANHO, não a <img> diretamente */}
+  <div
+    className="
+      h-14 w-14               
+      sm:h-16 sm:w-16         
+      md:h-18 md:w-18         
+      lg:h-20 lg:w-20         
+      xl:h-24 xl:w-24      
+      shrink-0
+    "
+  >
+    <img
+      src={logo}
+      alt="Imagem da logo do LumaHC"
+      className="h-full w-full object-contain max-h-none max-w-none select-none"
+      draggable={false}
+    />
+  </div>
+</a>
+
 
       {/* Menu central */}
       <div className="hidden lg:flex lg:justify-self-center">
