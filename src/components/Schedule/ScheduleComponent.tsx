@@ -127,7 +127,9 @@ export default function ScheduleComponent(): React.JSX.Element {
       <section className='w-full max-w-7xl mx-auto flex flex-col items-center bg-transparent border-none shadow-none p-0'>
         <div className='w-full max-w-6xl rounded-3xl bg-white border border-orange-100 box-border p-0 sm:p-8 md:p-12 flex flex-col items-center shadow-none'>
           {/* Título principal */}
-          <h1 className='text-fontPrimary text-3xl mb-2 text-center font-bold'>Lembrete de Agendamento</h1>
+          <h1 className='text-fontPrimary text-3xl mb-2 text-center font-bold'>
+            Lembrete de Agendamento
+          </h1>
           {/* Ano centralizado entre as setas */}
           <div className='flex items-center justify-between w-full mb-2 px-2 sm:px-8'>
             <button

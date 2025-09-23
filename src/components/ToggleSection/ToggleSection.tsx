@@ -16,20 +16,20 @@ export default function ToggleSection({ title, children }: ToggleSectionProps) {
 
   return (
     <section
-      className="
+      className='
         mb-4 sm:mb-5 md:mb-6
         rounded-md sm:rounded-lg md:rounded-xl
         border border-borderColor bg-backPrimary
         shadow-sm
-      "
+      '
     >
-      <h3 className="m-0">
+      <h3 className='m-0'>
         <button
-          type="button"
+          type='button'
           aria-expanded={open}
           aria-controls={panelId}
-          onClick={() => setOpen(v => !v)}
-          className="
+          onClick={() => setOpen((v) => !v)}
+          className='
             w-full cursor-pointer
             text-clikColor font-bold text-[15px] sm:text-[16px] md:text-[18px]
             py-2.5 px-3.5 sm:py-3 sm:px-4 md:py-3.5 md:px-5
@@ -37,7 +37,7 @@ export default function ToggleSection({ title, children }: ToggleSectionProps) {
             hover:bg-white/40
             focus:outline-none focus-visible:ring-2 focus-visible:ring-borderColor focus-visible:ring-offset-2 focus-visible:ring-offset-backPrimary
             transition-colors
-          "
+          '
         >
           {title}
         </button>
@@ -46,15 +46,15 @@ export default function ToggleSection({ title, children }: ToggleSectionProps) {
       {open && (
         <div
           id={panelId}
-          role="region"
-          className="
+          role='region'
+          className='
             border-t border-borderColor
             bg-[#FFF8E1]
             rounded-b-md sm:rounded-b-lg md:rounded-b-xl
             text-fontTertiary text-sm sm:text-base md:text-[17px]
             text-center
             p-3 sm:p-4 md:p-5 lg:p-6
-          "
+          '
         >
           {children}
         </div>

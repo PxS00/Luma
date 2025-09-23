@@ -16,19 +16,43 @@ export default function Faq() {
   }, []);
   return (
     <main
-      className='ml-0 p-5 w-full flex-1'
-      aria-label='Conteúdo principal de perguntas frequentes'
+      className='mx-auto w-full max-w-screen-lg px-6 sm:px-8 lg:px-10 xl:px-12 p-4'
+      aria-label='Conteúdo principal de contatos'
     >
-      <div className='bg-backSecondary p-5 rounded-[10px] max-w-full m-auto shadow-[0_2px_6px_rgba(255,112,67,0.25)] box-border relative'>
-        <h1 className='text-fontPrimary text-2xl mb-2.5 text-center'>Perguntas Frequentes (FAQ)</h1>
-        <p className='text-base text-fontSecondary mb-5 text-center'>
-          Encontre respostas rápidas sobre o uso da plataforma de Saúde Digital.
-        </p>
-        {/* Lista de perguntas e respostas do FAQ */}
-        <div className='mt-5'>
-          {faqData.map((item, idx) => (
-            <FaqItem key={idx} item={item} />
-          ))}
+      {/* mesmo container do Header: centralizado e limitado */}
+      <div className='mx-auto w-full max-w-screen-xl'>
+        <div
+          className='
+            bg-backSecondary box-border relative m-auto
+            /* tamanho/respiro da caixa por breakpoint */
+            rounded-md sm:rounded-lg md:rounded-xl
+            shadow-sm md:shadow-md
+            p-3 sm:p-4 md:p-5 lg:p-6
+          '
+        >
+          <h1
+            className='
+              text-fontPrimary text-xl sm:text-2xl md:text-3xl
+              mb-2 sm:mb-3 md:mb-4 text-center
+            '
+          >
+            Perguntas Frequentes (FAQ)
+          </h1>
+
+          <p
+            className='
+              text-fontSecondary text-sm sm:text-base md:text-[17px]
+              leading-relaxed text-center mb-4 sm:mb-5 md:mb-6
+            '
+          >
+            Encontre respostas rápidas sobre o uso da plataforma de Saúde Digital.
+          </p>
+          {/* Lista de perguntas e respostas do FAQ */}
+          <div className='mt-5'>
+            {faqData.map((item, idx) => (
+              <FaqItem key={idx} item={item} />
+            ))}
+          </div>
         </div>
       </div>
     </main>

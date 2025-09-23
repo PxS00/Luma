@@ -20,7 +20,7 @@ export default function MembroAvatar({ src, alt, className = '' }: MembroAvatarP
         'rounded-full object-cover shrink-0',
         className,
       ].join(' ')}
-      loading="lazy"
+      loading='lazy'
     />
   );
 }

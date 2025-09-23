@@ -6,27 +6,27 @@ import BtnInterno from '../Button/BtnInterno';
  */
 export default function BoasVindasSection() {
   return (
-    <section className="w-full">
+    <section className='w-full'>
       {/* Container alinhado com header/cards */}
-      <div className="mx-auto w-full max-w-screen-lg px-4 sm:px-5 lg:px-6">
+      <div className='mx-auto w-full max-w-screen-lg px-4 sm:px-5 lg:px-6'>
         {/* Conteúdo da seção */}
-        <div className="flex flex-col items-center text-center gap-4 py-6 sm:py-8 lg:py-12">
-          <div className="texto max-w-3xl">
+        <div className='flex flex-col items-center text-center gap-4 py-6 sm:py-8 lg:py-12'>
+          <div className='texto max-w-3xl'>
             <h2
-              className="
+              className='
                 text-2xl sm:text-3xl md:text-4xl lg:text-4xl 
                 text-fontPrimary font-semibold mb-3
-              "
+              '
             >
               Bem-vinda ao seu Portal de Apoio!
             </h2>
 
             <p
-              className="
+              className='
                 text-fontTertiary 
                 text-base sm:text-lg md:text-lg lg:text-xl
                 leading-relaxed mb-4
-              "
+              '
             >
               Estamos aqui para te acompanhar em cada etapa do seu atendimento online no Hospital
               das Clínicas. Se quiser, você pode preencher um breve formulário para que possamos
@@ -35,12 +35,11 @@ export default function BoasVindasSection() {
             </p>
           </div>
 
-          
-        <BtnInterno to='/formulario' className='bg-clikColor hover:bg-hoverBtn'>
-          Preencher Formulário
-        </BtnInterno>
+          <BtnInterno to='/formulario' className='bg-clikColor hover:bg-hoverBtn'>
+            Preencher Formulário
+          </BtnInterno>
+        </div>
       </div>
-    </div>
     </section>
   );
 }

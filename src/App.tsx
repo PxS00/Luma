@@ -8,10 +8,10 @@ import { Outlet } from 'react-router-dom';
  */
 export default function App() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className='flex flex-col min-h-screen'>
       <Header />
 
-      <main className="flex-1">
+      <main className='flex-1'>
         <Outlet />
       </main>
 
@@ -19,4 +19,3 @@ export default function App() {
     </div>
   );
 }
-

@@ -25,7 +25,11 @@
   --breakpoint-xl: 1300px;
 }
 @layer base {
-  html,body, #root {heigth: 100%;}
+  html,
+  body,
+  #root {
+    heigth: 100%;
+  }
   #root {
     @apply flex flex-col min-h-screen font-inter text-fontTertiary bg-backPrimary;
   }

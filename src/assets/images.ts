@@ -10,6 +10,8 @@ export { default as appstore } from '@/assets/img/icones/app-store.svg';
 export { default as GitHub } from '@/assets/img/icones/github.svg';
 export { default as LinkedIn } from '@/assets/img/icones/linkedin.svg';
 export { default as playstore } from '@/assets/img/icones/playstore.svg';
+export { default as molduraDesk } from '@assets/img/icones/molduraDesk.svg';
+export { default as molduraMobile } from '@assets/img/icones/molduraMobile.svg';
 
 //! Passo a passo
 //* Iniciais

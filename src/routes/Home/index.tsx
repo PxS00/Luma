@@ -1,4 +1,3 @@
-
 import AcessosSection from '@/components/HomeComp/AcessoSection';
 import BoasVindasSection from '@/components/HomeComp/BoasVindasSection';
 import { useEffect } from 'react';

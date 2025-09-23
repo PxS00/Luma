@@ -1,4 +1,3 @@
-
 import { contacts } from '../../data/contactsData';
 import ContatoItem from './ContatoItem';
 
