@@ -64,7 +64,7 @@ export default function TutorialSection({
       ].join(' ')}
     >
       {/* Intro (texto + CTA) */}
-      <div className='intro flex flex-col items-center lg:items-start text-center lg:text-left gap-3 lg:basis-4/12 mt-20'>
+      <div className='intro flex flex-col items-center lg:items-start text-center lg:text-left gap-3 lg:basis-4/12 mt-10'>
         <h2 className='text-2xl sm:text-3xl md:text-4xl lg:text-2xl text-fontPrimary font-semibold'>
           {title}
         </h2>
