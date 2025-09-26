@@ -49,7 +49,11 @@ export default function TutorialSection({
   className = '',
   // + mais espaço pro conteúdo do carrossel em telas grandes
   contentClassName = 'max-w-[420px] sm:max-w-[480px] md:max-w-[600px] lg:max-w-[720px] mx-auto flex flex-col items-center text-center',
-  imgClassName = 'max-h-[360px] sm:max-h-[400px] md:max-h-[440px] lg:max-h-[540px]',
+// Sem limite de altura, imagem inteira visível
+imgClassName = '!max-h-none !h-full object-contain'
+
+
+,
 }: TutorialSectionProps) {
   return (
     <section

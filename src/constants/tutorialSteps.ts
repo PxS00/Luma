@@ -11,10 +11,14 @@ import {
   autorizandoAudio,
   autorizandoAudioDesk,
   cadastrando,
+  cadastrandoMobile,
   cadastroSenha,
+  cadastroSenhaDesk,
   confirmacaoAno,
+  confirmacaoAnoDesk,
   confirmacaoNomeMae,
   dadosContato,
+  dadosContatoDesk,
   detalhesTeleconsulta,
   detalhesTeleconsultaDesk,
   direcionamentoTermo,
@@ -29,10 +33,13 @@ import {
   permissaoCamera,
   playstore,
   preenchendoCpf,
+  preenchendoCpfDesk,
   selecNavegador,
   senhaCadastro,
+  senhaCadastroDesk,
   teleconsulta,
   verificacaoDados,
+  verificacaoDadosDesk,
 } from '@/assets/images';
 import type { TutorialStepData } from '../types/tutorialStep';
 
@@ -45,7 +52,7 @@ import type { TutorialStepData } from '../types/tutorialStep';
 
 export const MOBILE_SIGNUP_STEPS: TutorialStepData[] = [
   { title: 'Clique em Acessar Portal', img: acessandoApp, alt: 'Acessando app' },
-  { title: 'Clique em Cadastrar Senha', img: cadastrando, alt: 'Cadastrando no app' },
+  { title: 'Clique em Cadastrar Senha', img: cadastrandoMobile, alt: 'Cadastrando no app' },
   { title: 'Informe seu CPF', img: preenchendoCpf, alt: 'Campo CPF' },
   { title: 'Verifique seus dados', img: verificacaoDados, alt: 'Verificação' },
   { title: 'Dados de contato', img: dadosContato, alt: 'E-mail e celular' },
@@ -58,12 +65,12 @@ export const MOBILE_SIGNUP_STEPS: TutorialStepData[] = [
 export const DESKTOP_SIGNUP_STEPS: TutorialStepData[] = [
   { title: 'Acesse o portal', img: acessoPortal, alt: 'Portal' },
   { title: "Escolha 'Cadastrar Senha'", img: cadastrando, alt: 'Início do cadastro' },
-  { title: 'Informe seu CPF', img: preenchendoCpf, alt: 'Campo CPF' },
-  { title: 'Verifique seus dados', img: verificacaoDados, alt: 'Verificação' },
-  { title: 'Dados de contato', img: dadosContato, alt: 'E-mail e celular' },
-  { title: 'Confirme dados', img: confirmacaoAno, alt: 'Confirmações' },
-  { title: 'Crie sua senha', img: cadastroSenha, alt: 'Criação de senha' },
-  { title: 'Tudo certo!', img: senhaCadastro, alt: 'Sucesso' },
+  { title: 'Informe seu CPF', img: preenchendoCpfDesk, alt: 'Campo CPF' },
+  { title: 'Verifique seus dados', img: verificacaoDadosDesk, alt: 'Verificação' },
+  { title: 'Dados de contato', img: dadosContatoDesk, alt: 'E-mail e celular' },
+  { title: 'Confirme dados', img: confirmacaoAnoDesk, alt: 'Confirmações' },
+  { title: 'Crie sua senha', img: cadastroSenhaDesk, alt: 'Criação de senha' },
+  { title: 'Tudo certo!', img: senhaCadastroDesk, alt: 'Sucesso' },
 ];
 
 export const MOBILE_TELECONSULT_STEPS: TutorialStepData[] = [

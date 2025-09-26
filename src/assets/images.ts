@@ -38,11 +38,13 @@ export { default as direcionamentoTermo } from '@/assets/img/passo-a-passo/direc
 
 //* Cadastro
 export { default as cadastrando } from '@/assets/img/passo-a-passo/cadastrando.png';
+export { default as cadastrandoMobile } from '@/assets/img/passo-a-passo/cadastrando-mobile.svg';
 export { default as cadastroSenha } from '@/assets/img/passo-a-passo/cadastro-senha.svg';
 export { default as confirmacaoAno } from '@/assets/img/passo-a-passo/confirmacao-ano.svg';
 export { default as confirmacaoAnoDesk } from '@/assets/img/passo-a-passo/confirmacao-ano-desk.svg';
 export { default as confirmacaoNomeMae } from '@/assets/img/passo-a-passo/confirmacao-nome-mae.svg';
 export { default as dadosContato } from '@/assets/img/passo-a-passo/dados-contato.svg';
+export { default as dadosContatoDesk } from '@/assets/img/passo-a-passo/dados-contato-desk.svg';
 export { default as preenchendoCpf } from '@/assets/img/passo-a-passo/preenchimento-cpf.jpg';
 export { default as preenchendoCpfDesk } from '@/assets/img/passo-a-passo/preenchimento-cpf-desk.svg';
 export { default as senhaCadastro } from '@/assets/img/passo-a-passo/senha-cadastro.svg';
