@@ -7,16 +7,16 @@ import { molduraDesk, molduraMobile } from '@/assets/images';
 type TutorialStepProps = {
   step: TutorialStepData;
   stepNumber: number;
-  imgClassName?: string; // agora é realmente aplicado na <img>
+  imgClassName?: string;
 };
 
 export default function TutorialStep({ step, stepNumber, imgClassName }: TutorialStepProps) {
   const title = step.title ?? step.alt;
 
   return (
-    <li aria-label={`Passo ${stepNumber + 1}: ${title}`} className="flex flex-col gap-4">
-      {/* Título + CTA */}
-      <h4 className="mt-2 font-semibold text-fontTertiary pb-2 break-words">
+    <div aria-label={`Passo ${stepNumber + 1}: ${title}`} className="flex flex-col gap-4 m-0 p-0">
+      {/* Título + CTA com altura mínima pra não “pular” */}
+      <h4 className="mt-2 font-semibold text-fontTertiary pb-2 break-words min-h-[2.75rem] sm:min-h-[3.25rem]">
         {stepNumber + 1}. {title}
         {step.actionButton &&
           (step.actionButton.external ? (
@@ -30,55 +30,54 @@ export default function TutorialStep({ step, stepNumber, imgClassName }: Tutoria
           ))}
       </h4>
 
-      {/* QUADRO: largura fixa por breakpoint */}
+      {/* ÚNICO aspect container para IMAGEM + MOLDURA */}
       <div
         className="
-          relative
-          w-[min(92vw,360px)]  sm:w-[min(92vw,420px)]  lg:w-[min(92vw,520px)]
-          aspect-[720/1481]
-          mx-auto
-          overflow-hidden   /* <- garante que nada vaze da moldura */
+          relative mx-auto w-full
+          max-w-[720px] md:max-w-[900px]          /* tablet ainda com moldura mobile */
+          aspect-[720/1481] md:aspect-[720/1481]  /* mantém aspecto da moldura mobile no md */
+          lg:max-w-[1431px] lg:aspect-[1431/693]  /* desktop ajustaremos depois */
+          overflow-hidden min-w-0
         "
       >
-        {/* Moldura mobile */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-10 lg:hidden
-                     bg-no-repeat bg-center [background-size:100%_100%]"
-          style={{ backgroundImage: `url(${molduraMobile})` }}
+        {/* Molduras sobrepostas */}
+        {/* mobile + tablet usam a moldura MOBILE */}
+        <img
+          aria-hidden
+          src={molduraMobile}
+          alt=""
+          className="pointer-events-none absolute inset-0 z-10 h-full w-full object-contain lg:hidden"
         />
-        {/* Moldura desktop */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-10 hidden lg:block
-                     bg-no-repeat bg-center [background-size:100%_100%]"
-          style={{ backgroundImage: `url(${molduraDesk})` }}
+        {/* desktop (lg) usa a moldura DESK */}
+        <img
+          aria-hidden
+          src={molduraDesk}
+          alt=""
+          className="pointer-events-none absolute inset-0 z-10 hidden lg:block h-full w-full object-contain"
         />
 
-
-{/* JANELA INTERNA */}
+{/* Janela interna (clip + raio por breakpoint) */}
 <div
   className="
-    absolute
-    inset-x-[3%] inset-y-[4%] lg:inset-x-[2.5%] lg:inset-y-[1.8%]
-    overflow-hidden rounded-3xl   /* <- curva maior */
-    grid place-items-center
+    absolute inset-0 flex items-center justify-center
+    p-[4.1%]            /* +folga no tablet */
+    overflow-hidden
   "
 >
   <img
     src={step.img}
     alt={step.alt}
-    className={`
-      max-w-full max-h-full w-auto h-auto
-      object-contain
-      rounded-3xl                 /* <- curva maior também na imagem */
-      ${imgClassName ?? ''}
-      !max-h-full !h-auto !w-auto
-    `}
+    className={[
+      'block h-full w-full object-contain',
+      'rounded-[33px] md:rounded-[65px]',   // força o raio da imagem no md
+      imgClassName || '',
+    ].join(' ')}
+    decoding="async"
+    loading="eager"
   />
 </div>
 
       </div>
-    </li>
+    </div>
   );
 }

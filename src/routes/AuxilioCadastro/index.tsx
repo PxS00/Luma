@@ -14,25 +14,26 @@ import { useEffect } from 'react';
  * <Route path="/auxilio-cadastro" element={<AuxilioCadastro />} />
  */
 export default function AuxilioCadastro() {
-  // Define o título da aba do navegador
-  useEffect(() => {
-    document.title = 'Auxílio ao Cadastro';
-  }, []);
+  useEffect(() => { document.title = 'Auxílio ao Cadastro'; }, []);
+
   return (
     <main
-      className='flex flex-col justify-center items-center p-5 gap-5'
-      aria-label='Conteúdo principal de auxílio ao cadastro'
+      aria-label="Conteúdo principal de auxílio ao cadastro"
+      className="w-full overflow-x-clip bg-backPrimary"   // <- aqui
     >
-      <IntroCadastro />
-      {/* Tabs para alternar entre tutorial do App e do Navegador */}
-      <EscolhaModoTabs
-        defaultMode='app'
-        labelApp='Usar App'
-        labelNav='Usar Navegador'
-        app={<MobileCadastro />}
-        nav={<DeskCadastro />}
-        className='w-full'
-      />
+      {/* container interno controla largura + padding */}
+      <div className="mx-auto w-full max-w-screen-lg px-5 py-5 flex flex-col items-center gap-5">
+        <IntroCadastro />
+
+        <EscolhaModoTabs
+          defaultMode="app"
+          labelApp="Usar App"
+          labelNav="Usar Navegador"
+          app={<MobileCadastro />}
+          nav={<DeskCadastro />}
+          className="w-full"
+        />
+      </div>
     </main>
   );
 }

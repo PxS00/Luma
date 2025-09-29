@@ -1,116 +1,116 @@
-// src/components/Carrossel/CarrosselBase.tsx
-import BtnAcao from '@/components/Button/BtnAcao';
-import { useCarousel } from '@/hooks/useCarousel';
-import type { ReactNode } from 'react';
+// src/components/shared/Carrossel/CarrosselBase.tsx
+import { useEffect, useId, useRef, useState } from "react";
+
+type ControlsAPI = {
+  prev: () => void;
+  next: () => void;
+  index: number;
+  total: number;
+};
+
+type IndicatorsAPI = {
+  goTo: (i: number) => void;
+  index: number;
+  total: number;
+};
 
 type CarrosselBaseProps = {
   total: number;
-  renderItem: (i: number) => ReactNode;
-  autoMs?: number;
-  loop?: boolean;
-  showIndicators?: boolean;
-  showControls?: boolean;
-  className?: string;
+  startIndex?: number;
+  autoMs?: number | null;           // null/undefined = sem autoplay
+  className?: string;               // classes do wrapper externo
+  viewportClassName?: string;       // classes do viewport (área do slide, relative)
+  onChangeIndex?: (i: number) => void;
+
+  // Conteúdo do slide atual
+  renderItem: (index: number) => React.ReactNode;
+
+  // Slots opcionais para UI (setas / indicadores)
+  renderControls?: (api: ControlsAPI) => React.ReactNode;
+  renderIndicators?: (api: IndicatorsAPI) => React.ReactNode;
 };
 
-/**
- * Carrossel base (mobile-first)
- * - Mantém responsividade por breakpoints
- * - Adiciona um "frame" com largura travada por clamp() para evitar variação entre slides
- * - Setas absolutas não deslocam o conteúdo
- */
 export default function CarrosselBase({
   total,
-  renderItem,
-  autoMs = 0,
-  loop = true,
-  showIndicators = true,
-  showControls = true,
+  startIndex = 0,
+  autoMs = null,
   className,
+  viewportClassName,
+  onChangeIndex,
+  renderItem,
+  renderControls,
+  renderIndicators,
 }: CarrosselBaseProps) {
-  const { index, next, previous, goTo } = useCarousel(total, { autoMs, loop });
-  if (!total) return null;
+  const [index, setIndex] = useState(() =>
+    Math.min(Math.max(0, startIndex), Math.max(0, total - 1))
+  );
+  const [paused, setPaused] = useState(false);
+  const id = useId();
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<number | null>(null);
+
+  const goTo = (i: number) => setIndex((((i % total) + total) % total));
+  const next = () => setIndex((i) => (i + 1) % total);
+  const prev = () => setIndex((i) => (i - 1 + total) % total);
+
+  // Notifica consumidor
+  useEffect(() => {
+    onChangeIndex?.(index);
+  }, [index, onChangeIndex]);
+
+  // Autoplay com cleanup e pausa
+  useEffect(() => {
+    if (!autoMs || autoMs <= 0 || paused || total <= 1) return;
+    timerRef.current = window.setInterval(next, autoMs);
+    return () => {
+      if (timerRef.current) window.clearInterval(timerRef.current);
+    };
+  }, [autoMs, paused, total]);
+
+  // Pausa em hover/foco do viewport
+  const handleMouseEnter = () => setPaused(true);
+  const handleMouseLeave = () => setPaused(false);
+  const handleFocusIn = () => setPaused(true);
+  const handleFocusOut = () => setPaused(false);
+
+  // Navegação por teclado quando o viewport tem foco
+  useEffect(() => {
+    const vp = viewportRef.current;
+    if (!vp) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (document.activeElement && vp.contains(document.activeElement)) {
+        if (e.key === "ArrowRight") { e.preventDefault(); next(); }
+        if (e.key === "ArrowLeft")  { e.preventDefault(); prev(); }
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   return (
-    <div className={`relative w-full ${className ?? ''}`}>
-      <div className="flex justify-center">
-        {/* Wrapper central (pode manter seus max-w e paddings externos) */}
-        <div
-          className="
-            relative w-full
-            max-w-[360px] sm:max-w-[520px] md:max-w-[640px] lg:max-w-[760px] xl:max-w-[920px]
-            px-4 sm:px-6 md:px-8 lg:px-0
-          "
-        >
-          {/* FRAME: largura do slide travada de forma mobile-first */}
-          <div
-            className="
-              relative mx-auto
-              w-[clamp(280px,92vw,520px)]
-              sm:w-[clamp(320px,92vw,560px)]
-              lg:w-[clamp(360px,92vw,620px)]
-            "
-          >
-            {/* slide atual */}
-            <div className="transition-opacity duration-500 ease-out">
-              {renderItem(index)}
-            </div>
+    <div
+      className={["relative", className || ""].join(" ").trim()}
+      aria-roledescription="carousel"
+      aria-label={`carousel-${id}`}
+    >
+      {/* Viewport: relative para ancorar controles do slot */}
+      <div
+        id={`${id}-viewport`}
+        ref={viewportRef}
+        role="group"
+        aria-live="polite"
+        className={["relative w-full", viewportClassName || ""].join(" ").trim()}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onFocus={handleFocusIn}
+        onBlur={handleFocusOut}
+      >
+        {renderItem(index)}
 
-            {/* CONTROLES (absolutos para não empurrar o slide) */}
-            {showControls && total > 1 && (
-              <>
-                {/* ESQUERDA */}
-                <BtnAcao
-                  variant="icon"
-                  onClick={previous}
-                  aria-label="Anterior"
-                  className="
-    absolute top-1/2 -translate-y-1/2 z-20
-    left-4 sm:left-6 md:left-8 lg:left-10
-    w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10
-    flex items-center justify-center rounded-full
-    bg-backBtn text-white shadow
-  "
-                >
-                  <span aria-hidden className="text-lg sm:text-xl leading-none">‹</span>
-                </BtnAcao>
-
-                {/* DIREITA */}
-                <BtnAcao
-                  variant="icon"
-                  onClick={next}
-                  aria-label="Próximo"
-                  className="
-    absolute top-1/2 -translate-y-1/2 z-20
-    right-4 sm:right-6 md:right-8 lg:right-10
-    w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10
-    flex items-center justify-center rounded-full
-    bg-backBtn text-white shadow
-  "
-                >
-                  <span aria-hidden className="text-lg sm:text-xl leading-none">›</span>
-                </BtnAcao>
-              </>
-            )}
-          </div>
-        </div>
+        {renderControls?.({ prev, next, index, total })}
       </div>
 
-      {/* indicadores */}
-      {showIndicators && total > 1 && (
-        <div className="mt-3 flex justify-center gap-2">
-          {Array.from({ length: total }).map((_, i) => (
-            <BtnAcao
-              key={i}
-              variant="dot"
-              onClick={() => goTo(i)}
-              aria-label={`Ir para item ${i + 1}`}
-              aria-pressed={i === index}
-              className={i === index ? 'bg-fontPrimary' : 'bg-black/30'}
-            />
-          ))}
-        </div>
-      )}
+      {renderIndicators?.({ goTo, index, total })}
     </div>
   );
 }
