@@ -30,16 +30,21 @@ export default function TutorialStep({ step, stepNumber, imgClassName }: Tutoria
           ))}
       </h4>
 
-      {/* ÚNICO aspect container para IMAGEM + MOLDURA */}
-      <div
-        className="
-          relative mx-auto w-full
-          max-w-[720px] md:max-w-[900px]          /* tablet ainda com moldura mobile */
-          aspect-[720/1481] md:aspect-[720/1481]  /* mantém aspecto da moldura mobile no md */
-          lg:max-w-[1431px] lg:aspect-[1431/693]  /* desktop ajustaremos depois */
-          overflow-hidden min-w-0
-        "
-      >
+<div
+  className="
+    relative mx-auto w-full
+    max-w-[720px] md:max-w-[900px]
+    aspect-[720/1481] md:aspect-[720/1481]
+
+    /* DESKTOP moldura menos alta */
+    lg:aspect-[1431/800]   /* <-- altura menor que a original */
+    lg:w-[95vw] lg:max-w-[2000px]
+    xl:w-[98vw]
+
+    overflow-hidden min-w-0
+  "
+>
+
         {/* Molduras sobrepostas */}
         {/* mobile + tablet usam a moldura MOBILE */}
         <img
@@ -60,23 +65,31 @@ export default function TutorialStep({ step, stepNumber, imgClassName }: Tutoria
 <div
   className="
     absolute inset-0 flex items-center justify-center
-    p-[4.1%]            /* +folga no tablet */
-    overflow-hidden
+p-[4.1%] lg:p-[0%] xl:p-[1.5%]
+
+    overflow-visible
   "
 >
-  <img
-    src={step.img}
-    alt={step.alt}
-    className={[
-      'block h-full w-full object-contain',
-      'rounded-[33px] md:rounded-[65px]',   // força o raio da imagem no md
-      imgClassName || '',
-    ].join(' ')}
-    decoding="async"
-    loading="eager"
-  />
-</div>
+<img
+  src={step.img}
+  alt={step.alt}
+  className={[
+    'block',
+    'w-full h-auto',
+    'lg:h-full lg:w-auto',
+    'lg:max-w-[55%]',
+    'lg:scale-y-140',
+    'lg:translate-y-40 xl:translate-y-53',
+    'lg:object-top',     // <-- cola no topo
+    'mx-auto',
+    'rounded-[33px] md:rounded-[65px] lg:rounded-[0px]',
+    imgClassName || '',
+  ].join(' ')}
+  decoding="async"
+  loading="eager"
+/>
 
+</div>
       </div>
     </div>
   );

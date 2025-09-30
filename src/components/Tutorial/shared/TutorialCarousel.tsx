@@ -53,13 +53,17 @@ export default function TutorialCarousel({
                 aria-label="Anterior"
                 onClick={prev}
                 className="
-                  hidden md:inline-flex
-                  absolute top-1/2 -translate-y-1/2 md:-left-12 lg:-left-14
-                  z-20 items-center justify-center
-                  w-8 h-8 md:w-12 md:h-12
-                  rounded-full bg-backBtn text-white shadow
-                  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-backBtn/60
-                "
+  hidden md:inline-flex
+  absolute top-1/2 -translate-y-1/2
+  md:-left-12         /* tablet/desktop inicial */
+  lg:-left-0          /* ↓ aproxima na moldura em lg (≥992px) */
+  xl:-left-0          /* ↓ encosta mais no xl (≥1300px) */
+  z-20 items-center justify-center
+  w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 xl:w-14 xl:h-14
+  rounded-full bg-backBtn text-white shadow
+  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-backBtn/60
+"
+
               >
                 ‹
               </button>
@@ -69,13 +73,16 @@ export default function TutorialCarousel({
                 aria-label="Próximo"
                 onClick={next}
                 className="
-                  hidden md:inline-flex
-                  absolute top-1/2 -translate-y-1/2 md:-right-12 lg:-right-14
-                  z-20 items-center justify-center
-                  w-8 h-8 md:w-12 md:h-12
-                  rounded-full bg-backBtn text-white shadow
-                  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-backBtn/60
-                "
+  hidden md:inline-flex
+  absolute top-1/2 -translate-y-1/2
+  md:-right-12
+  lg:-right-0
+  xl:-right-0
+  z-20 items-center justify-center
+  w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 xl:w-14 xl:h-14
+  rounded-full bg-backBtn text-white shadow
+  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-backBtn/60
+"
               >
                 ›
               </button>
