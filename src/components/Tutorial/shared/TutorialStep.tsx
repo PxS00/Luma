@@ -50,14 +50,14 @@ export default function TutorialStep({ step, stepNumber, imgClassName }: Tutoria
         <img
           aria-hidden
           src={molduraMobile}
-          alt=""
+          alt="moldura de celular"
           className="pointer-events-none absolute inset-0 z-10 h-full w-full object-contain lg:hidden"
         />
         {/* desktop (lg) usa a moldura DESK */}
         <img
           aria-hidden
           src={molduraDesk}
-          alt=""
+          alt="moldura de um notebook"
           className="pointer-events-none absolute inset-0 z-10 hidden lg:block h-full w-full object-contain"
         />
 
