@@ -91,7 +91,7 @@ export const DESKTOP_TELECONSULT_STEPS: TutorialStepData[] = [
   {
     title: 'Clique em: ',
     actionButton: {
-      href: 'https://accountportaldopaciente.hc.fm.usp.br/75433b55-f83d-4308-a699-73d32d13a263/login?t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJpbnRlcm5hbC5wb3J0YWwtcGFjaWVudGUtd2ViIiwiY2xpZW50X25hbWUiOiJQb3J0YWwgZG8gUGFjaWVudGUiLCJzZXNzaW9uX2lkIjoiNzU0MzNiNTUtZjgzZC00MzA4LWE2OTktNzNkMzJkMTNhMjYzIiwiaWF0IjoxNzU3NTM5MzMxfQ.L3WK1p29VZrnJl8JKPd3PTdeHKU106vPmeZCIy0q_cM',
+      href: 'https://portaldopaciente.hc.fm.usp.br/',
       label: 'Acessar Portal',
       external: true,
     },
