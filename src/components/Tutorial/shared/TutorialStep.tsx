@@ -32,18 +32,22 @@ export default function TutorialStep({ step, stepNumber, imgClassName }: Tutoria
 
 <div
   className="
-    relative mx-auto w-full
+    relative
+    mx-auto
+    flex items-center justify-center
+
+    w-full
     max-w-[720px] md:max-w-[900px]
     aspect-[720/1481] md:aspect-[720/1481]
 
-    /* DESKTOP moldura menos alta */
-    lg:aspect-[1431/800]   /* <-- altura menor que a original */
-    lg:w-[95vw] lg:max-w-[2000px]
-    xl:w-[98vw]
-
-    overflow-hidden min-w-0
+    /* Desktop: moldura notebook proporcional e centralizada */
+    lg:aspect-[1431/800]
+   lg:w-[min(96vw,1900px)] xl:w-[min(96vw,2100px)]
+   2xl:max-h-[80vh] 2xl:h-auto   /* ✅ tampa a altura em telas muito grandes */
+   overflow-visible
   "
 >
+
 
         {/* Molduras sobrepostas */}
         {/* mobile + tablet usam a moldura MOBILE */}
@@ -65,7 +69,7 @@ export default function TutorialStep({ step, stepNumber, imgClassName }: Tutoria
 <div
   className="
     absolute inset-0 flex items-center justify-center
-p-[4.1%] lg:p-[0%] xl:p-[1.5%]
+p-[4.1%] lg:p-[1%] xl:p-[0%]
 
     overflow-visible
   "
@@ -79,7 +83,7 @@ p-[4.1%] lg:p-[0%] xl:p-[1.5%]
     'lg:h-full lg:w-auto',
     'lg:max-w-[55%]',
     'lg:scale-y-140',
-    'lg:translate-y-40 xl:translate-y-56',
+    'lg:translate-y-40 xl:translate-y-54',
     'lg:object-top',     // <-- cola no topo
     'mx-auto',
     'rounded-[33px] md:rounded-[65px] lg:rounded-[0px]',
