@@ -1,4 +1,4 @@
-import type { SearchBoxProps } from '@/types/searchBoxProps';
+import type { SearchBox } from '@/types/searchBox';
 import { useEffect, useRef } from 'react';
 
 export default function SearchBox({
@@ -8,7 +8,7 @@ export default function SearchBox({
   onSubmit,
   onClose,
   className = '',
-}: SearchBoxProps) {
+}: SearchBox) {
   const ref = useRef<HTMLInputElement>(null);
   const nameRef = useRef(`q_${Math.random().toString(36).slice(2)}`);
 
