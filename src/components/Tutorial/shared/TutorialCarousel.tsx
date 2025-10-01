@@ -25,7 +25,10 @@ export default function TutorialCarousel({
       <CarrosselBase
         total={steps.length}
         autoMs={autoMs}
-        viewportClassName={['relative w-full mx-auto overflow-visible', contentClassName || '']
+        viewportClassName={[
+          'relative w-full mx-auto overflow-visible pb-6 md:pb-8',
+          contentClassName || '',
+        ]
           .join(' ')
           .trim()}
         renderItem={(i) => (
@@ -85,7 +88,7 @@ export default function TutorialCarousel({
           if (!(showIndicators && total > 1)) return null;
 
           return (
-            <div className='mt-3 md:mt-8 flex flex-col items-center gap-2'>
+            <div className='mt-2 md:mt-3 flex flex-col items-center gap-2'>
               {/* fileira de botões (apenas xs/sm) */}
               <div className='md:hidden flex items-center justify-center gap-30'>
                 <button

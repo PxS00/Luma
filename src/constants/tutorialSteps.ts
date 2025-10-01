@@ -1,7 +1,6 @@
 import {
   abrindoApp,
   aceitandoTermo,
-  aceitandoTermoDesk,
   acessandoApp,
   acessandoMenu,
   acessandoTele,
@@ -102,7 +101,6 @@ export const DESKTOP_TELECONSULT_STEPS: TutorialStepData[] = [
   { title: 'Digite seu CPF e sua Senha', img: acessandoWeb, alt: 'Formulário de login' },
   { title: 'Teleconsulta', img: acessandoTele, alt: 'Menu web' },
   { title: 'Termo de consentimento', img: direcionamentoTermoDesk, alt: 'Aviso do termo' },
-  { title: 'Aceite o termo', img: aceitandoTermoDesk, alt: 'Tela do termo' },
   { title: 'Entrar na teleconsulta', img: detalhesTeleconsultaDesk, alt: 'Botão entrar' },
   { title: 'Permissão de áudio', img: autorizandoAudioDesk, alt: 'Permissão de áudio' },
   { title: 'Ativar e permitir câmera', img: liberandoCameraDesk, alt: 'Ativar câmera' },

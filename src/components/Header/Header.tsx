@@ -33,23 +33,23 @@ export default function Header() {
         {/* linha do header */}
         <div
           className='
-    flex items-center justify-between 
-    h-16 sm:h-20 lg:h-24
-    lg:grid lg:grid-cols-[auto_1fr_auto] lg:justify-items-center lg:gap-4
-    min-w-0
-  '
+            flex items-center justify-between 
+            h-16 sm:h-20 lg:h-24
+            lg:grid lg:grid-cols-[auto_1fr_auto] lg:justify-items-center lg:gap-4
+            min-w-0
+          '
         >
           {/* Logo */}
           <a className='shrink-0 pl-2 lg:pl-0 xl:pl-4' href='/' aria-label='Ir para página inicial'>
             <div
               className='
-      h-12 w-12               
-      sm:h-14 sm:w-14         
-      md:h-16 md:w-16         
-      lg:h-18 lg:w-18         
-      xl:h-24 xl:w-24      
-      shrink-0
-    '
+                h-12 w-12               
+                sm:h-14 sm:w-14         
+                md:h-16 md:w-16         
+                lg:h-18 lg:w-18         
+                xl:h-24 xl:w-24      
+                shrink-0
+              '
             >
               <img
                 src={logo}
@@ -70,12 +70,11 @@ export default function Header() {
           {/* Ações */}
           <div
             className='
-          flex items-center gap-2 sm:gap-3
-          pr-[env(safe-area-inset-right)]
-        '
+              flex items-center gap-2 sm:gap-3
+              pr-[env(safe-area-inset-right)]
+            '
           >
-            {/* Botão de logout - só aparece quando logado */}
-            {isLoggedIn && <BtnLogoutHeader onClick={logout} className='mr-1' />}
+            {/* Botão de busca (mobile) */}
             <button
               type='button'
               aria-label='Buscar'
@@ -86,9 +85,14 @@ export default function Header() {
             >
               <BtnSearch />
             </button>
+
+            {/* Botão de menu (mobile) */}
             <div className='lg:hidden'>
               <BtnMenu open={menuOpen} onClick={() => setMenuOpen((v) => !v)} />
             </div>
+
+            {/* Botão de logout (sempre por último, colado à direita) */}
+            {isLoggedIn && <BtnLogoutHeader onClick={logout} className='ml-auto mr-1' />}
           </div>
         </div>
 

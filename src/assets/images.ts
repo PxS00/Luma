@@ -10,26 +10,21 @@ export { default as appstore } from '@/assets/img/icones/app-store.svg';
 export { default as GitHub } from '@/assets/img/icones/github.svg';
 export { default as LinkedIn } from '@/assets/img/icones/linkedin.svg';
 export { default as playstore } from '@/assets/img/icones/playstore.svg';
-export { default as molduraDesk } from '../assets/img/icones/molduraDesk.svg';
-export { default as molduraMobile } from '../assets/img/icones/molduraMobile.svg';
 
 //! Passo a passo
 //* Iniciais
 export { default as abrindoApp } from '@/assets/img/passo-a-passo/abrindo-app.svg';
 export { default as acessandoApp } from '@/assets/img/passo-a-passo/acessando-app.svg';
-export { default as acessoPortal } from '@/assets/img/passo-a-passo/acessando-portal.png';
+export { default as acessoPortal } from '@/assets/img/passo-a-passo/acessando-portal.svg';
 export { default as acessandoTele } from '@/assets/img/passo-a-passo/acessando-tele.svg';
 export { default as acessandoWeb } from '@/assets/img/passo-a-passo/acessando-web.svg';
-export { default as acessoNav } from '@/assets/img/passo-a-passo/acesso-nav.png';
 export { default as entrandoApp } from '@/assets/img/passo-a-passo/entrando-app.svg';
-export { default as instalarPlaystore } from '@/assets/img/passo-a-passo/instalar-playstore.jpg';
 
 //* Navegação dentro do app/portal
 export { default as acessandoMenu } from '@/assets/img/passo-a-passo/acessando-menu.svg';
 export { default as teleconsulta } from '@/assets/img/passo-a-passo/teleconsulta.svg';
 
 //* Termo / confirmação
-export { default as aceitandoTermoDesk } from '@/assets/img/passo-a-passo/aceitando-termo-desk.svg';
 export { default as aceitandoTermo } from '@/assets/img/passo-a-passo/aceitando-termo.svg';
 export { default as detalhesTeleconsultaDesk } from '@/assets/img/passo-a-passo/detalhes-teleconsulta-desk.svg';
 export { default as detalhesTeleconsulta } from '@/assets/img/passo-a-passo/detalhes-teleconsulta.svg';
@@ -37,7 +32,7 @@ export { default as direcionamentoTermoDesk } from '@/assets/img/passo-a-passo/d
 export { default as direcionamentoTermo } from '@/assets/img/passo-a-passo/direcionamento-termo.svg';
 
 //* Cadastro
-export { default as cadastrando } from '@/assets/img/passo-a-passo/cadastrando.png';
+export { default as cadastrando } from '@/assets/img/passo-a-passo/cadastrando.svg';
 export { default as cadastrandoMobile } from '@/assets/img/passo-a-passo/cadastrando-mobile.svg';
 export { default as cadastroSenha } from '@/assets/img/passo-a-passo/cadastro-senha.svg';
 export { default as confirmacaoAno } from '@/assets/img/passo-a-passo/confirmacao-ano.svg';
@@ -45,7 +40,7 @@ export { default as confirmacaoAnoDesk } from '@/assets/img/passo-a-passo/confir
 export { default as confirmacaoNomeMae } from '@/assets/img/passo-a-passo/confirmacao-nome-mae.svg';
 export { default as dadosContato } from '@/assets/img/passo-a-passo/dados-contato.svg';
 export { default as dadosContatoDesk } from '@/assets/img/passo-a-passo/dados-contato-desk.svg';
-export { default as preenchendoCpf } from '@/assets/img/passo-a-passo/preenchimento-cpf.jpg';
+export { default as preenchendoCpf } from '@/assets/img/passo-a-passo/preenchimento-cpf.svg';
 export { default as preenchendoCpfDesk } from '@/assets/img/passo-a-passo/preenchimento-cpf-desk.svg';
 export { default as senhaCadastro } from '@/assets/img/passo-a-passo/senha-cadastro.svg';
 export { default as senhaCadastroDesk } from '@/assets/img/passo-a-passo/senha-cadastrada-desk.svg';

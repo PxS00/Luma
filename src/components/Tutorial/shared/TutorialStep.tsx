@@ -1,12 +1,11 @@
 // src/components/shared/Tutorial/TutorialStep.tsx
-import { molduraDesk, molduraMobile } from '@/assets/images';
 import BtnExterno from '@/components/Button/BtnExterno';
 import BtnInterno from '@/components/Button/BtnInterno';
 import type { TutorialStepProps } from '@/types/tutorialStep';
 
 /**
- * Step individual do tutorial com moldura responsiva
- * Mostra imagem com moldura mobile ou desktop conforme breakpoint
+ * Step individual do tutorial SEM molduras.
+ * Exibe apenas a imagem de conteúdo, responsiva.
  */
 export default function TutorialStep({ step, stepNumber, imgClassName }: TutorialStepProps) {
   const title = step.title ?? step.alt;
@@ -34,67 +33,29 @@ export default function TutorialStep({ step, stepNumber, imgClassName }: Tutoria
           ))}
       </h4>
 
+      {/* Container neutro (sem proporções de moldura) */}
       <div
         className='
-    relative
-    mx-auto
-    flex items-center justify-center
-
-    w-full
-    max-w-[720px] md:max-w-[900px]
-    aspect-[720/1481] md:aspect-[720/1481]
-
-    /* Desktop: moldura notebook proporcional e centralizada */
-    lg:aspect-[1431/800]
-   lg:w-[min(96vw,1900px)] xl:w-[min(96vw,2100px)]
-   2xl:max-h-[80vh] 2xl:h-auto
-   overflow-visible
-  '
+          relative mx-auto flex items-center justify-center
+          w-full
+          max-w-[720px] md:max-w-[640px] lg:max-w-[960px] xl:max-w-[1100px]
+          overflow-visible
+        '
       >
-        {/* Molduras sobrepostas */}
-        {/* mobile + tablet usam a moldura MOBILE */}
+        {/* Apenas a imagem de conteúdo */}
         <img
-          aria-hidden
-          src={molduraMobile}
-          alt='moldura de celular'
-          className='pointer-events-none absolute inset-0 z-10 h-full w-full object-contain lg:hidden'
+          src={step.img}
+          alt={step.alt}
+          className={[
+            'block mx-auto',
+            'w-full h-auto object-contain',
+            'max-h-[min(70vh,900px)] md:max-h-[65vh] lg:max-h-[70vh]',
+            'rounded-none',
+            imgClassName || '',
+          ].join(' ')}
+          decoding='async'
+          loading='eager'
         />
-        {/* desktop (lg) usa a moldura DESK */}
-        <img
-          aria-hidden
-          src={molduraDesk}
-          alt='moldura de um notebook'
-          className='pointer-events-none absolute inset-0 z-10 hidden lg:block h-full w-full object-contain'
-        />
-
-        {/* Janela interna (clip + raio por breakpoint) */}
-        <div
-          className='
-    absolute inset-0 flex items-center justify-center
-p-[4.1%] lg:p-[1%] xl:p-[0%]
-
-    overflow-visible
-  '
-        >
-          <img
-            src={step.img}
-            alt={step.alt}
-            className={[
-              'block',
-              'w-full h-auto',
-              'lg:h-full lg:w-auto',
-              'lg:max-w-[55%]',
-              'lg:scale-y-140',
-              'lg:translate-y-40 xl:translate-y-54',
-              'lg:object-top', // <-- cola no topo
-              'mx-auto',
-              'rounded-[33px] md:rounded-[65px] lg:rounded-[0px]',
-              imgClassName || '',
-            ].join(' ')}
-            decoding='async'
-            loading='eager'
-          />
-        </div>
       </div>
     </div>
   );
