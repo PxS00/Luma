@@ -102,6 +102,7 @@ export default function FormCadastro() {
                 onChange={(v) => field.onChange(formatCPF(v))}
                 placeholder='000.000.000-00'
                 required
+                maxLength={14}
                 isValid={errors.cpf ? false : field.value.length > 0}
                 errorMessage={errors.cpf?.message}
               />
@@ -113,7 +114,22 @@ export default function FormCadastro() {
           <Controller
             name='dataNascimento'
             control={control}
-            rules={{ required: 'Data de nascimento é obrigatória' }}
+            rules={{
+              required: 'Data de nascimento é obrigatória',
+              validate: (value) => {
+                const selectedDate = new Date(value);
+                const today = new Date();
+                const minDate = new Date('1900-01-01');
+                
+                if (selectedDate > today) {
+                  return 'Data não pode ser futura';
+                }
+                if (selectedDate < minDate) {
+                  return 'Data muito antiga';
+                }
+                return true;
+              }
+            }}
             render={({ field }) => (
               <InputField
                 type='date'
@@ -172,6 +188,7 @@ export default function FormCadastro() {
                 onChange={(v) => field.onChange(formatPhone(v))}
                 placeholder='(11) 91234-5678'
                 required
+                maxLength={15}
                 isValid={errors.telefone ? false : field.value.length > 0}
                 errorMessage={errors.telefone?.message}
               />

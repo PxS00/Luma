@@ -13,6 +13,8 @@ export default function InputField({
   placeholder,
   required = false,
   maxLength,
+  min,
+  max,
   isValid,
   errorMessage,
   className = '',
@@ -47,6 +49,8 @@ export default function InputField({
             placeholder={placeholder}
             required={required}
             maxLength={maxLength}
+            min={min}
+            max={max}
             className={`${getInputClasses()} pr-[30px]`}
           />
         </div>
@@ -60,6 +64,8 @@ export default function InputField({
           placeholder={placeholder}
           required={required}
           maxLength={maxLength}
+          min={min}
+          max={max}
           className={getInputClasses()}
         />
       )}

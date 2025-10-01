@@ -126,7 +126,7 @@ export default function CalendarGrid({
                     // Layout básico da célula do dia
                     'relative w-full',
                     // Torna quadrado com tamanhos responsivos confortáveis para toque
-                    'aspect-square min-w-[38px] sm:min-w-[48px] md:min-w-[64px]',
+                    'aspect-square min-w-[32px] sm:min-w-[48px] md:min-w-[64px]',
                     'rounded-lg sm:rounded-xl',
                     'select-none transition-all',
                     // Estados condicionais baseados no tipo de dia
@@ -170,9 +170,9 @@ export default function CalendarGrid({
                     <span
                       className='
                         absolute bottom-1 right-1
-                        w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-3.5 md:h-3.5
+                        w-1.25 h-1.25 sm:w-3 sm:h-3 md:w-3.5 md:h-3.5
                         bg-green-400 rounded-full
-                        border-2 border-white shadow
+                        border-1 border-white shadow
                       '
                     />
                   )}

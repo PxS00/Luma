@@ -6,8 +6,10 @@
  */
 export function formatCPF(cpf: string): string {
   const cleanCPF = cpf.replace(/\D/g, '');
-  if (cleanCPF.length < 11) return cleanCPF;
-  return cleanCPF.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+  // Limita a 11 dígitos para evitar entrada excessiva
+  const limitedCPF = cleanCPF.slice(0, 11);
+  if (limitedCPF.length < 11) return limitedCPF;
+  return limitedCPF.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
 }
 
 /**
@@ -49,12 +51,14 @@ export function validateCPF(cpf: string): boolean {
  */
 export function formatPhone(phone: string): string {
   const cleanPhone = phone.replace(/\D/g, '');
-  if (cleanPhone.length < 10) return cleanPhone;
+  // Limita a 11 dígitos para evitar entrada excessiva
+  const limitedPhone = cleanPhone.slice(0, 11);
+  if (limitedPhone.length < 10) return limitedPhone;
   // Aplica máscara para telefones com 8 ou 9 dígitos no número
-  if (cleanPhone.length === 10) {
-    return cleanPhone.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+  if (limitedPhone.length === 10) {
+    return limitedPhone.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
   } else {
-    return cleanPhone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    return limitedPhone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
   }
 }
 

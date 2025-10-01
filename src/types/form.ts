@@ -44,6 +44,8 @@ export type InputFieldProps = {
   placeholder?: string;
   required?: boolean;
   maxLength?: number;
+  min?: string;
+  max?: string;
   isValid?: boolean;
   errorMessage?: string;
   className?: string;
