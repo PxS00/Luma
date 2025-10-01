@@ -1,10 +1,6 @@
 /**
  * Componente principal do Medical Schedule (Agenda de Consultas).
- * Permite ao usuário visualizar o calendário, adicionar, editar e remover lembretes de consultas médicas.
- *
- * Utiliza os subcomponentes CalendarGrid, ReminderModal e ReminderList.
- *
- * @module Schedule
+ * Responsivo: ajustes de paddings, tipografia e tamanhos por breakpoint.
  */
 
 import { useSchedule } from '@/hooks/useSchedule';
@@ -16,41 +12,26 @@ import Toast from '../Toast/Toast';
 import CalendarGrid from './CalendarGrid';
 import ReminderModal from './ReminderModal';
 
-/**
- * Componente Schedule
- */
-
-/**
- * Componente principal da agenda médica.
- * @returns JSX.Element
- */
 export default function ScheduleComponent(): React.JSX.Element {
-  // Estado para mensagem de erro do modal
+  // Estado de UI
   const [modalError, setModalError] = useState<string | null>(null);
-  // Estado para notificação tipo toast
   const [toast, setToast] = useState<ToastState>(null);
-  // Estado para controlar a última ação de lembrete
   const [reminderAction, setReminderAction] = useState<ReminderAction | null>(null);
 
-  // Função para exibir toast
-  /**
-   * Exibe um toast na tela
-   * @param message Mensagem do toast
-   * @param type Tipo do toast ('success' | 'error')
-   */
+  // Toast helper
   const showToast: ShowToastFn = (message, type = 'success') => {
     setToast({ message, type });
     setTimeout(() => setToast(null), 3000);
   };
 
-  // Dispara o toast após a ação de lembrete ser concluída
-  useEffect((): void => {
+  useEffect(() => {
     if (!reminderAction) return;
     if (reminderAction === 'add') showToast('Lembrete adicionado com sucesso!', 'success');
     if (reminderAction === 'edit') showToast('Lembrete editado com sucesso!', 'success');
     if (reminderAction === 'remove') showToast('Lembrete removido com sucesso!', 'success');
     setReminderAction(null);
   }, [reminderAction]);
+
   const {
     today,
     currentMonth,
@@ -73,85 +54,82 @@ export default function ScheduleComponent(): React.JSX.Element {
     remindersForCalendar,
   } = useSchedule();
 
-  // Wrappers para registrar ação e executar handlers
-  /**
-   * Handler para salvar lembrete e registrar ação
-   * @param reminder Lembrete a ser salvo
-   */
+  // Wrappers para registrar ação
   const handleSaveReminderWithAction: ReminderHandlerFn = (reminder) => {
     setModalError(null);
     handleSaveReminder(reminder);
     setReminderAction('add');
   };
-  /**
-   * Handler para editar lembrete e registrar ação
-   * @param reminder Lembrete a ser editado
-   */
   const handleEditReminderWithAction: ReminderHandlerFn = (reminder) => {
     handleEditReminder(reminder);
     setReminderAction('edit');
   };
-  /**
-   * Handler para remover lembrete e registrar ação
-   * @param reminder Lembrete a ser removido
-   */
   const handleRemoveReminderWithAction: ReminderHandlerFn = (reminder) => {
     handleRemoveReminder(reminder);
     setReminderAction('remove');
   };
 
-  // Calcula se está no limite de 6 meses à frente e atrás
+  // Limites de navegação
   const limitNextDate = new Date(today.getFullYear(), today.getMonth() + 6, 1);
   const nextDate =
-    currentMonth === 11
-      ? new Date(currentYear + 1, 0, 1)
-      : new Date(currentYear, currentMonth + 1, 1);
+    currentMonth === 11 ? new Date(currentYear + 1, 0, 1) : new Date(currentYear, currentMonth + 1, 1);
   const isNextDisabled = nextDate > limitNextDate;
 
-  // Só permite voltar até o mês/ano atual
   const prevDate =
-    currentMonth === 0
-      ? new Date(currentYear - 1, 11, 1)
-      : new Date(currentYear, currentMonth - 1, 1);
+    currentMonth === 0 ? new Date(currentYear - 1, 11, 1) : new Date(currentYear, currentMonth - 1, 1);
   const isPrevDisabled =
     prevDate.getFullYear() < today.getFullYear() ||
     (prevDate.getFullYear() === today.getFullYear() && prevDate.getMonth() < today.getMonth());
 
   return (
-    <main className='min-h-screen flex flex-col items-center justify-center py-8 bg-backPrimary'>
-      {/* Toast notification */}
+    <main className="min-h-screen flex flex-col items-center justify-start md:justify-center bg-backPrimary">
+      {/* Toast */}
       <Toast message={toast?.message || ''} type={toast?.type} show={!!toast} />
-      {/* Bloco centralizado do schedule */}
-      <section className='w-full max-w-7xl mx-auto flex flex-col items-center bg-transparent border-none shadow-none p-0'>
-        <div className='w-full max-w-6xl rounded-3xl bg-white border border-orange-100 box-border p-0 sm:p-8 md:p-12 flex flex-col items-center shadow-none'>
-          {/* Título principal */}
-          <h1 className='text-fontPrimary text-3xl mb-2 text-center font-bold'>
+
+      {/* Container com paddings responsivos */}
+      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        {/* Card/Bloco central com largura contida por breakpoint */}
+        <div className="w-full mx-auto max-w-5xl lg:max-w-6xl rounded-3xl bg-white border border-orange-100 p-4 sm:p-8 lg:p-10 xl:p-12 flex flex-col items-center">
+          {/* Título principal responsivo */}
+          <h1 className="text-fontPrimary text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-center mb-1 sm:mb-2">
             Lembrete de Agendamento
           </h1>
-          {/* Ano centralizado entre as setas */}
-          <div className='flex items-center justify-between w-full mb-2 px-2 sm:px-8'>
+
+          {/* Barra do ano + setas: gaps e tamanhos responsivos */}
+          <div className="flex items-center justify-between w-full mt-2 mb-3 sm:mb-4 px-1 sm:px-3">
             <button
-              className={`px-3 py-2 rounded-lg text-xl font-bold focus:outline-none transition-all ${isPrevDisabled ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-orange-700 hover:bg-orange-800 text-white'}`}
+              className={`inline-flex items-center justify-center rounded-xl font-bold focus:outline-none transition-all
+                ${isPrevDisabled
+                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                  : 'bg-orange-700 hover:bg-orange-800 text-white'}
+                h-9 w-9 text-lg sm:h-10 sm:w-10 sm:text-xl lg:h-11 lg:w-11 lg:text-2xl`}
               onClick={isPrevDisabled ? undefined : prevMonth}
-              aria-label='Mês anterior'
+              aria-label="Mês anterior"
               disabled={isPrevDisabled}
             >
               &#8592;
             </button>
-            <span className='text-orange-700 text-2xl font-bold text-center flex-1'>
+
+            <span className="text-orange-700 font-bold text-xl sm:text-2xl lg:text-3xl text-center flex-1">
               {currentYear}
             </span>
+
             <button
-              className={`px-3 py-2 rounded-lg text-xl font-bold focus:outline-none transition-all ${isNextDisabled ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-orange-700 hover:bg-orange-800 text-white'}`}
+              className={`inline-flex items-center justify-center rounded-xl font-bold focus:outline-none transition-all
+                ${isNextDisabled
+                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                  : 'bg-orange-700 hover:bg-orange-800 text-white'}
+                h-9 w-9 text-lg sm:h-10 sm:w-10 sm:text-xl lg:h-11 lg:w-11 lg:text-2xl`}
               onClick={isNextDisabled ? undefined : nextMonth}
-              aria-label='Mês seguinte'
+              aria-label="Mês seguinte"
               disabled={isNextDisabled}
             >
               &#8594;
             </button>
           </div>
-          {/* Grade do calendário */}
-          <div className='w-full px-0 sm:px-4 md:px-8'>
+
+          {/* Grade do calendário: preenchimento lateral por breakpoint */}
+          <div className="w-full px-0 sm:px-2 md:px-4 lg:px-6">
             <CalendarGrid
               currentMonth={currentMonth}
               currentYear={currentYear}
@@ -163,35 +141,31 @@ export default function ScheduleComponent(): React.JSX.Element {
               getDaysMatrix={getDaysMatrix}
               formatDate={(day: number) => formatDate(day, currentMonth, currentYear)}
             />
-            {/* Indicação do dia selecionado */}
+
+            {/* Dia selecionado */}
             {selectedDate && (
-              <div className='w-full flex justify-center mt-6 mb-4'>
-                <div className='bg-orange-50 border-2 border-orange-400 rounded-xl px-6 py-3 shadow-md'>
-                  <span className='text-orange-700 font-semibold'>
-                    Dia selecionado:{' '}
-                    {new Date(selectedDate + 'T00:00:00').toLocaleDateString('pt-BR')}
+              <div className="w-full flex justify-center mt-5 sm:mt-6 mb-3 sm:mb-4">
+                <div className="bg-orange-50 border-2 border-orange-400 rounded-xl px-4 sm:px-6 py-2.5 sm:py-3 shadow-sm text-center">
+                  <span className="text-orange-700 font-semibold text-base sm:text-lg">
+                    Dia selecionado: {new Date(selectedDate + 'T00:00:00').toLocaleDateString('pt-BR')}
                   </span>
                 </div>
               </div>
             )}
 
-            {/* Botão de adicionar lembrete */}
-            <div className='w-full flex justify-center mt-0'>
+            {/* Botão adicionar lembrete: tamanho/touch-target responsivo */}
+            <div className="w-full flex justify-center mt-6 sm:mt-8">
               <button
-                className={`flex items-center gap-2 font-semibold px-6 py-3 rounded-xl text-lg shadow transition focus:outline-none focus:ring-2 ${
-                  selectedDate
+                className={`inline-flex items-center gap-2 font-semibold rounded-2xl shadow-sm transition focus:outline-none focus:ring-2
+                  ${selectedDate
                     ? 'bg-orange-600 hover:bg-orange-700 text-white focus:ring-orange-400'
-                    : 'bg-gray-400 text-gray-600 cursor-not-allowed'
-                }`}
+                    : 'bg-gray-300 text-gray-600 cursor-not-allowed'}
+                  px-4 py-2 text-base sm:px-6 sm:py-3 sm:text-lg lg:px-7 lg:py-3.5 lg:text-xl`}
                 onClick={() => {
                   if (!selectedDate) {
-                    showToast(
-                      'Selecione um dia no calendário para adicionar um lembrete!',
-                      'error'
-                    );
+                    showToast('Selecione um dia no calendário para adicionar um lembrete!', 'error');
                     return;
                   }
-
                   const usuarioLogado = localStorage.getItem('usuarioLogado');
                   if (!usuarioLogado) {
                     setModalError('Você precisa estar logado para adicionar lembretes!');
@@ -203,11 +177,14 @@ export default function ScheduleComponent(): React.JSX.Element {
                   }
                 }}
                 disabled={!selectedDate}
-                aria-label='Adicionar lembrete'
+                aria-label="Adicionar lembrete"
               >
-                <span className='text-2xl font-bold'>+</span> Adicionar Lembrete
+                <span className="text-xl sm:text-2xl leading-none">+</span>
+                <span>Adicionar Lembrete</span>
               </button>
             </div>
+
+            {/* Modal */}
             <ReminderModal
               show={showModal}
               onClose={() => {
@@ -227,32 +204,34 @@ export default function ScheduleComponent(): React.JSX.Element {
               error={modalError}
             />
           </div>
-          {/* Lista de lembretes do dia (fora do modal, para acessibilidade) */}
+
+          {/* Lista de lembretes do dia (fora do modal) */}
           {selectedDate && remindersOfDay.length > 0 && (
-            <div className='mt-6 mb-4 w-full px-2 sm:px-6 md:px-12 bg-transparent shadow-none'>
-              <h3 className='text-2xl font-semibold mb-3'>Lembretes do dia:</h3>
-              <ul className='space-y-3 border border-orange-200 rounded-2xl bg-gray-50 max-w-2xl mx-auto py-3'>
+            <div className="mt-6 sm:mt-8 mb-3 sm:mb-4 w-full px-2 sm:px-4 lg:px-8">
+              <h3 className="text-xl sm:text-2xl mb-3">Lembretes do dia:</h3>
+              <ul className="space-y-2 sm:space-y-3 border border-orange-200 rounded-2xl bg-gray-50 max-w-xl sm:max-w-2xl mx-auto py-2 sm:py-3">
                 {remindersOfDay.map((r, idx) => (
                   <li
                     key={idx}
-                    className='flex items-center justify-between bg-gray-50 rounded px-6 py-4 min-h-[56px] text-lg'
+                    className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-50 rounded-xl px-4 sm:px-6 py-3 sm:py-4 min-h-[52px] sm:min-h-[56px] text-base sm:text-lg gap-2 sm:gap-0"
                   >
-                    <div>
-                      <span className='font-medium text-lg'>{r.time}</span> -{' '}
-                      <span className='text-lg'>{r.description}</span>
+                    <div className="text-gray-900">
+                      <span className="font-medium">{r.time}</span>
+                      <span className="mx-2 text-gray-400">—</span>
+                      <span>{r.description}</span>
                     </div>
-                    <div className='flex gap-4'>
+                    <div className="flex gap-4">
                       <button
-                        className='text-blue-500 hover:underline text-lg focus:outline-none'
+                        className="text-blue-600 hover:underline focus:outline-none"
                         onClick={() => handleEditReminderWithAction(r)}
-                        aria-label='Edit reminder'
+                        aria-label="Editar lembrete"
                       >
                         Editar
                       </button>
                       <button
-                        className='text-red-500 hover:underline text-lg focus:outline-none'
+                        className="text-red-600 hover:underline focus:outline-none"
                         onClick={() => handleRemoveReminderWithAction(r)}
-                        aria-label='Remove reminder'
+                        aria-label="Remover lembrete"
                       >
                         Remover
                       </button>
