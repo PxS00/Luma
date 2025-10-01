@@ -1,5 +1,6 @@
 // src/components/shared/Tutorial/TutorialCarousel.tsx
 import type { TutorialCarouselProps } from '@/types/carousel';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import CarrosselBase from '../../Carrossel/CarrosselBase';
 import TutorialStep from './TutorialStep';
 
@@ -54,7 +55,7 @@ export default function TutorialCarousel({
   focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-backBtn/60
 '
               >
-                ‹
+                <IoIosArrowBack className='text-lg md:text-xl lg:text-2xl' />
               </button>
 
               <button
@@ -73,7 +74,7 @@ export default function TutorialCarousel({
   focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-backBtn/60
 '
               >
-                ›
+                <IoIosArrowForward className='text-lg md:text-xl lg:text-2xl' />
               </button>
             </>
           );
@@ -97,7 +98,7 @@ export default function TutorialCarousel({
                     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-backBtn/60
                   '
                 >
-                  ‹
+                  <IoIosArrowBack className='text-base' />
                 </button>
 
                 <button
@@ -110,7 +111,7 @@ export default function TutorialCarousel({
                     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-backBtn/60
                   '
                 >
-                  ›
+                  <IoIosArrowForward className='text-base' />
                 </button>
               </div>
 

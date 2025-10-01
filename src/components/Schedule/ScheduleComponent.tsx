@@ -22,6 +22,7 @@
 
 import { useSchedule } from '@/hooks/useSchedule';
 import React, { useEffect, useState } from 'react';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import type { ReminderAction, ReminderHandlerFn } from '../../types/reminder';
 import type { ShowToastFn, ToastState } from '../../types/toast';
 import { formatDate, getDaysMatrix, getMonthName } from '../../utils/calendarUtils';
@@ -149,7 +150,7 @@ export default function ScheduleComponent(): React.JSX.Element {
               aria-label='Mês anterior'
               disabled={isPrevDisabled}
             >
-              &#8592;
+              <FaArrowLeft />
             </button>
 
             <span className='text-orange-700 font-bold text-xl sm:text-2xl lg:text-3xl text-center flex-1'>
@@ -168,7 +169,7 @@ export default function ScheduleComponent(): React.JSX.Element {
               aria-label='Mês seguinte'
               disabled={isNextDisabled}
             >
-              &#8594;
+              <FaArrowRight />
             </button>
           </div>
 
