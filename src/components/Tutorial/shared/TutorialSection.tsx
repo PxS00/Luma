@@ -27,7 +27,20 @@ export default function TutorialSection({
   steps,
   carouselOptions = { autoMs: 0 },
   className = '',
-  imgClassName = '!max-h-none !h-full object-contain',
+imgClassName = `
+  !max-h-none !h-full object-contain
+  lg:!object-top
+  lg:!translate-y-32
+  xl:!translate-y-34
+  lg:!scale-y-133
+  xl:!scale-y-135
+  lg:!mx-auto
+  lg:max-w-[57%] lg:max-h-[60%]   /* <-- aumenta no desktop */
+  xl:max-w-[56%] xl:max-h-[60%]   /* <-- aumenta ainda mais em telas muito grandes */
+`,
+
+
+
 }: TutorialSectionProps) {
   return (
     <section
