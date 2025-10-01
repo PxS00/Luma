@@ -11,7 +11,7 @@ export default function Integrantes() {
     document.title = 'Integrantes';
   }, []);
   return (
-    <main className='container mx-auto px-4 py-8' aria-label='Conteúdo principal dos integrantes'>
+    <main className='container mx-auto px-4 py-30' aria-label='Integrantes do projeto Luma'>
       <CarrosselIntegrantes members={members} autoMs={8000} showControls showIndicators />
     </main>
   );
