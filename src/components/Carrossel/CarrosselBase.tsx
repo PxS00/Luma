@@ -1,5 +1,5 @@
 // src/components/shared/Carrossel/CarrosselBase.tsx
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
 
 type ControlsAPI = {
   prev: () => void;
@@ -17,9 +17,9 @@ type IndicatorsAPI = {
 type CarrosselBaseProps = {
   total: number;
   startIndex?: number;
-  autoMs?: number | null;           // null/undefined = sem autoplay
-  className?: string;               // classes do wrapper externo
-  viewportClassName?: string;       // classes do viewport (área do slide, relative)
+  autoMs?: number | null; // null/undefined = sem autoplay
+  className?: string; // classes do wrapper externo
+  viewportClassName?: string; // classes do viewport (área do slide, relative)
   onChangeIndex?: (i: number) => void;
 
   // Conteúdo do slide atual
@@ -49,7 +49,7 @@ export default function CarrosselBase({
   const viewportRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<number | null>(null);
 
-  const goTo = useCallback((i: number) => setIndex((((i % total) + total) % total)), [total]);
+  const goTo = useCallback((i: number) => setIndex(((i % total) + total) % total), [total]);
   const next = useCallback(() => setIndex((i) => (i + 1) % total), [total]);
   const prev = useCallback(() => setIndex((i) => (i - 1 + total) % total), [total]);
 
@@ -79,27 +79,33 @@ export default function CarrosselBase({
     if (!vp) return;
     const onKey = (e: KeyboardEvent) => {
       if (document.activeElement && vp.contains(document.activeElement)) {
-        if (e.key === "ArrowRight") { e.preventDefault(); next(); }
-        if (e.key === "ArrowLeft")  { e.preventDefault(); prev(); }
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          next();
+        }
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          prev();
+        }
       }
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
   }, [next, prev]);
 
   return (
     <div
-      className={["relative", className || ""].join(" ").trim()}
-      aria-roledescription="carousel"
+      className={['relative', className || ''].join(' ').trim()}
+      aria-roledescription='carousel'
       aria-label={`carousel-${id}`}
     >
       {/* Viewport: relative para ancorar controles do slot */}
       <div
         id={`${id}-viewport`}
         ref={viewportRef}
-        role="group"
-        aria-live="polite"
-        className={["relative w-full", viewportClassName || ""].join(" ").trim()}
+        role='group'
+        aria-live='polite'
+        className={['relative w-full', viewportClassName || ''].join(' ').trim()}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onFocus={handleFocusIn}

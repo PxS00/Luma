@@ -6,7 +6,7 @@ import MembroCard from './MembroCard';
 export interface CarrosselIntegrantesProps extends CarouselOptions {
   members: Member[];
   title?: string;
-  showControls?: boolean;   // botões ‹ ›
+  showControls?: boolean; // botões ‹ ›
   showIndicators?: boolean; // bolinhas
   className?: string;
   autoMs?: number;
@@ -29,21 +29,18 @@ export default function CarrosselIntegrantes({
   return (
     <section aria-label={title || 'Integrantes'} className={className}>
       {title && (
-        <h2 className="text-center text-xl sm:text-2xl font-bold text-fontPrimary mb-4">
-          {title}
-        </h2>
+        <h2 className='text-center text-xl sm:text-2xl font-bold text-fontPrimary mb-4'>{title}</h2>
       )}
 
-      <div className="relative max-w-[900px] mx-auto">
+      <div className='relative max-w-[900px] mx-auto'>
         <CarrosselBase
           total={members.length}
           autoMs={autoMs}
           renderItem={(i) => (
-            <ul className="list-none p-0 m-0 flex justify-center">
+            <ul className='list-none p-0 m-0 flex justify-center'>
               <MembroCard member={members[i]} />
             </ul>
           )}
-
           /* SETAS LATERAIS: só em lg+ */
           renderControls={(api) => {
             const { prev, next, total } = api;
@@ -52,10 +49,10 @@ export default function CarrosselIntegrantes({
             return (
               <>
                 <button
-                  type="button"
-                  aria-label="Anterior"
+                  type='button'
+                  aria-label='Anterior'
                   onClick={prev}
-                  className="
+                  className='
                     hidden lg:inline-flex
                     absolute top-1/2 -translate-y-1/2 left-3 xl:left-4
                     z-20 items-center justify-center
@@ -63,16 +60,16 @@ export default function CarrosselIntegrantes({
                     rounded-full bg-backBtn text-white shadow
                     hover:bg-hoverBtn
                     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-backBtn/60
-                  "
+                  '
                 >
                   ‹
                 </button>
 
                 <button
-                  type="button"
-                  aria-label="Próximo"
+                  type='button'
+                  aria-label='Próximo'
                   onClick={next}
-                  className="
+                  className='
                     hidden lg:inline-flex
                     absolute top-1/2 -translate-y-1/2 right-3 xl:right-4
                     z-20 items-center justify-center
@@ -80,14 +77,13 @@ export default function CarrosselIntegrantes({
                     rounded-full bg-backBtn text-white shadow
                     hover:bg-hoverBtn
                     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-backBtn/60
-                  "
+                  '
                 >
                   ›
                 </button>
               </>
             );
           }}
-
           /* INDICADORES + botões inferiores no mobile/tablet */
           renderIndicators={(api) => {
             const { goTo, index, total } = api;
@@ -96,45 +92,48 @@ export default function CarrosselIntegrantes({
             const wrap = (n: number) => (n + total) % total;
 
             return (
-              <div className="mt-4 lg:mt-6 flex flex-col items-center gap-3">
+              <div className='mt-4 lg:mt-6 flex flex-col items-center gap-3'>
                 {/* botões abaixo do card apenas em <lg */}
-                <div className="flex lg:hidden items-center justify-center gap-6">
+                <div className='flex lg:hidden items-center justify-center gap-6'>
                   <button
-                    type="button"
-                    aria-label="Anterior"
+                    type='button'
+                    aria-label='Anterior'
                     onClick={() => goTo(wrap(index - 1))}
-                    className="
+                    className='
                       inline-flex items-center justify-center
                       w-9 h-9 rounded-full bg-backBtn text-white shadow
                       hover:bg-hoverBtn
                       focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-backBtn/60
-                    "
+                    '
                   >
                     ‹
                   </button>
 
                   <button
-                    type="button"
-                    aria-label="Próximo"
+                    type='button'
+                    aria-label='Próximo'
                     onClick={() => goTo(wrap(index + 1))}
-                    className="
+                    className='
                       inline-flex items-center justify-center
                       w-9 h-9 rounded-full bg-backBtn text-white shadow
                       hover:bg-hoverBtn
                       focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-backBtn/60
-                    "
+                    '
                   >
                     ›
                   </button>
                 </div>
 
                 {/* bolinhas (sempre visíveis) */}
-                <div className="flex items-center justify-center gap-2 sm:gap-3 md:gap-4" role="tablist">
+                <div
+                  className='flex items-center justify-center gap-2 sm:gap-3 md:gap-4'
+                  role='tablist'
+                >
                   {Array.from({ length: total }).map((_, i) => (
                     <button
                       key={i}
-                      type="button"
-                      role="tab"
+                      type='button'
+                      role='tab'
                       aria-label={`Ir ao passo ${i + 1}`}
                       aria-selected={i === index}
                       onClick={() => goTo(i)}

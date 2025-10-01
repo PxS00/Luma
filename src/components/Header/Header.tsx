@@ -1,8 +1,8 @@
-import { useRef, useState } from 'react';
 import { logo } from '@/assets/images';
-import MainMenu from './MainMenu';
+import { useRef, useState } from 'react';
 import BtnMenu from '../Button/BtnMenu';
 import BtnSearch from '../Button/BtnSearch';
+import MainMenu from './MainMenu';
 import SearchBox from './SearchBox';
 
 /**
@@ -37,7 +37,7 @@ export default function Header() {
   '
         >
           {/* Logo */}
-          <a className='shrink-0 pl-2 lg:pl-0 xl:pl-4' href='/'>
+          <a className='shrink-0 pl-2 lg:pl-0 xl:pl-4' href='/' aria-label='Ir para página inicial'>
             <div
               className='
       h-12 w-12               

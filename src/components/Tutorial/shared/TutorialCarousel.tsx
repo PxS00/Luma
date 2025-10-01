@@ -38,14 +38,14 @@ export default function TutorialCarousel({
       <CarrosselBase
         total={steps.length}
         autoMs={autoMs}
-       viewportClassName={['relative w-full mx-auto overflow-visible', contentClassName || ''].join(' ').trim()}
-
+        viewportClassName={['relative w-full mx-auto overflow-visible', contentClassName || '']
+          .join(' ')
+          .trim()}
         renderItem={(i) => (
-          <ul className="list-none m-0 p-0">
+          <ul className='list-none m-0 p-0'>
             <TutorialStep step={steps[i]} stepNumber={i} imgClassName={imgClassName} />
           </ul>
         )}
-
         // SETAS LATERAIS: apenas em md+
         renderControls={(api) => {
           const { prev, next, total } = api;
@@ -53,10 +53,10 @@ export default function TutorialCarousel({
           return (
             <>
               <button
-                type="button"
-                aria-label="Anterior"
+                type='button'
+                aria-label='Anterior'
                 onClick={prev}
-                className="
+                className='
   hidden md:inline-flex
   absolute top-1/2 -translate-y-1/2
   md:-left-12         /* tablet/desktop inicial */
@@ -66,17 +66,16 @@ export default function TutorialCarousel({
   w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 xl:w-14 xl:h-14
   rounded-full bg-backBtn text-white shadow
   focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-backBtn/60
-"
-
+'
               >
                 ‹
               </button>
 
               <button
-                type="button"
-                aria-label="Próximo"
+                type='button'
+                aria-label='Próximo'
                 onClick={next}
-                className="
+                className='
   hidden md:inline-flex
   absolute top-1/2 -translate-y-1/2
   md:-right-12
@@ -86,57 +85,59 @@ export default function TutorialCarousel({
   w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 xl:w-14 xl:h-14
   rounded-full bg-backBtn text-white shadow
   focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-backBtn/60
-"
+'
               >
                 ›
               </button>
             </>
           );
         }}
-
         // xs/sm: botões ACIMA das bolinhas | md+: só bolinhas (com mais respiro/tamanho)
         renderIndicators={(api) => {
           const { goTo, index, total } = api;
           if (!(showIndicators && total > 1)) return null;
 
           return (
-            <div className="mt-3 md:mt-8 flex flex-col items-center gap-2">
+            <div className='mt-3 md:mt-8 flex flex-col items-center gap-2'>
               {/* fileira de botões (apenas xs/sm) */}
-              <div className="md:hidden flex items-center justify-center gap-30">
+              <div className='md:hidden flex items-center justify-center gap-30'>
                 <button
-                  type="button"
-                  aria-label="Anterior"
+                  type='button'
+                  aria-label='Anterior'
                   onClick={() => goTo(index - 1)}
-                  className="
+                  className='
                     inline-flex items-center justify-center
                     w-8 h-8 rounded-full bg-backBtn text-white shadow
                     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-backBtn/60
-                  "
+                  '
                 >
                   ‹
                 </button>
 
                 <button
-                  type="button"
-                  aria-label="Próximo"
+                  type='button'
+                  aria-label='Próximo'
                   onClick={() => goTo(index + 1)}
-                  className="
+                  className='
                     inline-flex items-center justify-center
                     w-8 h-8 rounded-full bg-backBtn text-white shadow
                     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-backBtn/60
-                  "
+                  '
                 >
                   ›
                 </button>
               </div>
 
               {/* bolinhas (sempre visíveis) */}
-              <div className="flex items-center justify-center gap-2 sm:gap-3 md:gap-5" role="tablist">
+              <div
+                className='flex items-center justify-center gap-2 sm:gap-3 md:gap-5'
+                role='tablist'
+              >
                 {Array.from({ length: total }).map((_, i) => (
                   <button
                     key={i}
-                    type="button"
-                    role="tab"
+                    type='button'
+                    role='tab'
                     aria-label={`Ir ao passo ${i + 1}`}
                     aria-selected={i === index}
                     onClick={() => goTo(i)}

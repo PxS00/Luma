@@ -4,7 +4,7 @@ import type { Modo } from '@/types/tabs';
 import type { ReactNode } from 'react'; // <- IMPORTA O TIPO
 
 type ChooseModeTabsProps = {
-  app: ReactNode;                   // (usa ReactNode importado)
+  app: ReactNode; // (usa ReactNode importado)
   nav: ReactNode;
   labelApp?: string;
   labelNav?: string;
@@ -31,28 +31,24 @@ export default function ChooseModeTabs({
   unmountInactive = false,
   onChangeMode, // <- PEGANDO A PROP AQUI
 }: ChooseModeTabsProps) {
-  const {
-    setActiveTab,
-    listRef,
-    tabId,
-    panelId,
-    isActive,
-    onKeyDown,
-  } = useTabs({ defaultMode, idBase });
+  const { setActiveTab, listRef, tabId, panelId, isActive, onKeyDown } = useTabs({
+    defaultMode,
+    idBase,
+  });
 
   return (
     <div className={className}>
       <div
         ref={listRef}
-        role="tablist"
-        aria-label="Escolha como quer cadastrar"
+        role='tablist'
+        aria-label='Escolha como quer cadastrar'
         onKeyDown={onKeyDown}
-        className="flex flex-wrap justify-center gap-3"
+        className='flex flex-wrap justify-center gap-3'
       >
         {/* App */}
         <BtnAcao
-          variant="primary"
-          role="tab"
+          variant='primary'
+          role='tab'
           id={tabId('app')}
           aria-selected={isActive('app')}
           aria-controls={panelId('app')}
@@ -72,8 +68,8 @@ export default function ChooseModeTabs({
 
         {/* Navegador */}
         <BtnAcao
-          variant="primary"
-          role="tab"
+          variant='primary'
+          role='tab'
           id={tabId('nav')}
           aria-selected={isActive('nav')}
           aria-controls={panelId('nav')}
@@ -97,9 +93,9 @@ export default function ChooseModeTabs({
           {isActive('app') && (
             <section
               id={panelId('app')}
-              role="tabpanel"
+              role='tabpanel'
               aria-labelledby={tabId('app')}
-              className="w-full mt-2"
+              className='w-full mt-2'
             >
               {app}
             </section>
@@ -107,9 +103,9 @@ export default function ChooseModeTabs({
           {isActive('nav') && (
             <section
               id={panelId('nav')}
-              role="tabpanel"
+              role='tabpanel'
               aria-labelledby={tabId('nav')}
-              className="w-full mt-2"
+              className='w-full mt-2'
             >
               {nav}
             </section>
@@ -119,20 +115,20 @@ export default function ChooseModeTabs({
         <>
           <section
             id={panelId('app')}
-            role="tabpanel"
+            role='tabpanel'
             aria-labelledby={tabId('app')}
             hidden={!isActive('app')}
-            className="w-full mt-2"
+            className='w-full mt-2'
           >
             {app}
           </section>
 
           <section
             id={panelId('nav')}
-            role="tabpanel"
+            role='tabpanel'
             aria-labelledby={tabId('nav')}
             hidden={!isActive('nav')}
-            className="w-full mt-2"
+            className='w-full mt-2'
           >
             {nav}
           </section>

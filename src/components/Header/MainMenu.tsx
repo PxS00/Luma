@@ -1,7 +1,7 @@
+import { useLocation } from 'react-router-dom';
+import { HEADER_MENU } from '../../config/navigation';
 import BtnExterno from '../Button/BtnExterno';
 import BtnNav from '../Button/BtnNav';
-import { HEADER_MENU } from '../../config/navigation';
-import { useLocation } from 'react-router-dom';
 
 /**
  * Menu principal de navegação
