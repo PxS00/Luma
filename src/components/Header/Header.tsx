@@ -31,7 +31,7 @@ export default function Header() {
         <div
           className='
     flex items-center justify-between 
-    h-16 sm:h-20 lg:h-24            /* <<< aumentei a altura do header */
+    h-16 sm:h-20 lg:h-24
     lg:grid lg:grid-cols-[auto_1fr_auto] lg:justify-items-center lg:gap-4
     min-w-0
   '

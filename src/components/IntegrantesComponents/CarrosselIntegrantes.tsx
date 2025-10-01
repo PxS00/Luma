@@ -31,7 +31,6 @@ export default function CarrosselIntegrantes({
               <MembroCard member={members[i]} />
             </ul>
           )}
-          /* SETAS LATERAIS: só em lg+ */
           renderControls={(api) => {
             const { prev, next, total } = api;
             if (!(showControls && total > 1)) return null;
@@ -74,7 +73,6 @@ export default function CarrosselIntegrantes({
               </>
             );
           }}
-          /* INDICADORES + botões inferiores no mobile/tablet */
           renderIndicators={(api) => {
             const { goTo, index, total } = api;
             if (!(showIndicators && total > 1)) return null;

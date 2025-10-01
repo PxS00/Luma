@@ -90,16 +90,12 @@ export default function ScheduleComponent(): React.JSX.Element {
       {/* Toast */}
       <Toast message={toast?.message || ''} type={toast?.type} show={!!toast} />
 
-      {/* Container com paddings responsivos */}
       <section className='w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8'>
-        {/* Card/Bloco central com largura contida por breakpoint */}
         <div className='w-full mx-auto max-w-5xl lg:max-w-6xl rounded-3xl bg-white border border-orange-100 p-4 sm:p-8 lg:p-10 xl:p-12 flex flex-col items-center'>
-          {/* Título principal responsivo */}
           <h1 className='text-fontPrimary text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-center mb-1 sm:mb-2'>
             Lembrete de Agendamento
           </h1>
 
-          {/* Barra do ano + setas: gaps e tamanhos responsivos */}
           <div className='flex items-center justify-between w-full mt-2 mb-3 sm:mb-4 px-1 sm:px-3'>
             <button
               className={`inline-flex items-center justify-center rounded-xl font-bold focus:outline-none transition-all

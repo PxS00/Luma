@@ -46,8 +46,6 @@ import type { TutorialStepData } from '../types/tutorialStep';
 /**
  * Constantes de passos dos tutoriais (cadastro e teleconsulta)
  * Usadas para exibir passo a passo ilustrado para o usuário
- *
- * @type {TutorialStepData[]}
  */
 
 export const MOBILE_SIGNUP_STEPS: TutorialStepData[] = [

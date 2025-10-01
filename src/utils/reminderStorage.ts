@@ -14,7 +14,6 @@ export function getRemindersFromStorage(): Reminder[] {
   const data = localStorage.getItem(STORAGE_KEY);
   if (!data) return [];
   try {
-    // Tenta fazer o parse dos dados salvos; retorna array vazio em caso de erro
     return JSON.parse(data) as Reminder[];
   } catch {
     return [];
@@ -28,7 +27,6 @@ export function getRemindersFromStorage(): Reminder[] {
 export function saveReminderToStorage(reminder: Reminder): void {
   const reminders = getRemindersFromStorage();
   reminders.push(reminder);
-  // Atualiza o localStorage com o novo array de lembretes
   localStorage.setItem(STORAGE_KEY, JSON.stringify(reminders));
 }
 

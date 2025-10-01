@@ -8,8 +8,6 @@ import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
-// Removed duplicate definition of LoginFormData
-
 /**
  * Formulário de Login
  * Permite acesso à aplicação usando CPF e data de nascimento

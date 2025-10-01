@@ -15,7 +15,6 @@ export function getUsersFromStorage(): CadastroFormData[] {
   const data = localStorage.getItem(USERS_KEY);
   if (!data) return [];
   try {
-    // Tenta fazer o parse dos dados salvos; retorna array vazio em caso de erro
     return JSON.parse(data) as CadastroFormData[];
   } catch {
     return [];
@@ -29,7 +28,6 @@ export function getUsersFromStorage(): CadastroFormData[] {
 export function saveUserToStorage(user: CadastroFormData): void {
   const users = getUsersFromStorage();
   users.push(user);
-  // Atualiza o localStorage com o novo array de usuários
   localStorage.setItem(USERS_KEY, JSON.stringify(users));
 }
 

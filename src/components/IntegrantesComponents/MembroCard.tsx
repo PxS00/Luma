@@ -58,7 +58,6 @@ export default function MembroCard({ member, className = '' }: MembroCardProps) 
         </div>
       </header>
 
-      {/* Descrição */}
       {description && (
         <div className='mt-4 sm:mt-5'>
           <p className='mb-0 text-[15px] sm:text-base font-bold text-[#2B1D1A] text-center md:text-justify'>

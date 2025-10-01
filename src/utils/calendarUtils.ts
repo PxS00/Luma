@@ -18,7 +18,6 @@ export function getMonthName(month: number): string {
     'Novembro',
     'Dezembro',
   ];
-  // Retorna o nome do mês correspondente ao índice fornecido
   return months[month];
 }
 
@@ -36,13 +35,11 @@ export function getDaysMatrix(month: number, year: number): (number | null)[][] 
   const matrix: (number | null)[][] = [];
   let week: (number | null)[] = [];
   let dayCounter = 1;
-  // Preenche a primeira semana, inserindo null nos dias antes do início do mês
   for (let i = 0; i < 7; i++) {
     if (i < startDayOfWeek) week.push(null);
     else week.push(dayCounter++);
   }
   matrix.push(week);
-  // Preenche as semanas seguintes até acabar o mês
   while (dayCounter <= daysInMonth) {
     week = [];
     for (let i = 0; i < 7; i++) {
@@ -64,6 +61,5 @@ export function getDaysMatrix(month: number, year: number): (number | null)[][] 
 export function formatDate(day: number, month: number, year: number): string {
   const m = String(month + 1).padStart(2, '0');
   const d = String(day).padStart(2, '0');
-  // Retorna a data formatada no padrão ISO
   return `${year}-${m}-${d}`;
 }

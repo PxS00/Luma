@@ -23,7 +23,7 @@ export default function BtnExterno({
         text-sm sm:text-base
         bg-backBtn text-white font-bold rounded-md
         transition-colors duration-300 hover:bg-hoverBtn
-        break-words whitespace-normal     /* <<< permite quebra de linha */
+        break-words whitespace-normal
         ${className}
       `}
     >

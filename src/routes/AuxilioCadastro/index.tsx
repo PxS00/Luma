@@ -8,10 +8,6 @@ import { useEffect } from 'react';
  * Página de auxílio ao cadastro
  * Sistema de tabs para escolher entre tutorial do App ou Navegador
  * Inclui introdução e tutoriais específicos para cada plataforma
- *
- * @example
- * // Uso em rotas (React Router)
- * <Route path="/auxilio-cadastro" element={<AuxilioCadastro />} />
  */
 export default function AuxilioCadastro() {
   useEffect(() => {
@@ -21,9 +17,8 @@ export default function AuxilioCadastro() {
   return (
     <main
       aria-label='Conteúdo principal de auxílio ao cadastro'
-      className='w-full overflow-x-clip bg-backPrimary' // <- aqui
+      className='w-full overflow-x-clip bg-backPrimary'
     >
-      {/* container interno controla largura + padding */}
       <div className='mx-auto w-full max-w-screen-lg px-5 py-5 flex flex-col items-center gap-5'>
         <IntroCadastro />
 

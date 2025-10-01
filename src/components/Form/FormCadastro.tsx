@@ -9,7 +9,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 /**
- * Formulário de Atendimento
+ * Formulário de Cadastro
  * Coleta dados do usuário para cadastro prévio
  */
 export default function FormCadastro() {
@@ -192,7 +192,7 @@ export default function FormCadastro() {
       <BtnAcao
         type='button'
         id='botao-nao-cadastrar'
-        onClick={() => navigate('/')} // volta para a Home, pode trocar destino
+        onClick={() => navigate('/')}
         className='w-full mt-[10px] text-lg bg-gray-300 text-fontTertiary hover:bg-gray-400'
       >
         Não quero me cadastrar
