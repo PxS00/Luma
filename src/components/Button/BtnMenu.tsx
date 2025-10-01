@@ -1,3 +1,7 @@
+/**
+ * Botão hambúrguer para controle do menu mobile
+ * Alterna entre ícone de menu e X dependendo do estado
+ */
 export default function BtnMenu({ open, onClick }: { open: boolean; onClick: () => void }) {
   return (
     <button

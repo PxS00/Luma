@@ -1,6 +1,10 @@
 import { removeLoggedUser } from '@/utils/userStorage';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * Botão de logout que remove o usuário logado e redireciona para home
+ * Usado no menu de usuário para fazer logoff
+ */
 export default function BtnLogout() {
   const navigate = useNavigate();
   const handleLogout = () => {

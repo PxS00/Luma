@@ -48,11 +48,6 @@ export default function FormCadastro() {
     }
   };
 
-  // Manipula a limpeza do formulário
-  const handleClear = () => {
-    reset();
-  };
-
   return (
     <main>
       <h1 className='text-center mb-5 text-fontPrimary text-2xl font-bold '>

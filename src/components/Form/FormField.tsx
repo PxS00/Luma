@@ -1,5 +1,9 @@
 import type { FormFieldProps } from '@/types/form';
 
+/**
+ * Campo de formulário reutilizável com label
+ * Encapsula label, indicação de obrigatório e conteúdo do campo
+ */
 export default function FormField({
   label,
   required = false,

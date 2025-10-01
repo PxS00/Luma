@@ -10,6 +10,10 @@ type TutorialStepProps = {
   imgClassName?: string;
 };
 
+/**
+ * Step individual do tutorial com moldura responsiva
+ * Mostra imagem com moldura mobile ou desktop conforme breakpoint
+ */
 export default function TutorialStep({ step, stepNumber, imgClassName }: TutorialStepProps) {
   const title = step.title ?? step.alt;
 

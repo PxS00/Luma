@@ -3,6 +3,11 @@ import BtnNav from '../Button/BtnNav';
 import { HEADER_MENU } from '../../config/navigation';
 import { useLocation } from 'react-router-dom';
 
+/**
+ * Menu principal de navegação
+ * Filtra itens com base na busca e oculta página atual
+ */
+
 type Props = { filter?: string };
 
 function normalize(s: string) {

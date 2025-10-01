@@ -15,6 +15,11 @@ type ChooseModeTabsProps = {
   onChangeMode?: (mode: Modo) => void; // <- tipado aqui
 };
 
+/**
+ * Componente de tabs para escolher entre App e Navegador
+ * Implementa padrão ARIA para acessibilidade com navegação por teclado
+ */
+
 export default function ChooseModeTabs({
   app,
   nav,

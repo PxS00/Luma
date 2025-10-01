@@ -58,11 +58,6 @@ export default function FormLogin() {
     }
   };
 
-  // Manipula a limpeza do formulário
-  const handleClear = () => {
-    reset();
-  };
-
   return (
     <main>
       <h1 className='text-center mb-5 text-fontPrimary text-2xl font-bold'>Acesse sua conta</h1>
@@ -124,7 +119,7 @@ export default function FormLogin() {
       <BtnAcao
         type='button'
         id='botao-login-limpar'
-        onClick={handleClear}
+        onClick={() => reset()}
         className='w-full mt-[10px] text-lg'
       >
         LIMPAR

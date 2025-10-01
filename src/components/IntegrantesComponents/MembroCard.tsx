@@ -8,6 +8,10 @@ type MembroCardProps = {
   className?: string;
 };
 
+/**
+ * Card individual de membro do projeto
+ * Exibe avatar, informações pessoais e redes sociais
+ */
 export default function MembroCard({ member, className = '' }: MembroCardProps) {
   const { name, rm, class: memberClass, img, description } = member;
   const socialNetworks = mapMemberSocialNetworks(member);

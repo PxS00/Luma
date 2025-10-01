@@ -12,6 +12,10 @@ export interface CarrosselIntegrantesProps extends CarouselOptions {
   autoMs?: number;
 }
 
+/**
+ * Carrossel de integrantes do projeto
+ * Mostra cards dos membros com navegação responsiva
+ */
 export default function CarrosselIntegrantes({
   members,
   title,

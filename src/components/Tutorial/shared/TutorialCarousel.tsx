@@ -17,6 +17,10 @@ export interface TutorialCarouselProps {
   showIndicators?: boolean;
 }
 
+/**
+ * Carrossel especializado para passos de tutorial
+ * Integra controles de navegação responsivos e indicadores
+ */
 export default function TutorialCarousel({
   steps,
   title,

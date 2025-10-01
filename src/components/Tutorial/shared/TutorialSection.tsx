@@ -18,6 +18,10 @@ interface TutorialSectionProps {
   imgClassName?: string;
 }
 
+/**
+ * Seção completa de tutorial com intro e carrossel
+ * Combina descrição, botão de ação e steps do tutorial
+ */
 export default function TutorialSection({
   title,
   description,

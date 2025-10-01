@@ -1,3 +1,7 @@
+/**
+ * Botão de pesquisa com ícone de lupa
+ * Usado para abrir o campo de busca no header
+ */
 export default function BtnSearch({ onClick }: { onClick?: () => void }) {
   return (
     <button

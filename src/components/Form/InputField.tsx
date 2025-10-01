@@ -1,6 +1,9 @@
 import type { InputFieldProps } from '@/types/form';
 
-// Componente de campo de input com validação visual
+/**
+ * Campo de input reutilizável com validação visual
+ * Mostra bordas coloridas baseadas no estado de validação
+ */
 export default function InputField({
   type,
   name,

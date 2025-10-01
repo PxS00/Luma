@@ -1,5 +1,5 @@
 // src/components/shared/Carrossel/CarrosselBase.tsx
-import { useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 
 type ControlsAPI = {
   prev: () => void;
@@ -49,9 +49,9 @@ export default function CarrosselBase({
   const viewportRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<number | null>(null);
 
-  const goTo = (i: number) => setIndex((((i % total) + total) % total));
-  const next = () => setIndex((i) => (i + 1) % total);
-  const prev = () => setIndex((i) => (i - 1 + total) % total);
+  const goTo = useCallback((i: number) => setIndex((((i % total) + total) % total)), [total]);
+  const next = useCallback(() => setIndex((i) => (i + 1) % total), [total]);
+  const prev = useCallback(() => setIndex((i) => (i - 1 + total) % total), [total]);
 
   // Notifica consumidor
   useEffect(() => {
@@ -65,7 +65,7 @@ export default function CarrosselBase({
     return () => {
       if (timerRef.current) window.clearInterval(timerRef.current);
     };
-  }, [autoMs, paused, total]);
+  }, [autoMs, paused, total, next]);
 
   // Pausa em hover/foco do viewport
   const handleMouseEnter = () => setPaused(true);
@@ -85,7 +85,7 @@ export default function CarrosselBase({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [next, prev]);
 
   return (
     <div
