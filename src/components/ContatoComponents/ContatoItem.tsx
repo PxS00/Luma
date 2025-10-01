@@ -1,8 +1,6 @@
-import type { Contact } from '@/types/contact';
+import type { ContatoItemProps } from '@/types/contact';
 import BtnExterno from '../Button/BtnExterno';
 import ToggleSection from '../ToggleSection/ToggleSection';
-
-type ContatoItemProps = { item: Contact };
 
 /**
  * Item de contato expansível

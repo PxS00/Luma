@@ -1,4 +1,4 @@
-import type { BtnInternoProps } from '@/types/components';
+import type { BtnInternoProps } from '@/types/button';
 import { Link } from 'react-router-dom';
 
 /**

@@ -1,5 +1,5 @@
 // src/components/shared/Carrossel/CarrosselBase.tsx
-import type { CarrosselBaseProps } from '@/types/components';
+import type { CarrosselBaseProps } from '@/types/carousel';
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
 
 export default function CarrosselBase({

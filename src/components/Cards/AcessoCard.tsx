@@ -1,14 +1,6 @@
 import BtnExterno from '../Button/BtnExterno';
 import BtnInterno from '../Button/BtnInterno';
-
-type AcessoCardProps = {
-  imgSrc: string;
-  imgAlt: string;
-  title: string;
-  description: string;
-  href: string;
-  external?: boolean;
-};
+import type { AcessoCardProps } from '@/types/card';
 
 /**
  * Card de acesso rápido para funcionalidades

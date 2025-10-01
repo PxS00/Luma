@@ -1,6 +1,6 @@
 import BtnAcao from '@/components/Button/BtnAcao';
 import { useTabs } from '@/hooks/useTabs';
-import type { ChooseModeTabsProps } from '@/types/components';
+import type { ChooseModeTabsProps } from '@/types/tabs';
 
 /**
  * Componente de tabs para escolher entre App e Navegador

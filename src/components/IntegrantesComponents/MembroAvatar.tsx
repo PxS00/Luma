@@ -1,4 +1,4 @@
-import type { MembroAvatarProps } from '@/types/components';
+import type { MembroAvatarProps } from '@/types/member';
 
 /**
  * Avatar circular para foto de membro

@@ -1,4 +1,4 @@
-import type { BtnExternoProps } from '@/types/components';
+import type { BtnExternoProps } from '@/types/button';
 
 /**
  * Botão para links externos

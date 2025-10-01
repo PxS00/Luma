@@ -1,5 +1,5 @@
 import BtnExterno from '@/components/Button/BtnExterno';
-import type { MembrosSocialProps } from '@/types/components';
+import type { MembrosSocialProps } from '@/types/member';
 
 /**
  * Links para redes sociais de um membro

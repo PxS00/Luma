@@ -16,3 +16,10 @@ export type Contact = {
   /** Link externo com rótulo personalizado (opcional) */
   externalLink?: { href: string; label: string };
 };
+
+/**
+ * Props para item de contato
+ */
+export interface ContatoItemProps {
+  item: Contact;
+}

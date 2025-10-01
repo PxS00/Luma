@@ -1,8 +1,10 @@
+import type { BtnSearchProps } from '@/types/button';
+
 /**
  * Botão de pesquisa com ícone de lupa
  * Usado para abrir o campo de busca no header
  */
-export default function BtnSearch({ onClick }: { onClick?: () => void }) {
+export default function BtnSearch({ onClick }: BtnSearchProps) {
   return (
     <button
       onClick={onClick}

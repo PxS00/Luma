@@ -1,21 +1,7 @@
 // src/components/shared/Tutorial/TutorialCarousel.tsx
-import type { TutorialStepData } from '@/types/tutorialStep';
+import type { TutorialCarouselProps } from '@/types/carousel';
 import CarrosselBase from '../../Carrossel/CarrosselBase';
 import TutorialStep from './TutorialStep';
-
-export interface TutorialCarouselProps {
-  steps: TutorialStepData[];
-  title?: string;
-  autoMs?: number | null;
-  className?: string;
-  /** classes aplicadas ao viewport (área do slide, relative) */
-  contentClassName?: string;
-  /** classes extras para a <img> do TutorialStep */
-  imgClassName?: string;
-  /** mostra/oculta setas e indicadores */
-  showControls?: boolean;
-  showIndicators?: boolean;
-}
 
 /**
  * Carrossel especializado para passos de tutorial

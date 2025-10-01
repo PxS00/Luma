@@ -1,4 +1,4 @@
-import type { BtnAcaoProps } from '@/types/components';
+import type { BtnAcaoProps } from '@/types/button';
 
 /**
  * Botão genérico para ações na aplicação

@@ -1,4 +1,4 @@
-import type { CarrosselIntegrantesProps } from '@/types/components';
+import type { CarrosselIntegrantesProps } from '@/types/member';
 import CarrosselBase from '../Carrossel/CarrosselBase';
 import MembroCard from './MembroCard';
 

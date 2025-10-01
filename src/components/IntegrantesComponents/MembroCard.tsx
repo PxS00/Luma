@@ -1,4 +1,4 @@
-import type { MembroCardProps } from '@/types/components';
+import type { MembroCardProps } from '@/types/member';
 import { mapMemberSocialNetworks } from '@/utils/socialNetworks';
 import MembroAvatar from './MembroAvatar';
 import MembrosSocial from './MembrosSocial';

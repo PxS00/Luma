@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import { HEADER_MENU } from '../../config/navigation';
+import type { MainMenuProps } from '@/types/navigation';
 import BtnExterno from '../Button/BtnExterno';
 import BtnNav from '../Button/BtnNav';
 
@@ -8,8 +9,6 @@ import BtnNav from '../Button/BtnNav';
  * Filtra itens com base na busca e oculta página atual
  */
 
-type Props = { filter?: string };
-
 function normalize(s: string) {
   return s
     ?.toLowerCase()
@@ -17,7 +16,7 @@ function normalize(s: string) {
     .replace(/\p{Diacritic}/gu, '');
 }
 
-export default function MainMenu({ filter = '' }: Props) {
+export default function MainMenu({ filter = '' }: MainMenuProps) {
   const location = useLocation();
   const currentPath = location.pathname;
 

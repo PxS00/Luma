@@ -1,22 +1,8 @@
 // src/components/shared/Tutorial/TutorialSection.tsx
-import type { CarouselOptions } from '@/types/navigation';
-import type { TutorialStepData } from '@/types/tutorialStep';
-import type { ReactNode } from 'react';
+import type { TutorialSectionProps } from '@/types/tutorialStep';
 import BtnExterno from '../../Button/BtnExterno';
 import BtnInterno from '../../Button/BtnInterno';
 import TutorialCarousel from './TutorialCarousel';
-
-interface TutorialSectionProps {
-  title: string;
-  description: string;
-  actionButton?: { href: string; label: string; external?: boolean };
-  customActionButton?: ReactNode; // <-- seu botão com logo já existente
-  tutorialTitle: string;
-  steps: TutorialStepData[];
-  carouselOptions?: CarouselOptions;
-  className?: string;
-  imgClassName?: string;
-}
 
 /**
  * Seção completa de tutorial com intro e carrossel

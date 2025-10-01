@@ -36,3 +36,10 @@ export type CarouselOptions = {
   /** Se deve fazer loop infinito dos itens */
   loop?: boolean;
 };
+
+/**
+ * Props para componentes de menu
+ */
+export interface MainMenuProps {
+  filter?: string;
+}

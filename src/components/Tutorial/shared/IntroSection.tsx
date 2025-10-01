@@ -1,9 +1,4 @@
-interface IntroSectionProps {
-  /** Tipo de auxílio (Cadastro ou Teleconsulta) */
-  type: 'Cadastro' | 'Teleconsulta';
-  /** Texto da descrição (opcional - usa padrão se não fornecido) */
-  description?: string;
-}
+import type { IntroSectionProps } from '@/types/tutorialStep';
 
 /**
  * Componente reutilizável para seções de introdução

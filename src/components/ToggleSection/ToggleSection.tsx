@@ -1,4 +1,4 @@
-import type { ToggleSectionProps } from '@/types/components';
+import type { ToggleSectionProps } from '@/types/ui';
 import { useState } from 'react';
 
 /**
