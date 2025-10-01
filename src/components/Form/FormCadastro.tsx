@@ -39,15 +39,15 @@ export default function FormCadastro() {
    */
   const onSubmit = async (data: CadastroFormData) => {
     setErrorMessage('');
-    
+
     try {
       // Salva novo usuário e faz login automaticamente
       saveUserToStorage(data);
       setLoggedUser(data.cpf);
-      
+
       // Notifica componentes sobre mudança de autenticação
       window.dispatchEvent(new CustomEvent('auth-update'));
-      
+
       reset();
       navigate('/', {
         replace: true,

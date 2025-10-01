@@ -47,12 +47,12 @@ export default function FormLogin() {
 
       if (usuarioEncontrado) {
         setLoggedUser(usuarioEncontrado.cpf);
-        
+
         // Dispara evento para atualizar todos os componentes que usam useAuth
         window.dispatchEvent(new CustomEvent('auth-update'));
-        
+
         reset();
-        
+
         // Delay para garantir que todos os hooks sejam atualizados
         setTimeout(() => {
           navigate('/', {

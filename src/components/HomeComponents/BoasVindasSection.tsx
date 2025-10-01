@@ -8,7 +8,7 @@ import BtnInterno from '../Button/BtnInterno';
  */
 export default function BoasVindasSection() {
   const { isLoggedIn, userData } = useAuth();
-  
+
   return (
     <section className='w-full'>
       {/* Container alinhado com header/cards */}

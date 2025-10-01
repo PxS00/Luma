@@ -49,7 +49,7 @@ export default function TutorialSection({
           <>
             {/* Mostra no mobile */}
             <div className='mt-3 sm:hidden'>{customActionButton}</div>
-          
+
             <div className='mt-3 hidden sm:block'>{customActionButton}</div>
           </>
         ) : actionButton ? (

@@ -27,7 +27,7 @@ export function getRemindersFromStorage(): Reminder[] {
  */
 export function getUserRemindersFromStorage(userCpf: string): Reminder[] {
   const allReminders = getRemindersFromStorage();
-  return allReminders.filter(reminder => reminder.userCpf === userCpf);
+  return allReminders.filter((reminder) => reminder.userCpf === userCpf);
 }
 
 /**
@@ -64,13 +64,13 @@ export function clearAllReminders(): void {
  */
 export function setUserRemindersToStorage(userCpf: string, userReminders: Reminder[]): void {
   const allReminders = getRemindersFromStorage();
-  
+
   // Remove lembretes antigos do usuário
-  const otherUsersReminders = allReminders.filter(reminder => reminder.userCpf !== userCpf);
-  
+  const otherUsersReminders = allReminders.filter((reminder) => reminder.userCpf !== userCpf);
+
   // Adiciona os novos lembretes do usuário
   const updatedReminders = [...otherUsersReminders, ...userReminders];
-  
+
   localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedReminders));
 }
 
@@ -80,10 +80,10 @@ export function setUserRemindersToStorage(userCpf: string, userReminders: Remind
  */
 export function migrateOldReminders(): void {
   const allReminders = getRemindersFromStorage();
-  
+
   // Filtra apenas lembretes que possuem userCpf (novos)
-  const validReminders = allReminders.filter(reminder => reminder.userCpf);
-  
+  const validReminders = allReminders.filter((reminder) => reminder.userCpf);
+
   // Se houve mudança (lembretes sem userCpf removidos), salva a versão limpa
   if (validReminders.length !== allReminders.length) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(validReminders));

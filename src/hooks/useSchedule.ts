@@ -1,6 +1,10 @@
 import type { Reminder } from '@/types/reminder';
 import { formatDate } from '@/utils/calendarUtils';
-import { getUserRemindersFromStorage, migrateOldReminders, setUserRemindersToStorage } from '@/utils/reminderStorage';
+import {
+  getUserRemindersFromStorage,
+  migrateOldReminders,
+  setUserRemindersToStorage,
+} from '@/utils/reminderStorage';
 import { getLoggedUser } from '@/utils/userStorage';
 import { useEffect, useState } from 'react';
 
@@ -84,7 +88,7 @@ export function useSchedule() {
     const loadUserReminders = () => {
       // Migra lembretes antigos sem userCpf (limpa dados incompatíveis)
       migrateOldReminders();
-      
+
       const loggedUserCpf = getLoggedUser();
       if (loggedUserCpf) {
         const userReminders = getUserRemindersFromStorage(loggedUserCpf);
