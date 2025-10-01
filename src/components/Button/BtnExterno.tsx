@@ -1,10 +1,4 @@
-type BtnExternoProps = {
-  href: string;
-  children: React.ReactNode;
-  className?: string;
-  target?: '_blank' | '_self';
-  'aria-label'?: string;
-};
+import type { BtnExternoProps } from '@/types/components';
 
 /**
  * Botão para links externos

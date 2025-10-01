@@ -1,16 +1,6 @@
-import type { Member } from '@/types/member';
-import type { CarouselOptions } from '@/types/navigation';
+import type { CarrosselIntegrantesProps } from '@/types/components';
 import CarrosselBase from '../Carrossel/CarrosselBase';
 import MembroCard from './MembroCard';
-
-export interface CarrosselIntegrantesProps extends CarouselOptions {
-  members: Member[];
-  title?: string;
-  showControls?: boolean; // botões ‹ ›
-  showIndicators?: boolean; // bolinhas
-  className?: string;
-  autoMs?: number;
-}
 
 /**
  * Carrossel de integrantes do projeto

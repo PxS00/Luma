@@ -1,12 +1,7 @@
-import type { Member } from '@/types/member';
+import type { MembroCardProps } from '@/types/components';
 import { mapMemberSocialNetworks } from '@/utils/socialNetworks';
 import MembroAvatar from './MembroAvatar';
 import MembrosSocial from './MembrosSocial';
-
-type MembroCardProps = {
-  member: Member;
-  className?: string;
-};
 
 /**
  * Card individual de membro do projeto

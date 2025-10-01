@@ -1,9 +1,5 @@
+import type { ToggleSectionProps } from '@/types/components';
 import { useState } from 'react';
-
-type ToggleSectionProps = {
-  title: string;
-  children: React.ReactNode;
-};
 
 /**
  * Seção expansível/colapsável (FAQ etc.)

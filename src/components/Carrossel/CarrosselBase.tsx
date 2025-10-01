@@ -1,34 +1,6 @@
 // src/components/shared/Carrossel/CarrosselBase.tsx
+import type { CarrosselBaseProps } from '@/types/components';
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
-
-type ControlsAPI = {
-  prev: () => void;
-  next: () => void;
-  index: number;
-  total: number;
-};
-
-type IndicatorsAPI = {
-  goTo: (i: number) => void;
-  index: number;
-  total: number;
-};
-
-type CarrosselBaseProps = {
-  total: number;
-  startIndex?: number;
-  autoMs?: number | null; // null/undefined = sem autoplay
-  className?: string; // classes do wrapper externo
-  viewportClassName?: string; // classes do viewport (área do slide, relative)
-  onChangeIndex?: (i: number) => void;
-
-  // Conteúdo do slide atual
-  renderItem: (index: number) => React.ReactNode;
-
-  // Slots opcionais para UI (setas / indicadores)
-  renderControls?: (api: ControlsAPI) => React.ReactNode;
-  renderIndicators?: (api: IndicatorsAPI) => React.ReactNode;
-};
 
 export default function CarrosselBase({
   total,

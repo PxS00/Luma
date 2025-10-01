@@ -1,11 +1,5 @@
+import type { BtnInternoProps } from '@/types/components';
 import { Link } from 'react-router-dom';
-
-type BtnInternoProps = {
-  to: string;
-  children: React.ReactNode;
-  className?: string;
-  'aria-label'?: string;
-};
 
 /**
  * Botão estilizado para navegação interna

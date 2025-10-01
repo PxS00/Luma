@@ -1,19 +1,6 @@
 import BtnAcao from '@/components/Button/BtnAcao';
 import { useTabs } from '@/hooks/useTabs';
-import type { Modo } from '@/types/tabs';
-import type { ReactNode } from 'react'; // <- IMPORTA O TIPO
-
-type ChooseModeTabsProps = {
-  app: ReactNode; // (usa ReactNode importado)
-  nav: ReactNode;
-  labelApp?: string;
-  labelNav?: string;
-  defaultMode?: Modo;
-  idBase?: string;
-  className?: string;
-  unmountInactive?: boolean;
-  onChangeMode?: (mode: Modo) => void; // <- tipado aqui
-};
+import type { ChooseModeTabsProps } from '@/types/components';
 
 /**
  * Componente de tabs para escolher entre App e Navegador

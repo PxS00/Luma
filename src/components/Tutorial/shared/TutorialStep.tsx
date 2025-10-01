@@ -2,13 +2,7 @@
 import { molduraDesk, molduraMobile } from '@/assets/images';
 import BtnExterno from '@/components/Button/BtnExterno';
 import BtnInterno from '@/components/Button/BtnInterno';
-import type { TutorialStepData } from '@/types/tutorialStep';
-
-type TutorialStepProps = {
-  step: TutorialStepData;
-  stepNumber: number;
-  imgClassName?: string;
-};
+import type { TutorialStepProps } from '@/types/components';
 
 /**
  * Step individual do tutorial com moldura responsiva

@@ -1,6 +1,4 @@
-import React from 'react';
-
-type Variant = 'primary' | 'icon' | 'dot';
+import type { BtnAcaoProps } from '@/types/components';
 
 /**
  * Botão genérico para ações na aplicação
@@ -10,10 +8,6 @@ type Variant = 'primary' | 'icon' | 'dot';
  * - `icon`: Botão circular para ícones (controles de carrossel)
  * - `dot`: Indicador pequeno (pontos de navegação)
  */
-type BtnAcaoProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: Variant;
-};
-
 export default function BtnAcao({
   onClick,
   children,
@@ -21,6 +15,7 @@ export default function BtnAcao({
   type = 'button',
   disabled = false,
   variant = 'primary',
+  'aria-label': ariaLabel,
   ...rest
 }: BtnAcaoProps) {
   const base =
@@ -35,6 +30,7 @@ export default function BtnAcao({
       type={type}
       onClick={onClick}
       disabled={disabled}
+      aria-label={ariaLabel}
       className={`${base} transition-colors duration-300 disabled:opacity-50 ${className ?? ''}`}
       {...rest}
     >
