@@ -3,6 +3,7 @@
  * Modal para adicionar ou editar lembretes de consulta médica.
  */
 import type { ReminderModalProps } from '@/types/schedule';
+import { getLoggedUser } from '@/utils/userStorage';
 import ReminderList from './ReminderList';
 
 export default function ReminderModal({
@@ -53,10 +54,18 @@ export default function ReminderModal({
             if (!selectedDate || !formTime.trim() || !formDescription.trim()) {
               return;
             }
+            
+            const loggedUserCpf = getLoggedUser();
+            if (!loggedUserCpf) {
+              console.error('Usuário não está logado');
+              return;
+            }
+            
             onSave({
               date: selectedDate,
               time: formTime,
               description: formDescription,
+              userCpf: loggedUserCpf,
             });
           }}
           className='flex flex-col gap-4 w-full'
