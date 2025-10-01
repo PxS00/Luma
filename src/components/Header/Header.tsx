@@ -1,5 +1,7 @@
 import { logo } from '@/assets/images';
 import { useRef, useState } from 'react';
+import { useAuth } from '@/hooks/useAuth';
+import BtnLogoutHeader from '../Button/BtnLogoutHeader';
 import BtnMenu from '../Button/BtnMenu';
 import BtnSearch from '../Button/BtnSearch';
 import MainMenu from './MainMenu';
@@ -14,6 +16,7 @@ export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState('');
   const menuRef = useRef<HTMLDivElement>(null);
+  const { isLoggedIn, logout } = useAuth();
 
   const submitSearch = () => {
     if (typeof window !== 'undefined' && window.innerWidth < 1024 && !menuOpen) {
@@ -64,13 +67,20 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Ações (placeholder em lg para equilibrar) */}
+          {/* Ações */}
           <div
             className='
-          flex items-center gap-2 sm:gap-3 lg:opacity-0 lg:pointer-events-none lg:block
+          flex items-center gap-2 sm:gap-3
           pr-[env(safe-area-inset-right)]
         '
           >
+            {/* Botão de logout - só aparece quando logado */}
+            {isLoggedIn && (
+              <BtnLogoutHeader 
+                onClick={logout}
+                className="mr-1"
+              />
+            )}
             <button
               type='button'
               aria-label='Buscar'
