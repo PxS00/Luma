@@ -38,9 +38,27 @@ export function useTabs({
 
   // Efeito para detectar mobile/desktop e ajustar o modo automaticamente
   useEffect(() => {
-    // Detecta se é mobile (pode ser ajustado conforme necessidade)
+    /**
+     * Detecta se é dispositivo móvel baseado no tamanho da tela
+     * @returns true se for mobile (largura <= 991px)
+     */
     const isMobile = () => window.innerWidth <= 991;
-    setActiveTab(isMobile() ? 'app' : 'nav');
+
+    /**
+     * Handler para redimensionamento da janela
+     */
+    const handleResize = () => {
+      setActiveTab(isMobile() ? 'app' : 'nav');
+    };
+
+    // Define modo inicial
+    handleResize();
+
+    // Adiciona listener para mudanças de tamanho
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
   // Ref para o container da lista de tabs (usado para navegação por teclado)
   const listRef = useRef<HTMLDivElement>(null);

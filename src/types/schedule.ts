@@ -1,15 +1,22 @@
+import type { Reminder } from '@/types/reminder';
+
 /**
- * Props do componente ReminderList.
+ * Propriedades do componente ReminderList
+ * Define os parâmetros aceitos para a lista de lembretes
  */
 export type ReminderListProps = {
+  /** Array de lembretes a serem exibidos */
   reminders: Reminder[];
+  /** Função chamada para editar um lembrete */
   onEdit: (reminder: Reminder) => void;
+  /** Função chamada para remover um lembrete */
   onRemove: (reminder: Reminder) => void;
 };
+
 /**
- * Props do componente ReminderModal.
+ * Propriedades do componente ReminderModal
+ * Define os parâmetros aceitos para o modal de lembretes
  */
-import type { Reminder } from '@/types/reminder';
 export type ReminderModalProps = {
   show: boolean;
   onClose: () => void;

@@ -4,7 +4,7 @@
  * @returns CPF formatado ou valor limpo se incompleto
  * @example formatCPF('12345678901') => '123.456.789-01'
  */
-function formatCPF(cpf: string): string {
+export function formatCPF(cpf: string): string {
   const cleanCPF = cpf.replace(/\D/g, '');
   if (cleanCPF.length < 11) return cleanCPF;
   return cleanCPF.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
@@ -15,7 +15,7 @@ function formatCPF(cpf: string): string {
  * @param cpf - string contendo CPF
  * @returns true se válido, false se inválido
  */
-function validateCPF(cpf: string): boolean {
+export function validateCPF(cpf: string): boolean {
   const cleanCPF = cpf.replace(/\D/g, '');
   if (cleanCPF.length !== 11) return false;
   // Verifica se todos os dígitos são iguais (caso inválido)
@@ -47,7 +47,7 @@ function validateCPF(cpf: string): boolean {
  * @returns Telefone formatado ou valor limpo se incompleto
  * @example formatPhone('11912345678') => '(11) 91234-5678'
  */
-function formatPhone(phone: string): string {
+export function formatPhone(phone: string): string {
   const cleanPhone = phone.replace(/\D/g, '');
   if (cleanPhone.length < 10) return cleanPhone;
   // Aplica máscara para telefones com 8 ou 9 dígitos no número
@@ -63,16 +63,7 @@ function formatPhone(phone: string): string {
  * @param phone - string contendo telefone
  * @returns true se válido, false se inválido
  */
-function validatePhone(phone: string): boolean {
+export function validatePhone(phone: string): boolean {
   // Remove caracteres não numéricos e verifica o comprimento
   return phone.replace(/\D/g, '').length >= 10;
 }
-
-const validators = {
-  formatCPF,
-  validateCPF,
-  formatPhone,
-  validatePhone,
-};
-
-export default validators;

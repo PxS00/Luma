@@ -1,8 +1,18 @@
-export type molduraImgProps = {
-  src: string; // imagem do passo (step.img)
+/**
+ * Propriedades do componente MolduraImg
+ * Define os parâmetros para exibir imagens com moldura responsiva
+ */
+export type MolduraImgProps = {
+  /** Caminho da imagem principal */
+  src: string;
+  /** Texto alternativo da imagem (opcional) */
   alt?: string;
-  frameSrcMobile: string; // moldura para mobile
-  frameSrcDesktop: string; // moldura para desktop
+  /** Caminho da moldura para dispositivos móveis */
+  frameSrcMobile: string;
+  /** Caminho da moldura para desktop */
+  frameSrcDesktop: string;
+  /** Classes CSS adicionais (opcional) */
   className?: string;
-  aspect?: string; // ex: "aspect-video" | "aspect-[9/16]"
+  /** Proporção da imagem, ex: "aspect-video" ou "aspect-[9/16]" (opcional) */
+  aspect?: string;
 };

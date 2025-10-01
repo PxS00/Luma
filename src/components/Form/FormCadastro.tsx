@@ -3,7 +3,7 @@ import FormField from '@/components/Form/FormField';
 import InputField from '@/components/Form/InputField';
 import type { CadastroFormData } from '@/types/form';
 import { saveUserToStorage, setLoggedUser } from '@/utils/userStorage';
-import validators from '@/utils/validators';
+import { formatCPF, formatPhone, validateCPF } from '@/utils/validators';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -54,7 +54,7 @@ export default function FormCadastro() {
   };
 
   return (
-    <main >
+    <main>
       <h1 className='text-center mb-5 text-fontPrimary text-2xl font-bold '>
         Registre seu Cadastro
       </h1>
@@ -98,7 +98,7 @@ export default function FormCadastro() {
             control={control}
             rules={{
               required: 'CPF é obrigatório',
-              validate: (value) => validators.validateCPF(value) || 'CPF inválido',
+              validate: (value) => validateCPF(value) || 'CPF inválido',
             }}
             render={({ field }) => (
               <InputField
@@ -106,7 +106,7 @@ export default function FormCadastro() {
                 name='cpf'
                 id='cpf'
                 value={field.value}
-                onChange={(v) => field.onChange(validators.formatCPF(v))}
+                onChange={(v) => field.onChange(formatCPF(v))}
                 placeholder='000.000.000-00'
                 required
                 isValid={errors.cpf ? false : field.value.length > 0}
@@ -176,7 +176,7 @@ export default function FormCadastro() {
                 name='telefone'
                 id='telefone'
                 value={field.value}
-                onChange={(v) => field.onChange(validators.formatPhone(v))}
+                onChange={(v) => field.onChange(formatPhone(v))}
                 placeholder='(11) 91234-5678'
                 required
                 isValid={errors.telefone ? false : field.value.length > 0}
@@ -204,7 +204,6 @@ export default function FormCadastro() {
       >
         Não quero me cadastrar
       </BtnAcao>
-
 
       {errorMessage && (
         <div

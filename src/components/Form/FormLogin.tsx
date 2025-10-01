@@ -3,7 +3,7 @@ import FormField from '@/components/Form/FormField';
 import InputField from '@/components/Form/InputField';
 import type { CadastroFormData, LoginFormData } from '@/types/form';
 import { getUsersFromStorage, setLoggedUser } from '@/utils/userStorage';
-import validators from '@/utils/validators';
+import { formatCPF, validateCPF } from '@/utils/validators';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -73,7 +73,7 @@ export default function FormLogin() {
             control={control}
             rules={{
               required: 'CPF é obrigatório',
-              validate: (value) => validators.validateCPF(value) || 'CPF inválido',
+              validate: (value) => validateCPF(value) || 'CPF inválido',
             }}
             render={({ field }) => (
               <InputField
@@ -81,7 +81,7 @@ export default function FormLogin() {
                 name='cpf'
                 id='cpf'
                 value={field.value}
-                onChange={(v) => field.onChange(validators.formatCPF(v))}
+                onChange={(v) => field.onChange(formatCPF(v))}
                 placeholder='000.000.000-00'
                 required
                 isValid={errors.cpf ? false : field.value.length > 0}
