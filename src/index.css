@@ -37,7 +37,7 @@
     @apply flex flex-col min-h-screen font-inter text-fontTertiary bg-backPrimary;
   }
 
-  /* 🔹 Esconde header e footer quando a página tiver esta classe */
+  /* Esconde header e footer quando a página tiver esta classe */
   body.hide-hf header,
   body.hide-hf footer {
     display: none !important;

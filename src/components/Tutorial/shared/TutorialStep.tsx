@@ -47,7 +47,7 @@ export default function TutorialStep({ step, stepNumber, imgClassName }: Tutoria
     /* Desktop: moldura notebook proporcional e centralizada */
     lg:aspect-[1431/800]
    lg:w-[min(96vw,1900px)] xl:w-[min(96vw,2100px)]
-   2xl:max-h-[80vh] 2xl:h-auto   /* ✅ tampa a altura em telas muito grandes */
+   2xl:max-h-[80vh] 2xl:h-auto
    overflow-visible
   '
       >

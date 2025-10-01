@@ -45,12 +45,11 @@ export default function TutorialSection({
 
         <p className='text-base sm:text-lg leading-relaxed max-w-2xl'>{description}</p>
 
-        {/* ✅ Usa o MESMO componente de botão com logo que você já tem */}
         {customActionButton ? (
           <>
             {/* Mostra no mobile */}
             <div className='mt-3 sm:hidden'>{customActionButton}</div>
-            {/* Mostra em tablet/desktop (mesmo componente, tamanhos responsivos já são do seu botão) */}
+          
             <div className='mt-3 hidden sm:block'>{customActionButton}</div>
           </>
         ) : actionButton ? (
