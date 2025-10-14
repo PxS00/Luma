@@ -12,7 +12,6 @@ import {
   MdZoomIn,
   MdZoomOut,
 } from 'react-icons/md';
-import './AccessibilityMenu.css';
 // import './AccessibilityMenu.css';
 const menuItems = [
   {
