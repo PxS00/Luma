@@ -4,20 +4,19 @@
 @theme {
   --font-inter: 'Inter', Arial, Helvetica, sans-serif;
 
-  --color-backPrimary: #ffefd8;
-  --color-backSecondary: #fde6c6;
-  --color-backBtn: #f7941d;
-  --color-hoverBtn: #e67e00;
-  --color-navBtn: #ffe0b2;
-  --color-navHoverBtn: #f7941d;
-  --color-fontPrimary: #a84421;
-  --color-fontSecondary: #9f5c32;
-  --color-fontTertiary: #333333;
-  --color-clikColor: #bf360c;
-  --color-borderColor: #f77f00;
-  --color-fromColor: #f7941d;
-  --color-toColor: #ffcc80;
-
+--color-backPrimary: #FAFAFA;
+--color-backSecondary: #FFFFFF;
+--color-backBtn: #B91C1C;
+--color-hoverBtn: #5E0F0F;
+--color-navBtn: #E5E7EB;
+--color-navHoverBtn: #9CA3AF;
+--color-fontPrimary: #7F1D1D;
+--color-fontSecondary: #4A4A4A;
+--color-fontTertiary: #1F2937;
+--color-clikColor: #B91C1C;
+--color-borderColor: #D1D5DB;
+--color-fromColor: #D32F2F;
+--color-toColor: #F59E0B;
   /* Breakpoints */
   --breakpoint-xs: (max-width: 600px);
   --breakpoint-sm: 600px;
