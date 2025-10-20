@@ -1,6 +1,7 @@
 import App from '@/App';
 import AuxilioCadastro from '@routes/AuxilioCadastro';
 import AuxilioTeleconsulta from '@routes/AuxilioTeleconsulta';
+import CameraCheck from '@routes/CameraCheck';
 import Contato from '@routes/Contato';
 import Error from '@routes/Error';
 import Faq from '@routes/Faq';
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
       { path: '/contato', element: <Contato /> },
       { path: '/auxilio/cadastro', element: <AuxilioCadastro /> },
       { path: '/auxilio/teleconsulta', element: <AuxilioTeleconsulta /> },
+      { path: '/camera-check', element: <CameraCheck /> },
       { path: '/formulario', element: <Formulario /> },
       { path: '/formulario/:tab', element: <Formulario /> },
       { path: '/lembrete', element: <Schedule /> },
