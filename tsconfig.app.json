@@ -23,15 +23,14 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     
-    /* aliases  */
-    "baseUrl": ".",
+    /* Path mapping (usado pelo Vite resolver) */
     "paths": {
-      "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@routes/*": ["src/routes/*"],
-      "@data/*": ["src/data/*"],
-      "@types/*": ["src/types/*"],
-      "@lib/*": ["src/lib/*"]
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@routes/*": ["./src/routes/*"],
+      "@data/*": ["./src/data/*"],
+      "@types/*": ["./src/types/*"],
+      "@lib/*": ["./src/lib/*"]
     }
   },
   "include": ["src"]
