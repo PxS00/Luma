@@ -14,7 +14,7 @@ export default function IntroSection({
 }: IntroSectionProps) {
   return (
     <section className='flex flex-col items-center justify-center gap-3 text-center'>
-      <h1 className='text-4xl font-bold !text-[#a84421]'>
+      <h1 className='text-4xl font-bold text-fontPrimary'>
         Bem-vindo ao Auxílio {type} de Pacientes
       </h1>
       <p className='text-lg text-gray-700'>{description}</p>

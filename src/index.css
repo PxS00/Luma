@@ -4,19 +4,32 @@
 @theme {
   --font-inter: 'Inter', Arial, Helvetica, sans-serif;
 
---color-backPrimary: #FAFAFA;
+--color-backPrimary:   #FAFAFA;
 --color-backSecondary: #FFFFFF;
---color-backBtn: #B91C1C;
---color-hoverBtn: #5E0F0F;
---color-navBtn: #E5E7EB;
---color-navHoverBtn: #9CA3AF;
---color-fontPrimary: #7F1D1D;
---color-fontSecondary: #4A4A4A;
---color-fontTertiary: #1F2937;
---color-clikColor: #B91C1C;
+
+/* Botões (brand) */
+--color-backBtn:  #B91C1C; /* primário */
+--color-hoverBtn: #5E0F0F; /* hover/ativo */
+
+/* Navegação neutra */
+--color-navBtn:       #E5E7EB;
+--color-navHoverBtn:  #9CA3AF;
+
+/* Tipografia */
+--color-fontPrimary:   #1F2937; /* títulos/alto contraste (antes era #7F1D1D) */
+--color-fontSecondary: #4A4A4A; /* corpo de texto */
+--color-fontTertiary:  #6B7280; /* texto auxiliar/muted (antes era #1F2937) */
+
+/* Ações/links */
+--color-clikColor:   #B91C1C;
+
+/* Bordas/Divisores */
 --color-borderColor: #D1D5DB;
+
+/* Gradiente header/footer */
 --color-fromColor: #D32F2F;
---color-toColor: #F59E0B;
+--color-toColor:   #F59E0B; /* adicionado */
+
   /* Breakpoints */
   --breakpoint-xs: (max-width: 600px);
   --breakpoint-sm: 600px;

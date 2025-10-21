@@ -10,15 +10,23 @@ export default function AcessoCard({
   external = false,
 }: AcessoCardProps) {
   return (
-    <div
-className='flex-1 basis-[300px] max-w-[300px]
-  flex flex-col justify-between items-center
-  bg-[#FFF4CC] rounded-xl p-4 text-center
-  shadow-[0_2px_6px_rgba(0,0,0,0.05)]'
-    >
-      <div>
-  <Icon className='w-[42px] h-[42px] text-[#D97706]  mx-auto mb-2.5' aria-hidden />
-      </div>
+<div
+  className="
+    flex-1 basis-[300px] max-w-[300px]
+    flex flex-col justify-between items-center text-center
+    bg-[#FFF1E6] border border-[#FFD3BA]
+    rounded-xl p-4
+    text-[#374151]
+    shadow-[0_2px_8px_rgba(0,0,0,0.05)]
+    hover:bg-[#FFE4D6] transition-colors
+  "
+>
+  <div>
+    <Icon
+      className="w-[42px] h-[42px] mx-auto mb-2.5 text-[#B91C1C]"
+      aria-hidden="true"
+    />
+  </div>
 
       <h3 className='text-lg text-fontPrimary mb-2 font-semibold'>{title}</h3>
       <p className='text-sm text-fontTertiary mb-3'>{description}</p>
