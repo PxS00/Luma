@@ -40,12 +40,48 @@ export default function FormCadastro() {
   const onSubmit = async (data: CadastroFormData) => {
     setErrorMessage('');
 
-    try {
-      // Salva novo usuário e faz login automaticamente
-      saveUserToStorage(data);
-      setLoggedUser(data.cpf);
+    const onlyDigits = (v: string) => v.replace(/\D/g, '');
 
-      // Notifica componentes sobre mudança de autenticação
+    try {
+      const payload = {
+        cpf: onlyDigits(data.cpf),
+        name: data.nome,
+        email: data.email || '',
+        birthDate: data.dataNascimento,
+        phone: data.telefone,
+      };
+
+      const res = await fetch('https://luma-wu46.onrender.com/user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const responseData = await res.json();
+
+      if (!res.ok) {
+        const msg =
+          (responseData && (responseData.message || responseData.error)) ||
+          (res.status === 409 ? 'Usuário já existe.' : 'Erro ao cadastrar usuário.');
+        setErrorMessage(msg);
+        return;
+      }
+
+      const token = responseData?.token || responseData?.accessToken;
+      if (token) {
+        localStorage.setItem('token', token);
+      }
+
+      try {
+      saveUserToStorage({
+        ...data,
+        cpf: payload.cpf,
+        });
+      } catch (err) {
+        console.error('Falha ao salvar usuário localmente:', err);
+      }
+
+      setLoggedUser(payload.cpf);
       window.dispatchEvent(new CustomEvent('auth-update'));
 
       reset();
@@ -53,8 +89,9 @@ export default function FormCadastro() {
         replace: true,
         state: { message: 'Cadastro realizado com sucesso!' },
       });
-    } catch (_error) {
-      setErrorMessage('Erro ao realizar cadastro. Tente novamente.');
+    } catch (error) {
+      console.error('Erro ao realizar cadastro:', error);
+      setErrorMessage('Erro de conexão. Tente novamente.');
     }
   };
 
