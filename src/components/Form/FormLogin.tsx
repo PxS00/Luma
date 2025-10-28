@@ -1,8 +1,8 @@
 import BtnAcao from '@/components/Button/BtnAcao';
 import FormField from '@/components/Form/FormField';
 import InputField from '@/components/Form/InputField';
-import type { CadastroFormData, LoginFormData } from '@/types/form';
-import { getUsersFromStorage, setLoggedUser } from '@/utils/userStorage';
+import type { LoginFormData } from '@/types/form';
+import { setLoggedUser } from '@/utils/userStorage';
 import { formatCPF, validateCPF } from '@/utils/validators';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -29,42 +29,46 @@ export default function FormLogin() {
     },
   });
 
+
+
   const onSubmit = async (data: LoginFormData) => {
     setErrorMessage('');
+    const onlyDigits = (v: string) => v.replace(/\D/g, '');
+
     try {
-      // Recupera cadastros usando utilitário
-      const cadastros = getUsersFromStorage();
-      if (!cadastros.length) {
-        setErrorMessage('Nenhum usuário cadastrado encontrado.');
+      const payload = {
+        cpf: onlyDigits(data.cpf),
+        passwordDate: data.dataNascimento,
+      };
+
+      const res = await fetch('https://luma-wu46.onrender.com/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const responseData = await res.json();
+
+      if (!res.ok) {
+        const msg =
+          (responseData && (responseData.message || responseData.error)) ||
+          (res.status === 401 ? 'Credenciais inválidas.' : 'Erro ao autenticar.');
+        setErrorMessage(msg);
         return;
       }
-
-      // Verifica se existe usuário com CPF e data de nascimento
-      const usuarioEncontrado = cadastros.find(
-        (cadastro: CadastroFormData) =>
-          cadastro.cpf === data.cpf && cadastro.dataNascimento === data.dataNascimento
-      );
-
-      if (usuarioEncontrado) {
-        setLoggedUser(usuarioEncontrado.cpf);
-
-        // Dispara evento para atualizar todos os componentes que usam useAuth
-        window.dispatchEvent(new CustomEvent('auth-update'));
-
-        reset();
-
-        // Delay para garantir que todos os hooks sejam atualizados
-        setTimeout(() => {
-          navigate('/', {
-            replace: true,
-          });
-        }, 150);
-      } else {
-        setErrorMessage('CPF ou data de nascimento incorretos.');
+      const token = responseData?.token || responseData?.accessToken;
+      if (token) {
+        localStorage.setItem('token', token);
       }
+      setLoggedUser(payload.cpf);
+
+      reset();
+      
+      navigate('/', { replace: true });
     } catch (error) {
       console.error('Erro ao fazer login:', error);
-      setErrorMessage('Erro ao fazer login. Tente novamente.');
+      setErrorMessage('Erro de conexão. Tente novamente.');
+
     }
   };
 
