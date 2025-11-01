@@ -88,7 +88,7 @@ export default function DiagnosticModal({
               <div
                 key={s.label}
                 className={`flex items-center justify-center gap-2 rounded-lg py-2
-                            ${active ? "bg-amber-100 text-amber-800" : "bg-slate-50"}`}
+                            ${active ? "bg-[#FFE4D6] text-amber-800" : "bg-slate-50"}`}
                 aria-current={active ? "step" : undefined}
               >
                 {Icon ? <Icon aria-hidden /> : null}
