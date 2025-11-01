@@ -4,41 +4,32 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { type CameraOptions, useFaceDetection } from 'react-use-face-detection/build';
 import Webcam from 'react-webcam';
 
+type FaceCheckProps = {
+  /** Chamado uma única vez quando o enquadramento está OK (estável por ~600ms). */
+  onPass?: () => void;
+  /** Emite o status atual para uso em “Resumo”: { ok, facesDetected } */
+  onResult?: (r: { ok: boolean; facesDetected: number }) => void;
+};
+
 /**
  * Componente de teste de enquadramento para teleconsulta
- * Utiliza react-use-face-detection (MediaPipe) para detectar rostos via webcam
- * e fornece feedback visual e textual ao usuário para se posicionar corretamente.
- *
- * Observações técnicas:
- * - Libs: react-use-face-detection (hook), react-webcam, @mediapipe/face_detection e @mediapipe/camera_utils.
- * - Binários MediaPipe servidos localmente via pasta `public/mediapipe/face_detection`.
+ * Usa MediaPipe via react-use-face-detection. Mantida sua lógica original.
  */
-export default function FaceCheck() {
-  // Dimensões base do preview (podem ser ajustadas por responsividade via Tailwind)
+export default function FaceCheck({ onPass, onResult }: FaceCheckProps) {
+  // Dimensões base do preview
   const width = 640;
   const height = 480;
 
-  /**
-   * Configuração do hook de detecção facial
-   * - model: 'short' → mais rápido e adequado para webcam em tempo real
-   * - mirrored: false → retorna coordenadas brutas do MediaPipe, sem inversão
-   *   O espelhamento visual é feito apenas no <Webcam mirrored /> para UX
-   * - locateFile: carrega assets do MediaPipe localmente (sem CDN)
-   * - camera util: controla o onFrame com largura/altura desejadas
-   */
   const { webcamRef, boundingBox, isLoading, detected, facesDetected } = useFaceDetection({
-    // Detecção SEM espelhamento (coordenadas brutas do MediaPipe)
     mirrored: false,
     faceDetectionOptions: { model: 'short' },
     faceDetection: new FaceDetection.FaceDetection({
-      // Carrega os binários do MediaPipe localmente, respeitando BASE_URL do Vite
       locateFile: (file: string) => `${import.meta.env.BASE_URL}mediapipe/face_detection/${file}`,
     }),
-    camera: ({ mediaSrc, onFrame }: CameraOptions) =>
-      new Camera(mediaSrc, { onFrame, width, height }),
+    camera: ({ mediaSrc, onFrame }: CameraOptions) => new Camera(mediaSrc, { onFrame, width, height }),
   });
 
-  // Cálculo de feedback com base no primeiro rosto detectado (se houver)
+  // Avaliação do enquadramento (inalterada)
   const guidance = useMemo(() => {
     if (!detected || !boundingBox.length) {
       return {
@@ -53,10 +44,7 @@ export default function FaceCheck() {
     }
 
     const box = boundingBox[0];
-    // Proporções do rosto na tela (0..1)
     const sizeOk = box.width >= 0.25 && box.width <= 0.6 && box.height >= 0.25 && box.height <= 0.6;
-    // xCenter/yCenter do hook são o canto superior esquerdo normalizado.
-    // Para centralização, usamos o centro geométrico do retângulo.
     const centerX = box.xCenter + box.width / 2;
     const centerY = box.yCenter + box.height / 2;
     const centeredOk = Math.abs(centerX - 0.5) <= 0.12 && Math.abs(centerY - 0.5) <= 0.12;
@@ -80,10 +68,14 @@ export default function FaceCheck() {
     } as const;
   }, [detected, boundingBox]);
 
-  // Debounce para estabilizar UI e evitar flicker/"quebrar" o layout
+  // Debounce visual
   const [uiGuidance, setUiGuidance] = useState(guidance);
   const lastUpdateRef = useRef<number>(0);
   const timerRef = useRef<number | null>(null);
+
+  // NOVO: disparo estável de onPass + emissão de onResult
+  const passedRef = useRef(false);
+  const okTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
     const now = performance.now();
@@ -93,6 +85,24 @@ export default function FaceCheck() {
     const apply = () => {
       setUiGuidance(guidance);
       lastUpdateRef.current = performance.now();
+
+      // emite resultado contínuo (para “Resumo”)
+      onResult?.({ ok: guidance.ok, facesDetected });
+
+      // dispara onPass uma única vez se ficar OK por ~600ms
+      if (guidance.ok && !passedRef.current) {
+        if (okTimerRef.current) window.clearTimeout(okTimerRef.current);
+        okTimerRef.current = window.setTimeout(() => {
+          if (!passedRef.current && guidance.ok) {
+            passedRef.current = true;
+            onPass?.();
+          }
+        }, 600);
+      } else if (!guidance.ok && okTimerRef.current) {
+        // se sair de OK, cancela agendamento
+        window.clearTimeout(okTimerRef.current);
+        okTimerRef.current = null;
+      }
     };
 
     if (remaining <= 0) {
@@ -104,8 +114,9 @@ export default function FaceCheck() {
 
     return () => {
       if (timerRef.current) window.clearTimeout(timerRef.current);
+      if (okTimerRef.current) window.clearTimeout(okTimerRef.current);
     };
-  }, [guidance]);
+  }, [guidance, facesDetected, onPass, onResult]);
 
   return (
     <section
@@ -113,24 +124,22 @@ export default function FaceCheck() {
       className='w-full flex flex-col items-center gap-4'
     >
       <header className='text-center'>
+        {/* Se não usa tokens, troque por: text-slate-800 / text-slate-600 */}
         <h1 className='text-2xl font-semibold text-foreground'>Teste de Enquadramento</h1>
-        <p className='text-sm text-foreground/70'>
-          Autorize o uso da câmera para iniciarmos o teste.
-        </p>
+        <p className='text-sm text-foreground/70'>Autorize o uso da câmera para iniciarmos o teste.</p>
       </header>
 
-      {/* Container do vídeo com overlay */}
+      {/* Vídeo + overlays */}
       <div
         className='relative rounded-lg overflow-hidden bg-black'
         style={{ width, height }}
         aria-live='polite'
       >
-        {/* Moldura guia (região alvo para o rosto) */}
+        {/* Moldura guia */}
         <div
           aria-hidden
           className='absolute z-10 border-2 border-green-400/70 rounded-lg pointer-events-none'
           style={{
-            // Moldura central ocupando ~70% do quadro
             left: `${((1 - 0.7) / 2) * 100}%`,
             top: `${((1 - 0.7) / 2) * 100}%`,
             width: `${0.7 * 100}%`,
@@ -138,12 +147,10 @@ export default function FaceCheck() {
           }}
         />
 
-        {/* Desenho da(s) bounding box(es) detectada(s) */}
+        {/* Bounding boxes */}
         {boundingBox.map((box, idx) => {
-          // xCenter/yCenter do hook indicam o canto superior esquerdo (normalizado)
-          // Aumentamos um pouco o tamanho para melhor visualização
-          const paddingX = 0.1; // 10% de padding horizontal
-          const paddingY = 0.05; // 5% de padding vertical (menor altura)
+          const paddingX = 0.1;
+          const paddingY = 0.05;
           const w = (box.width + paddingX) * 100;
           const h = (box.height + paddingY) * 100;
           const top = (box.yCenter - paddingY / 2) * 100;
@@ -159,7 +166,7 @@ export default function FaceCheck() {
           );
         })}
 
-        {/* Vídeo da webcam */}
+        {/* Webcam (espelhada apenas visualmente) */}
         <Webcam
           ref={webcamRef}
           audio={false}
@@ -173,10 +180,13 @@ export default function FaceCheck() {
       </div>
 
       {/* Status e dicas */}
+      {/* Se não usa tokens, troque:
+          bg-surface -> bg-white
+          border-border -> border-slate-200
+          text-foreground -> text-slate-800
+      */}
       <div className='w-full max-w-screen-md p-4 rounded-lg bg-surface shadow border border-border min-h-24'>
-        <p
-          className={`text-base font-medium ${uiGuidance.ok ? 'text-green-600' : 'text-yellow-700'}`}
-        >
+        <p className={`text-base font-medium ${uiGuidance.ok ? 'text-green-600' : 'text-yellow-700'}`}>
           {isLoading ? 'Carregando modelo de detecção…' : uiGuidance.status}
         </p>
         <ul className='mt-2 list-disc pl-5 text-sm text-foreground/80'>

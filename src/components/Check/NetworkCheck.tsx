@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   FiAlertTriangle,
   FiCheckCircle,
@@ -9,55 +9,122 @@ import {
 } from 'react-icons/fi';
 import { useNetworkStatus } from '../../hooks/useNetworkStatus';
 
+type NetworkCheckProps = {
+  /** Chamado UMA ÚNICA vez quando a rede está estável (online + good/excellent) por ~800ms */
+  onPass?: () => void;
+  /** Snapshot contínuo para “Resumo” no final do diagnóstico */
+  onResult?: (r: {
+    ok: boolean;
+    isOnline: boolean;
+    quality: 'excellent' | 'good' | 'poor' | 'offline';
+    message: string;
+    tips: string[];
+    state: {
+      effectiveType?: string;
+      downlink?: number;
+      rtt?: number;
+      saveData?: boolean;
+    };
+  }) => void;
+};
+
 /**
  * Componente de verificação de conexão de rede para teleconsulta
- * Monitora a qualidade da conexão em tempo real e fornece feedback visual
- * ao usuário sobre a adequação da rede para realizar videochamadas.
- *
- * Utiliza o hook customizado useNetworkStatus que internamente usa react-use
- * para acessar a Network Information API do navegador.
+ * Monitora a qualidade da conexão em tempo real e fornece feedback visual.
  */
-export default function NetworkCheck() {
+export default function NetworkCheck({ onPass, onResult }: NetworkCheckProps) {
   const [isTestStarted, setIsTestStarted] = useState(false);
   const { quality, isOnline, message, tips, state } = useNetworkStatus();
 
+  // ---- Novo: emitir resultados e disparar onPass quando “OK” estabilizar ----
+  const passTimer = useRef<number | null>(null);
+  const passedOnce = useRef(false);
+
+  useEffect(() => {
+    // Emite snapshot para quem quiser montar resumo
+    onResult?.({
+      ok: isOnline && (quality === 'excellent' || quality === 'good'),
+      isOnline,
+      quality,
+      message,
+      tips,
+      state: {
+        effectiveType: state.effectiveType,
+        downlink: state.downlink,
+        rtt: state.rtt,
+        saveData: state.saveData,
+      },
+    });
+
+    if (!isTestStarted) return;
+
+    const ok = isOnline && (quality === 'excellent' || quality === 'good');
+    if (ok && !passedOnce.current) {
+      if (passTimer.current) window.clearTimeout(passTimer.current);
+      passTimer.current = window.setTimeout(() => {
+        // Verifica novamente se continua ok antes de passar
+        if (isOnline && (quality === 'excellent' || quality === 'good')) {
+          passedOnce.current = true;
+          onPass?.();
+        }
+      }, 800);
+    } else if (!ok && passTimer.current) {
+      window.clearTimeout(passTimer.current);
+      passTimer.current = null;
+    }
+
+    return () => {
+      if (passTimer.current) {
+        window.clearTimeout(passTimer.current);
+        passTimer.current = null;
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isTestStarted, isOnline, quality, message, tips, state?.effectiveType, state?.downlink, state?.rtt, state?.saveData]);
+
   // Define cores e ícones baseados na qualidade da conexão
   const statusConfig = {
+    // Usamos fundo neutro do projeto e apenas acentos coloridos para borda/ícone
     excellent: {
       color: 'text-green-600',
-      bgColor: 'bg-green-50',
+      bgColor: 'bg-backSecondary',
       borderColor: 'border-green-400',
       icon: FiCheckCircle,
       iconBg: 'bg-green-100',
     },
     good: {
       color: 'text-blue-600',
-      bgColor: 'bg-blue-50',
+      bgColor: 'bg-backSecondary',
       borderColor: 'border-blue-400',
       icon: FiZap,
       iconBg: 'bg-blue-100',
     },
     poor: {
       color: 'text-yellow-700',
-      bgColor: 'bg-yellow-50',
+      bgColor: 'bg-backSecondary',
       borderColor: 'border-yellow-400',
       icon: FiAlertTriangle,
       iconBg: 'bg-yellow-100',
     },
     offline: {
       color: 'text-red-600',
-      bgColor: 'bg-red-50',
+      bgColor: 'bg-backSecondary',
       borderColor: 'border-red-400',
       icon: FiWifiOff,
       iconBg: 'bg-red-100',
     },
-  };
+  } as const;
 
   const config = statusConfig[quality];
   const StatusIcon = config.icon;
+  // indica se a verificação está OK (conectado + boa/ótima)
+  const ok = isOnline && (quality === 'excellent' || quality === 'good');
 
   // Se o teste não foi iniciado, mostra o botão
   if (!isTestStarted) {
+    // reset disparo automático quando reiniciar o teste
+    passedOnce.current = false;
+
     return (
       <section
         aria-label='Verificação de status da conexão de rede'
@@ -74,8 +141,8 @@ export default function NetworkCheck() {
         <div className='w-full max-w-screen-md flex flex-col items-center gap-6 p-8'>
           <div className='text-center mb-4'>
             <div className='flex justify-center mb-6'>
-              <div className='bg-blue-100 p-6 rounded-full'>
-                <FiWifi className='w-16 h-16 text-blue-600' />
+              <div className='bg-backPrimary p-6 rounded-full'>
+                <FiWifi className='w-16 h-16 text-clikColor' />
               </div>
             </div>
             <p className='text-foreground/70 mb-6 max-w-md'>
@@ -155,9 +222,7 @@ export default function NetworkCheck() {
                 <div>
                   <span className='text-foreground/60'>Velocidade Efetiva:</span>
                   <span className='ml-2 font-medium text-foreground'>
-                    {state.downlink && state.downlink >= 20
-                      ? '5G'
-                      : state.effectiveType.toUpperCase()}
+                    {state.downlink && state.downlink >= 20 ? '5G' : state.effectiveType.toUpperCase()}
                   </span>
                 </div>
               )}
@@ -191,7 +256,7 @@ export default function NetworkCheck() {
       </div>
 
       {/* Barra de status visual simplificada */}
-      <div className='w-full max-w-screen-md'>
+  <div className='w-full max-w-screen-md'>
         <div className='flex items-center gap-2'>
           <span className='text-xs text-foreground/60 font-medium'>Qualidade:</span>
           <div className='flex-1 h-2 bg-gray-200 rounded-full overflow-hidden'>
@@ -208,26 +273,14 @@ export default function NetworkCheck() {
               role='progressbar'
               aria-label='Indicador de qualidade da conexão'
               aria-valuenow={
-                quality === 'excellent'
-                  ? 100
-                  : quality === 'good'
-                    ? 75
-                    : quality === 'poor'
-                      ? 50
-                      : 25
+                quality === 'excellent' ? 100 : quality === 'good' ? 75 : quality === 'poor' ? 50 : 25
               }
               aria-valuemin={0}
               aria-valuemax={100}
             />
           </div>
           <span className={`text-xs font-semibold ${config.color} capitalize`}>
-            {quality === 'excellent'
-              ? 'Excelente'
-              : quality === 'good'
-                ? 'Boa'
-                : quality === 'poor'
-                  ? 'Limitada'
-                  : 'Offline'}
+            {quality === 'excellent' ? 'Excelente' : quality === 'good' ? 'Boa' : quality === 'poor' ? 'Limitada' : 'Offline'}
           </span>
         </div>
       </div>
@@ -236,16 +289,21 @@ export default function NetworkCheck() {
       <button
         onClick={() => {
           setIsTestStarted(false);
+          // dá um respiro para resetar UI e timers
           setTimeout(() => setIsTestStarted(true), 100);
+          // permite novo disparo de onPass
+          passedOnce.current = false;
         }}
-        className='mt-4 text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-blue-300 rounded px-3 py-2 transition-colors'
+        className='mt-4 text-clikColor hover:brightness-90 font-medium text-sm flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-borderColor rounded px-3 py-2 transition-colors'
       >
         <FiRefreshCw className='w-4 h-4' />
         Refazer Verificação
       </button>
 
-      {/* Informações sobre o teste de rede */}
-      <div className='mt-8 w-full max-w-screen-md bg-white rounded-lg shadow-md p-6 border border-border'>
+      {/* Informações / troubleshooting (mantidos) */}
+      {/* ... resto do conteúdo abaixo permanece igual ... */}
+
+      <div className='mt-8 w-full max-w-screen-md bg-backSecondary rounded-lg shadow-md p-6 border border-borderColor'>
         <h2 className='text-xl font-semibold text-foreground mb-4'>Sobre a Verificação de Rede</h2>
         <div className='space-y-4 text-foreground/80'>
           <p>
@@ -275,7 +333,7 @@ export default function NetworkCheck() {
               </ul>
             </div>
           </div>
-          <div className='mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg'>
+          <div className='mt-4 p-4 bg-backPrimary border border-borderColor rounded-lg'>
             <p className='text-sm'>
               <strong>Importante:</strong> Uma conexão estável é fundamental para sua teleconsulta.
               Se a verificação indicar problemas, sugerimos conectar-se a uma rede Wi-Fi de melhor
@@ -286,42 +344,43 @@ export default function NetworkCheck() {
         </div>
       </div>
 
-      {/* Resolução de problemas */}
-      <div className='mt-6 w-full max-w-screen-md bg-yellow-50 border border-yellow-200 rounded-lg p-6'>
-        <h2 className='text-xl font-semibold text-foreground mb-4'>Resolução de Problemas</h2>
-        <div className='space-y-3 text-sm text-foreground/80'>
-          <details className='cursor-pointer'>
-            <summary className='font-semibold'>
-              O sistema indica offline, mas tenho conexão ativa
-            </summary>
-            <p className='mt-2 pl-4'>
-              Algumas configurações de rede corporativa ou VPN podem interferir na detecção
-              automática. Verifique as configurações de firewall e permissões do navegador para
-              acesso à rede. Se necessário, desative temporariamente a VPN para o teste.
-            </p>
-          </details>
-          <details className='cursor-pointer'>
-            <summary className='font-semibold'>
-              A qualidade aparece constantemente como limitada
-            </summary>
-            <p className='mt-2 pl-4'>
-              Isso pode indicar instabilidade na conexão. Sugestões: reinicie o equipamento de rede,
-              verifique a proximidade com o roteador, teste em diferentes bandas de frequência
-              (2.4GHz/5GHz), ou verifique a cobertura do sinal móvel se estiver usando dados
-              celulares.
-            </p>
-          </details>
-          <details className='cursor-pointer'>
-            <summary className='font-semibold'>Os detalhes técnicos não são exibidos</summary>
-            <p className='mt-2 pl-4'>
-              Alguns navegadores (Firefox e Safari) possuem suporte limitado à Network Information
-              API. Nestes casos, apenas o status básico de conectividade será exibido. Para acesso
-              às métricas completas, recomendamos utilizar navegadores baseados em Chromium (Chrome,
-              Edge, Brave).
-            </p>
-          </details>
+      {!ok && (
+        <div className='mt-6 w-full max-w-screen-md bg-backSecondary border border-borderColor rounded-lg p-6'>
+          <h2 className='text-xl font-semibold text-foreground mb-4'>Resolução de Problemas</h2>
+          <div className='space-y-3 text-sm text-foreground/80'>
+            <details className='cursor-pointer'>
+              <summary className='font-semibold'>
+                O sistema indica offline, mas tenho conexão ativa
+              </summary>
+              <p className='mt-2 pl-4'>
+                Algumas configurações de rede corporativa ou VPN podem interferir na detecção
+                automática. Verifique as configurações de firewall e permissões do navegador para
+                acesso à rede. Se necessário, desative temporariamente a VPN para o teste.
+              </p>
+            </details>
+            <details className='cursor-pointer'>
+              <summary className='font-semibold'>
+                A qualidade aparece constantemente como limitada
+              </summary>
+              <p className='mt-2 pl-4'>
+                Isso pode indicar instabilidade na conexão. Sugestões: reinicie o equipamento de rede,
+                verifique a proximidade com o roteador, teste em diferentes bandas de frequência
+                (2.4GHz/5GHz), ou verifique a cobertura do sinal móvel se estiver usando dados
+                celulares.
+              </p>
+            </details>
+            <details className='cursor-pointer'>
+              <summary className='font-semibold'>Os detalhes técnicos não são exibidos</summary>
+              <p className='mt-2 pl-4'>
+                Alguns navegadores (Firefox e Safari) possuem suporte limitado à Network Information
+                API. Nestes casos, apenas o status básico de conectividade será exibido. Para acesso
+                às métricas completas, recomendamos utilizar navegadores baseados em Chromium (Chrome,
+                Edge, Brave).
+              </p>
+            </details>
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 }
