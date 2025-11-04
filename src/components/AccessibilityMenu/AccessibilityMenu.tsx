@@ -89,6 +89,12 @@ export default function AccessibilityMenu() {
     reset,
   };
 
+  const resetBtnPosition = () => {
+    const def = defaultPos();
+    setPos(def);
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(def)); } catch { /* ignore */ }
+  };
+
   return (
     <div
       className="fixed z-1000 pointer-events-none select-none"
@@ -111,42 +117,55 @@ export default function AccessibilityMenu() {
           <IoAccessibilitySharp size={28} />
         </button>
 
-        <div
-          id="a11y-menu"
-          role="menu"
-          aria-hidden={!open}
-          className={`absolute right-0 bottom-16 min-w-[260px] rounded-xl shadow-2xl p-6 bg-white
-            transition-all duration-300 ease-[cubic-bezier(0.4,2,0.6,1)]
-            ${open
-              ? 'opacity-100 scale-100 pointer-events-auto'
-              : 'opacity-0 scale-95 pointer-events-none'
-            }`}
-        >
-          <div className="flex items-center gap-3 mb-3">
-            <IoAccessibilitySharp size={28} className="text-orange-500" />
-            <span className="font-bold text-lg text-gray-900">Luma Acessível</span>
-          </div>
+        {(() => {
+          const openUp = pos.y > window.innerHeight / 2;
+          const attachClass = openUp ? 'bottom-16 origin-bottom-right' : 'top-16 origin-top-right';
+          return (
+            <div
+              id="a11y-menu"
+              role="menu"
+              aria-hidden={!open}
+              className={`absolute right-0 ${attachClass} min-w-[260px] rounded-xl shadow-2xl p-6 bg-white transition-all duration-300 ease-[cubic-bezier(0.4,2,0.6,1)] ${
+                open ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'
+              }`}
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <IoAccessibilitySharp size={28} className="text-orange-500" />
+                <span className="font-bold text-lg text-gray-900">Luma Acessível</span>
+              </div>
 
-          <ul className="list-none m-0 p-0">
-            {A11Y_MENU_ITEMS.map((it, i) => {
-              const Icon = it.icon;
-              return (
-                <li key={it.key}>
-                  <button
-                    type="button"
-                    onClick={actions[it.key]}
-                    className={`w-full flex items-center gap-3 py-2 border-b border-gray-100 text-base text-gray-900 transition-colors hover:bg-gray-100 text-left ${
-                      i === A11Y_MENU_ITEMS.length - 1 ? 'border-b-0' : ''
-                    }`}
-                  >
-                    <Icon size={22} className="text-orange-500" />
-                    <span>{it.label}</span>
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+              <ul className="list-none m-0 p-0">
+                {A11Y_MENU_ITEMS.map((it, i) => {
+                  const Icon = it.icon;
+                  return (
+                    <li key={it.key}>
+                      <button
+                        type="button"
+                        onClick={actions[it.key]}
+                        className={`w-full flex items-center gap-3 py-2 border-b border-gray-100 text-base text-gray-900 transition-colors hover:bg-gray-100 text-left ${
+                          i === A11Y_MENU_ITEMS.length - 1 ? 'border-b-0' : ''
+                        }`}
+                      >
+                        <Icon size={22} className="text-orange-500" />
+                        <span>{it.label}</span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+
+              <div className="mt-4 pt-3 border-t border-gray-100">
+                <button
+                  type="button"
+                  onClick={resetBtnPosition}
+                  className="text-sm text-gray-600 hover:text-gray-800 underline"
+                >
+                  Restaurar posição do botão
+                </button>
+              </div>
+            </div>
+          );
+        })()}
       </div>
     </div>
   );
