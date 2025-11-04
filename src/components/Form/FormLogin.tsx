@@ -29,17 +29,23 @@ export default function FormLogin() {
     },
   });
 
-
-
   const onSubmit = async (data: LoginFormData) => {
     setErrorMessage('');
-    const onlyDigits = (v: string) => v.replace(/\D/g, '');
+    const onlyDigits = (v: any = '') => String(v ?? '').replace(/\D/g, '');
 
     try {
+      const birthIso =
+        /^\d{4}-\d{2}-\d{2}$/.test(data.dataNascimento) ||
+        !data.dataNascimento
+          ? data.dataNascimento
+          : new Date(data.dataNascimento).toISOString().split('T')[0];
+
       const payload = {
         cpf: onlyDigits(data.cpf),
-        passwordDate: data.dataNascimento,
+        passwordDate: birthIso,
       };
+
+      console.log('Login payload:', payload);
 
       const res = await fetch('https://luma-wu46.onrender.com/login', {
         method: 'POST',
@@ -47,7 +53,14 @@ export default function FormLogin() {
         body: JSON.stringify(payload),
       });
 
-      const responseData = await res.json();
+      const text = await res.text();
+      let responseData: any = null;
+      try {
+        responseData = JSON.parse(text);
+      } catch {
+        responseData = null;
+      }
+      console.log('Login response status:', res.status, 'body:', text);
 
       if (!res.ok) {
         const msg =
@@ -56,6 +69,7 @@ export default function FormLogin() {
         setErrorMessage(msg);
         return;
       }
+
       const token = responseData?.token || responseData?.accessToken;
       if (token) {
         localStorage.setItem('token', token);
@@ -63,18 +77,16 @@ export default function FormLogin() {
       setLoggedUser(payload.cpf);
 
       reset();
-      
       navigate('/', { replace: true });
     } catch (error) {
       console.error('Erro ao fazer login:', error);
       setErrorMessage('Erro de conexão. Tente novamente.');
-
     }
   };
 
   return (
     <main>
-      <h1 className='text-center mb-5 text-fontPrimary text-2xl font-bold'>Acesse sua conta</h1>
+      <h1 className='text-center mb-5 text-fontPrimary text-2xl font-bold'>Acesse suconta</h1>
       <form id='form-login' onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
         <FormField label='CPF' required>
           <Controller
@@ -90,7 +102,10 @@ export default function FormLogin() {
                 name='cpf'
                 id='cpf'
                 value={field.value}
-                onChange={(v) => field.onChange(formatCPF(v))}
+                onChange={(v: any) => {
+                  const val = typeof v === 'string' ? v : v?.target?.value ?? '';
+                  field.onChange(formatCPF(val));
+                }}
                 placeholder='000.000.000-00'
                 required
                 maxLength={14}
@@ -127,7 +142,10 @@ export default function FormLogin() {
                 name='dataNascimento'
                 id='dataNascimento'
                 value={field.value}
-                onChange={field.onChange}
+                onChange={(v: any) => {
+                  const val = typeof v === 'string' ? v : v?.target?.value ?? '';
+                  field.onChange(val);
+                }}
                 required
                 min='1900-01-01'
                 max={new Date().toISOString().split('T')[0]}
