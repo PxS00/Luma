@@ -29,7 +29,7 @@ const router = createBrowserRouter([
       { path: '/contato', element: <Contato /> },
       { path: '/auxilio/cadastro', element: <AuxilioCadastro /> },
       { path: '/auxilio/teleconsulta', element: <AuxilioTeleconsulta /> },
-      { path: '/camera-check', element: <Checks /> },
+      // { path: '/camera-check', element: <Checks /> },
       { path: '/formulario', element: <Formulario /> },
       { path: '/formulario/:tab', element: <Formulario /> },
       { path: '/lembrete', element: <Schedule /> },

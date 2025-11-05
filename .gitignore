@@ -1,4 +1,6 @@
-# Logs
+# ---------------------------------
+# LOGS
+# ---------------------------------
 logs
 *.log
 npm-debug.log*
@@ -6,23 +8,84 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+.eslintcache
 
+# ---------------------------------
+# DEPENDÊNCIAS E LOCK FILES
+# (Se sua turma/prof preferir, mantenha APENAS 1 lock:
+#  pnpm-lock.yaml OU yarn.lock OU package-lock.json)
 pnpm-lock.yaml
 yarn.lock
 package-lock.json
-node_modules
-dist
-dist-ssr
-*.local
+node_modules/
 
-# Editor directories and files
+# ---------------------------------
+# BUILDS / ARTEFATOS
+dist/
+dist-ssr/
+build/
+.storybook-out/
+storybook-static/
+coverage/
+*.tsbuildinfo
+
+# ---------------------------------
+# CACHES DE FERRAMENTAS
+.vite/
+.vite-cache/
+.turbo/
+.parcel-cache/
+.next/
+.cache/
+.tmp/
+temp/
+.tmp/
+.vercel/
+.vercel/cache
+
+# ---------------------------------
+# TESTES (Cypress/Playwright)
+cypress/videos/
+cypress/screenshots/
+playwright-report/
+test-results/
+
+# ---------------------------------
+# CONFIG LOCAL / ENV
+*.local
+.env
+.env.*.local
+!.env.example
+
+# ---------------------------------
+# EDITOR / OS
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-.github
+
+# ---------------------------------
+# ARQUIVOS GRANDES COMUNS (opcional)
+# (Evite versionar binários; use Git LFS se precisar)
+*.mp4
+*.mov
+*.avi
+*.zip
+*.rar
+*.7z
+*.psd
+*.ai
+*.fig
+
+# Se subir só front em produção, evite source maps pesados:
+# *.map
+
+# ---------------------------------
+# GITHUB (se usar Actions e quiser manter, remova essa linha)
+.github/

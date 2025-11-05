@@ -45,7 +45,7 @@ export default function ToggleSection({ title, children }: ToggleSectionProps) {
           role='region'
           className='
             border-t border-borderColor
-            bg-[#FFF8E1]
+             bg-[#FFE4D6]
             rounded-b-md sm:rounded-b-lg md:rounded-b-xl
             text-fontTertiary text-sm sm:text-base md:text-[17px]
             text-center
