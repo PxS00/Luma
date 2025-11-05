@@ -185,7 +185,7 @@ export default function FaceCheck({ onPass, onResult }: FaceCheckProps) {
           border-border -> border-slate-200
           text-foreground -> text-slate-800
       */}
-      <div className='w-full max-w-screen-md p-4 rounded-lg bg-surface shadow border border-border min-h-24'>
+      <div className='w-full max-w-3x1 p-4 rounded-lg bg-surface shadow border border-border min-h-24'>
         <p className={`text-base font-medium ${uiGuidance.ok ? 'text-green-600' : 'text-yellow-700'}`}>
           {isLoading ? 'Carregando modelo de detecção…' : uiGuidance.status}
         </p>
