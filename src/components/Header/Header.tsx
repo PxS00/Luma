@@ -99,7 +99,7 @@ export default function Header() {
                 to='/perfil'
                 aria-label='Perfil'
                 variant='icon'
-                className='h-12 w-12 text-white hover:text-white'
+                className='h-12 w-12 p-0 text-white hover:text-white flex items-center justify-center'
               >
                 <MdAccountCircle size={28} aria-hidden />
               </BtnNav>

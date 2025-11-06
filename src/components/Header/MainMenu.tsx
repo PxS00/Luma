@@ -75,9 +75,9 @@ export default function MainMenu({ filter = '', excludeHrefs = [] }: MainMenuPro
                   to={item.href}
                   aria-label={item.label}
                   variant='icon'
-                  className={isPerfil ? 'h-14 w-14 md:h-16 md:w-16 text-white hover:text-white' : ''}
+                  className={isPerfil ? 'h-20 w-20 md:h-24 md:w-24 text-white hover:text-white' : ''}
                 >
-                  <item.Icon size={isPerfil ? 36 : 22} aria-hidden />
+                  <item.Icon size={isPerfil ? 53 : 22} aria-hidden />
                 </BtnNav>
               );
             })()

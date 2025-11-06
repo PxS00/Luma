@@ -1,7 +1,7 @@
 import BtnInterno from '@/components/Button/BtnInterno';
 import { useAuth } from '@/hooks/useAuth';
 import { useMemo } from 'react';
-import { MdEdit, MdLogout } from 'react-icons/md';
+import { MdEdit, MdLogout, MdClose } from 'react-icons/md';
 
 function maskCPF(cpf: string) {
   const d = cpf.replace(/\D/g, '').padStart(11, '0').slice(-11);
@@ -42,20 +42,28 @@ export default function Perfil() {
       </header>
 
       {!isLoggedIn || !info ? (
-        <section className='max-w-2xl mx-auto bg-[#FFF1E6] rounded-xl border p-6'>
-          <p className='text-fontPrimary text-lg mb-4'>Você não está logado.</p>
-          <div className='flex gap-3 justify-center'>
-            <BtnInterno to='/formulario/cadastro?edit=1' className='bg-clikColor hover:bg-hoverBtn inline-flex items-center gap-2'>
-              <MdEdit size={20} aria-hidden='true' />
-              <span>Fazer cadastro / login</span>
-            </BtnInterno>
-            <a
-              href='/'
-              className='inline-flex items-center gap-2 px-4 py-2 rounded-md font-bold text-fontPrimary underline'
-              aria-label='Voltar para a página inicial'
-            >
-              Voltar para Home
-            </a>
+        <section className='max-w-2xl mx-auto bg-backSecondary rounded-xl border border-borderColor p-6'>
+          <div className='flex flex-col items-center text-center gap-4'>
+            <div className='p-3 rounded-full bg-backBtn/10'>
+              <MdClose size={28} className='text-backBtn' aria-hidden />
+            </div>
+            <h2 className='text-fontPrimary text-xl font-semibold'>Você ainda não entrou</h2>
+            <p className='text-fontTertiary max-w-xl'>Para acessar e gerenciar seus dados de perfil, por favor faça login ou crie uma conta. É rápido e seguro.</p>
+
+            <div className='flex gap-3 justify-center mt-2'>
+              <BtnInterno to='/formulario/cadastro?edit=1' className='bg-backBtn hover:bg-hoverBtn text-white inline-flex items-center gap-2'>
+                <MdEdit size={18} aria-hidden='true' />
+                <span>Entrar / Cadastrar</span>
+              </BtnInterno>
+
+              <a
+                href='/'
+                className='inline-flex items-center gap-2 px-4 py-2 rounded-md font-bold text-fontPrimary border border-borderColor hover:bg-backPrimary'
+                aria-label='Voltar para a página inicial'
+              >
+                Voltar para Home
+              </a>
+            </div>
           </div>
         </section>
       ) : (
@@ -84,7 +92,7 @@ export default function Perfil() {
           </dl>
 
           <div className='mt-6 flex flex-wrap gap-3 justify-center'>
-            <BtnInterno to='/formulario/cadastro?edit=1' className='bg-clikColor hover:bg-hoverBtn inline-flex items-center gap-2'>
+            <BtnInterno to='/formulario/cadastro?edit=1' className='px-4 py-2 rounded-md font-bold text-white bg-red-600 hover:bg-red-700 inline-flex items-center gap-2'>
               <MdEdit size={20} aria-hidden='true' />
               <span>Atualizar dados</span>
             </BtnInterno>
