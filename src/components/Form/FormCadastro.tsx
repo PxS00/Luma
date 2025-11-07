@@ -12,6 +12,7 @@ import {
 } from '@/utils/userStorage';
 import { formatCPF, formatPhone, validateCPF } from '@/utils/validators';
 import { useEffect, useMemo, useState } from 'react';
+import Spinner from '@/components/Spinner/Spinner';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
@@ -25,6 +26,7 @@ export default function FormCadastro() {
   const [searchParams] = useSearchParams();
   const isEditMode = useMemo(() => searchParams.get('edit') === '1', [searchParams]);
   const [errorMessage, setErrorMessage] = useState('');
+  const [isNavigatingToHome, setIsNavigatingToHome] = useState(false);
 
   const {
     control,
@@ -64,6 +66,7 @@ export default function FormCadastro() {
    */
   const onSubmit = async (data: CadastroFormData) => {
     setErrorMessage('');
+    if (!isEditMode) setIsNavigatingToHome(true);
 
     const onlyDigits = (v: string) => v.replace(/\D/g, '');
 
@@ -152,6 +155,7 @@ export default function FormCadastro() {
           (responseData && (responseData.message || responseData.error)) ||
           (res.status === 409 ? 'Usuário já existe.' : 'Erro ao cadastrar usuário.');
         setErrorMessage(msg);
+        setIsNavigatingToHome(false);
         return;
       }
 
@@ -172,19 +176,28 @@ export default function FormCadastro() {
       setLoggedUser(payload.cpf);
       window.dispatchEvent(new CustomEvent('auth-update'));
 
+
       reset();
-      navigate('/', {
-        replace: true,
-        state: { message: 'Cadastro realizado com sucesso!' },
-      });
+      setTimeout(() => {
+        navigate('/', {
+          replace: true,
+          state: { message: 'Cadastro realizado com sucesso!' },
+        });
+      }, 300);
     } catch (error) {
       console.error('Erro ao realizar cadastro:', error);
       setErrorMessage('Não foi possível concluir o cadastro. Verifique os dados informados ou tente novamente');
+      setIsNavigatingToHome(false);
     }
   };
 
   return (
     <main>
+      {isNavigatingToHome && (
+        <div className='fixed inset-0 z-50 flex items-center justify-center bg-white/70'>
+          <Spinner size='lg' message='Redirecionando...' />
+        </div>
+      )}
       <h1 className='text-center mb-5 text-fontPrimary text-2xl font-bold '>
         {isEditMode ? 'Atualizar dados' : 'Registre seu Cadastro'}
       </h1>
