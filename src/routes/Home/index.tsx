@@ -30,9 +30,9 @@ export default function Home() {
 
   return (
   <main className="mx-auto w-full max-w-screen-lg px-4" aria-label="Conteúdo principal da página inicial">
-    <BoasVindasSection />
-      <InfoBoxesSection />
-  <AcessosSection />
+  <BoasVindasSection />
+  <InfoBoxesSection />
+    <AcessosSection />
   <DiagnosticoSection onOpen={() => setOpenDiag(true)} />
       <DiagnosticModal
         open={openDiag}
