@@ -8,6 +8,8 @@ import { useAuth } from '@/hooks/useAuth';
 export default function BoasVindasSection() {
   const { isLoggedIn, userData } = useAuth();
 
+  const firstName = userData?.nome ? userData.nome.trim().split(/\s+/)[0] : '';
+
   // Retorna uma saudação baseada na hora atual
   const getGreeting = () => {
     try {
@@ -36,7 +38,7 @@ export default function BoasVindasSection() {
                     text-fontPrimary font-semibold mb-3
                   '
                 >
-                  {getGreeting()}, {userData.nome}!
+                  {getGreeting()}, {firstName}!
                 </h2>
 
                 <p

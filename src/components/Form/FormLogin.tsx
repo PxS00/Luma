@@ -5,6 +5,7 @@ import type { LoginFormData } from '@/types/form';
 import { setLoggedUser, setLoggedUserFull, saveUserToStorage } from '@/utils/userStorage';
 import { formatCPF, validateCPF } from '@/utils/validators';
 import { useState } from 'react';
+import Spinner from '@/components/Spinner/Spinner';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -32,6 +33,7 @@ interface UserData {
 export default function FormLogin() {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
+  const [isNavigatingToHome, setIsNavigatingToHome] = useState(false);
 
   const {
     control,
@@ -48,7 +50,8 @@ export default function FormLogin() {
 
   const onSubmit = async (data: LoginFormData) => {
     setErrorMessage('');
-    const onlyDigits = (v: string = '') => String(v ?? '').replace(/\D/g, '');
+    setIsNavigatingToHome(true);
+    const onlyDigits = (v: any = '') => String(v ?? '').replace(/\D/g, '');
 
     try {
       const birthIso =
@@ -84,6 +87,7 @@ export default function FormLogin() {
           (responseData && (responseData.message || responseData.error)) ||
           (res.status === 401 ? 'Credenciais inválidas.' : 'Erro ao autenticar.');
         setErrorMessage(msg);
+        setIsNavigatingToHome(false);
         return;
       }
 
@@ -101,7 +105,10 @@ export default function FormLogin() {
         },
       });
 
-      if (!userRes.ok) throw new Error('Erro ao buscar usuários.');
+      if (!userRes.ok) {
+        setIsNavigatingToHome(false);
+        throw new Error('Erro ao buscar usuários.');
+      }
 
       const users = await userRes.json() as UserData[];
 
@@ -150,16 +157,22 @@ export default function FormLogin() {
         window.dispatchEvent(new CustomEvent('auth-update'));
       }
 
-      reset();
-      navigate('/', { replace: true });
+  reset();
+  setTimeout(() => navigate('/', { replace: true }), 300);
     } catch (err) {
       console.error('Erro ao fazer login:', err);
       setErrorMessage('Erro de conexão. Tente novamente.');
+      setIsNavigatingToHome(false);
     }
   };
 
   return (
     <main>
+      {isNavigatingToHome && (
+        <div className='fixed inset-0 z-50 flex items-center justify-center bg-white/70'>
+          <Spinner size='lg' message='Redirecionando...' />
+        </div>
+      )}
       <h1 className="text-center mb-5 text-fontPrimary text-2xl font-bold">
         Acesse sua conta
       </h1>
