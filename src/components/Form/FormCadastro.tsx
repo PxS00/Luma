@@ -179,7 +179,7 @@ export default function FormCadastro() {
       });
     } catch (error) {
       console.error('Erro ao realizar cadastro:', error);
-      setErrorMessage('Erro de conexão. Tente novamente.');
+      setErrorMessage('Não foi possível concluir o cadastro. Verifique os dados informados ou tente novamente');
     }
   };
 

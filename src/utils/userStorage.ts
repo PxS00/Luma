@@ -44,7 +44,7 @@ export function setAllUsersToStorage(users: CadastroFormData[]): void {
  * @param cpf - CPF do usuário logado
  */
 export function setLoggedUser(cpf: string): void {
-  localStorage.setItem(LOGGED_USER_KEY, cpf);
+  localStorage.setItem(LOGGED_USER_KEY, JSON.stringify(cpf));
 }
 
 /**
