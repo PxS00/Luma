@@ -28,7 +28,8 @@ export default function FaceCheck({ onPass, onResult }: FaceCheckProps) {
     faceDetection: new FaceDetection.FaceDetection({
       locateFile: (file: string) => `${import.meta.env.BASE_URL}mediapipe/face_detection/${file}`,
     }),
-    camera: ({ mediaSrc, onFrame }: CameraOptions) => new Camera(mediaSrc, { onFrame, width, height }),
+    camera: ({ mediaSrc, onFrame }: CameraOptions) =>
+      new Camera(mediaSrc, { onFrame, width, height }),
   });
 
   // Avaliação do enquadramento (inalterada)
@@ -126,8 +127,12 @@ export default function FaceCheck({ onPass, onResult }: FaceCheckProps) {
       className='w-full flex flex-col items-center gap-4'
     >
       <header className='text-center'>
-        <h1 className='text-lg sm:text-2xl font-semibold text-foreground'>Teste de Enquadramento</h1>
-        <p className='text-sm text-foreground/70'>Autorize o uso da câmera para iniciarmos o teste.</p>
+        <h1 className='text-lg sm:text-2xl font-semibold text-foreground'>
+          Teste de Enquadramento
+        </h1>
+        <p className='text-sm text-foreground/70'>
+          Autorize o uso da câmera para iniciarmos o teste.
+        </p>
       </header>
 
       {/* Vídeo + overlays - responsivo: usa aspect-ratio para escalar em mobile */}
@@ -149,8 +154,9 @@ export default function FaceCheck({ onPass, onResult }: FaceCheckProps) {
 
         {/* Bounding boxes */}
         {boundingBox.map((box, idx) => {
-          const paddingX = 0.1;
-          const paddingY = 0.05;
+          // Reduzir padding em mobile para evitar quadrado muito grande
+          const paddingX = window.innerWidth < 640 ? 0.02 : 0.1;
+          const paddingY = window.innerWidth < 640 ? 0.01 : 0.05;
           const w = (box.width + paddingX) * 100;
           const h = (box.height + paddingY) * 100;
           const top = (box.yCenter - paddingY / 2) * 100;
@@ -158,7 +164,7 @@ export default function FaceCheck({ onPass, onResult }: FaceCheckProps) {
           return (
             <div
               key={`bb-${idx}`}
-              className='absolute z-20 border-2 border-red-500 rounded'
+              className='absolute z-20 border-[1.5px] sm:border-2 border-red-500 rounded'
               style={{ top: `${top}%`, left: `${left}%`, width: `${w}%`, height: `${h}%` }}
               role='img'
               aria-label='Área do rosto detectado'
@@ -166,7 +172,7 @@ export default function FaceCheck({ onPass, onResult }: FaceCheckProps) {
           );
         })}
 
-        {/* Webcam (espelhada apenas visualmente) */}
+        {/* Webcam*/}
         <Webcam
           ref={webcamRef}
           audio={false}
@@ -186,7 +192,9 @@ export default function FaceCheck({ onPass, onResult }: FaceCheckProps) {
           text-foreground -> text-slate-800
       */}
       <div className='w-full max-w-3xl p-3 sm:p-6 rounded-lg bg-surface shadow border border-border min-h-20'>
-        <p className={`text-base sm:text-lg font-medium ${uiGuidance.ok ? 'text-green-600' : 'text-yellow-700'}`}>
+        <p
+          className={`text-base sm:text-lg font-medium ${uiGuidance.ok ? 'text-green-600' : 'text-yellow-700'}`}
+        >
           {isLoading ? 'Carregando modelo de detecção…' : uiGuidance.status}
         </p>
         <ul className='mt-2 list-disc pl-5 text-sm sm:text-base text-foreground/80'>
