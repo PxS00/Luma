@@ -64,42 +64,58 @@ export default function FormCadastro() {
   const onSubmit = async (data: CadastroFormData) => {
     setErrorMessage('');
 
+    const onlyDigits = (v: string) => v.replace(/\D/g, '');
+
     try {
-      if (isEditMode && isLoggedIn && userData) {
-        // Update existing user by original CPF
-        const users = getUsersFromStorage();
-        const idx = users.findIndex((u) => u.cpf === userData.cpf);
-        if (idx === -1) {
-          throw new Error('Usuário atual não encontrado para atualização.');
-        }
-        users[idx] = { ...data };
-        setAllUsersToStorage(users);
-        // If CPF changed, update session key
-        if (data.cpf !== userData.cpf) {
-          setLoggedUser(data.cpf);
-        }
-        // Notify and go back to Perfil
-        window.dispatchEvent(new CustomEvent('auth-update'));
-        navigate('/perfil', {
-          replace: true,
-          state: { message: 'Dados atualizados com sucesso!' },
-        });
-      } else {
-        // Salva novo usuário e faz login automaticamente
-        saveUserToStorage(data);
-        setLoggedUser(data.cpf);
+      const payload = {
+        cpf: onlyDigits(data.cpf),
+        name: data.nome,
+        email: data.email || '',
+        birthDate: data.dataNascimento,
+        phone: data.telefone,
+      };
 
-        // Notifica componentes sobre mudança de autenticação
-        window.dispatchEvent(new CustomEvent('auth-update'));
+      const res = await fetch('https://luma-wu46.onrender.com/user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
 
-        reset();
-        navigate('/', {
-          replace: true,
-          state: { message: 'Cadastro realizado com sucesso!' },
-        });
+      const responseData = await res.json();
+
+      if (!res.ok) {
+        const msg =
+          (responseData && (responseData.message || responseData.error)) ||
+          (res.status === 409 ? 'Usuário já existe.' : 'Erro ao cadastrar usuário.');
+        setErrorMessage(msg);
+        return;
       }
-    } catch (_error) {
-      setErrorMessage('Erro ao realizar cadastro. Tente novamente.');
+
+      const token = responseData?.token || responseData?.accessToken;
+      if (token) {
+        localStorage.setItem('token', token);
+      }
+
+      try {
+      saveUserToStorage({
+        ...data,
+        cpf: payload.cpf,
+        });
+      } catch (err) {
+        console.error('Falha ao salvar usuário localmente:', err);
+      }
+
+      setLoggedUser(payload.cpf);
+      window.dispatchEvent(new CustomEvent('auth-update'));
+
+      reset();
+      navigate('/', {
+        replace: true,
+        state: { message: 'Cadastro realizado com sucesso!' },
+      });
+    } catch (error) {
+      console.error('Erro ao realizar cadastro:', error);
+      setErrorMessage('Erro de conexão. Tente novamente.');
     }
   };
 

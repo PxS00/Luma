@@ -90,10 +90,17 @@ export default function ScheduleComponent(): React.JSX.Element {
    * Wrappers para registrar ação de lembrete e disparar toast
    * Estas funções encapsulam as ações originais adicionando feedback visual
    */
-  const handleSaveReminderWithAction: ReminderHandlerFn = (reminder) => {
+  const handleSaveReminderWithAction: ReminderHandlerFn = async (reminder) => {
     setModalError(null);
-    handleSaveReminder(reminder);
-    setReminderAction('add');
+    const success = await handleSaveReminder(reminder);
+    if (success) {
+      setReminderAction('add');
+      showToast('Lembrete adicionado com sucesso!', 'success');
+    } else {
+      // Lembrete salvo localmente, mas falha ao enviar para servidor
+      setReminderAction('add');
+      showToast('Lembrete salvo localmente, mas falha ao enviar para o servidor.', 'error');
+    }
   };
 
   const handleEditReminderWithAction: ReminderHandlerFn = (reminder) => {
@@ -101,9 +108,15 @@ export default function ScheduleComponent(): React.JSX.Element {
     setReminderAction('edit');
   };
 
-  const handleRemoveReminderWithAction: ReminderHandlerFn = (reminder) => {
-    handleRemoveReminder(reminder);
-    setReminderAction('remove');
+  const handleRemoveReminderWithAction: ReminderHandlerFn = async (reminder) => {
+    const success = await handleRemoveReminder(reminder);
+    if (success) {
+      setReminderAction('remove');
+      showToast('Lembrete removido com sucesso!', 'success');
+    } else {
+      // Não removeu no servidor — informa o usuário
+      showToast('Falha ao remover lembrete no servidor. Tente novamente.', 'error');
+    }
   };
 
   /**

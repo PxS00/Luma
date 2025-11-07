@@ -5,7 +5,7 @@ import {
   migrateOldReminders,
   setUserRemindersToStorage,
 } from '@/utils/reminderStorage';
-import { getLoggedUser } from '@/utils/userStorage';
+import { getLoggedUser, getLoggedUserFull } from '@/utils/userStorage';
 import { useEffect, useState } from 'react';
 
 /**
@@ -226,11 +226,11 @@ export function useSchedule() {
    * Automaticamente associa o lembrete ao usuário logado.
    * @param reminder - Objeto lembrete com date, time e description
    */
-  const handleSaveReminder = (reminder: Reminder) => {
+  const handleSaveReminder = async (reminder: Reminder): Promise<boolean> => {
     const loggedUserCpf = getLoggedUser();
     if (!loggedUserCpf) {
       console.error('Usuário não está logado');
-      return;
+      return false;
     }
 
     // Adiciona o CPF do usuário ao lembrete
@@ -255,11 +255,51 @@ export function useSchedule() {
       return [...prev, reminderWithUser];
     });
 
-    // Reset do estado após salvar
+    // Reset do estado após salvar localmente
     setShowModal(false);
     setEditingReminder(null);
     setFormTime('');
     setFormDescription('');
+
+    // Envia lembrete para a API externa (não bloqueia o fluxo local)
+    try {
+      const loggedFull = getLoggedUserFull();
+      const userId = loggedFull && loggedFull.id ? Number(loggedFull.id) : undefined;
+
+      if (!userId) {
+        console.warn('Não há userId disponível para envio do lembrete à API. Pulando envio.');
+        return true;
+      }
+
+      const token = localStorage.getItem('token');
+      const payload = {
+        userId,
+        dateReminder: reminder.date,
+        // API espera segundos (ex: 17:00:00)
+        timeReminder: reminder.time && reminder.time.length === 5 ? `${reminder.time}:00` : reminder.time,
+        descriptionReminder: reminder.description,
+      } as any;
+
+      const res = await fetch('https://luma-wu46.onrender.com/EmailReminder', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        console.error('Erro ao enviar lembrete para API:', res.status, text);
+        return false;
+      }
+
+      return true;
+    } catch (err) {
+      console.error('Erro na requisição para enviar lembrete:', err);
+      return false;
+    }
   };
 
   /**
@@ -279,18 +319,70 @@ export function useSchedule() {
    * Remove um lembrete da lista.
    * @param reminder - Lembrete a ser removido
    */
-  const handleRemoveReminder = (reminder: Reminder) => {
-    setReminders((prev) =>
-      prev.filter(
-        (r) =>
-          !(
-            r.date === reminder.date &&
-            r.time === reminder.time &&
-            r.description === reminder.description &&
-            r.userCpf === reminder.userCpf
-          )
-      )
-    );
+  const handleRemoveReminder = async (reminder: Reminder): Promise<boolean> => {
+    // Obtém userId salvo durante o login
+    const loggedFull = getLoggedUserFull();
+    const userId = loggedFull && loggedFull.id ? Number(loggedFull.id) : undefined;
+    const token = localStorage.getItem('token');
+
+    // Se não houver userId, não conseguimos pedir remoção no servidor.
+    if (!userId) {
+      console.warn('userId não encontrado; removendo localmente apenas.');
+      setReminders((prev) =>
+        prev.filter(
+          (r) =>
+            !(
+              r.date === reminder.date &&
+              r.time === reminder.time &&
+              r.description === reminder.description &&
+              r.userCpf === reminder.userCpf
+            )
+        )
+      );
+      return true;
+    }
+
+    try {
+      const payload = {
+        userId,
+        dateReminder: reminder.date,
+        timeReminder: reminder.time && reminder.time.length === 5 ? `${reminder.time}:00` : reminder.time,
+        descriptionReminder: reminder.description,
+      } as any;
+
+      const res = await fetch(`https://luma-wu46.onrender.com/EmailReminder/${userId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        console.error('Erro ao remover lembrete no servidor:', res.status, text);
+        return false;
+      }
+
+      // Se o servidor respondeu OK, remove localmente e retorna sucesso
+      setReminders((prev) =>
+        prev.filter(
+          (r) =>
+            !(
+              r.date === reminder.date &&
+              r.time === reminder.time &&
+              r.description === reminder.description &&
+              r.userCpf === reminder.userCpf
+            )
+        )
+      );
+
+      return true;
+    } catch (err) {
+      console.error('Erro na requisição de remoção do lembrete:', err);
+      return false;
+    }
   };
 
   // Dados computados para facilitar o uso nos componentes

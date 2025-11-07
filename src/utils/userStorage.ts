@@ -2,7 +2,7 @@
  * Utilitários para persistência de usuários e sessão no localStorage.
  * Todas as funções utilizam tipagem forte e retornam arrays, string ou void.
  */
-import type { CadastroFormData } from '@/types/form';
+import type { CadastroFormData, LoggedUser } from '@/types/form';
 
 const USERS_KEY = 'cadastrosLumaHC';
 const LOGGED_USER_KEY = 'usuarioLogado';
@@ -52,7 +52,18 @@ export function setLoggedUser(cpf: string): void {
  * @returns CPF do usuário logado ou null se não houver
  */
 export function getLoggedUser(): string | null {
-  return localStorage.getItem(LOGGED_USER_KEY);
+  const data = localStorage.getItem(LOGGED_USER_KEY);
+  if (!data) return null;
+  try {
+    const parsed = JSON.parse(data);
+    if (parsed && typeof parsed === 'object' && 'cpf' in parsed) {
+      return String((parsed as any).cpf);
+    }
+    if (typeof parsed === 'string') return parsed;
+    return null;
+  } catch {
+    return data;
+  }
 }
 
 /**
@@ -60,4 +71,31 @@ export function getLoggedUser(): string | null {
  */
 export function removeLoggedUser(): void {
   localStorage.removeItem(LOGGED_USER_KEY);
+}
+
+
+
+/**
+ * Salva o usuário logado completo no localStorage.
+ * (mantém compatibilidade com o setLoggedUser antigo)
+ */
+export function setLoggedUserFull(user: LoggedUser): void {
+  localStorage.setItem(LOGGED_USER_KEY, JSON.stringify(user));
+}
+
+/**
+ * Recupera o usuário logado completo (objeto com cpf, passwordDate e id).
+ */
+export function getLoggedUserFull(): LoggedUser | null {
+  const data = localStorage.getItem(LOGGED_USER_KEY);
+  if (!data) return null;
+  try {
+    const parsed = JSON.parse(data);
+    if (parsed && typeof parsed === 'object' && 'cpf' in parsed) {
+      return parsed as LoggedUser;
+    }
+    return null;
+  } catch {
+    return null;
+  }
 }
