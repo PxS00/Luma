@@ -4,8 +4,11 @@ import { A11Y_MENU_ITEMS, type A11yActionKey } from '../../constants/a11y';
 import { useAccessibility } from '../../hooks/useAccessibiliuty';
 
 export default function AccessibilityMenu() {
-  const { incFont, decFont, toggle, reset, tts, libras, toggleExclusiveMode } = useAccessibility();
+  const { incFont, decFont, toggle, reset, tts, toggleExclusiveMode } = useAccessibility();
   const [open, setOpen] = useState(false);
+  // Quando um modal/dialog estiver aberto (ex.: diagnóstico), suspendemos
+  // a interação do botão de acessibilidade para não bloquear toques em mobile.
+  const [suspended, setSuspended] = useState(false);
   const STORAGE_KEY = 'a11y:menuPos';
   const BTN_SIZE = 56;
   const PADDING = 16;
@@ -38,6 +41,24 @@ export default function AccessibilityMenu() {
     const onResize = () => setPos(p => clampToViewport(p));
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  // Observa a presença de diálogos/modals na árvore para suspender o botão
+  useEffect(() => {
+    const checkDialog = () => {
+      try {
+        // procura por elementos que normalmente representam modais
+        const dialog = document.querySelector('[role="dialog"]:not([aria-hidden="true"]), [aria-modal="true"]');
+        setSuspended(Boolean(dialog));
+      } catch {
+        setSuspended(false);
+      }
+    };
+
+    checkDialog();
+    const mo = new MutationObserver(() => checkDialog());
+    mo.observe(document.body, { childList: true, subtree: true, attributes: true });
+    return () => mo.disconnect();
   }, []);
 
   const clampToViewport = (p: { x: number; y: number }) => {
@@ -87,7 +108,6 @@ export default function AccessibilityMenu() {
   light:     () => toggleExclusiveMode('light'),
     readable:  () => toggle('readable'),
     tts,
-    libras,
     reset,
   };
 
@@ -99,7 +119,7 @@ export default function AccessibilityMenu() {
 
   return (
     <div
-      className="fixed z-1000 pointer-events-none select-none"
+      className={`fixed ${suspended ? 'z-10 pointer-events-none' : 'z-1000 pointer-events-none'} select-none`}
       style={{ left: pos.x, top: pos.y }}
     >
       <div className="relative flex flex-col items-end gap-2 pointer-events-auto">
@@ -114,9 +134,9 @@ export default function AccessibilityMenu() {
             if (movedRef.current) { e.preventDefault(); return; }
             setOpen(v => !v);
           }}
-          className="bg-orange-500 text-white rounded-full w-14 h-14 text-2xl shadow-lg flex items-center justify-center transition-colors hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-300 cursor-grab active:cursor-grabbing touch-none"
+          className="bg-orange-500 text-white rounded-full w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 text-lg sm:text-2xl shadow-lg flex items-center justify-center transition-colors hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-300 cursor-grab active:cursor-grabbing touch-none"
         >
-          <IoAccessibilitySharp size={28} />
+          <IoAccessibilitySharp className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
         </button>
 
         {(() => {
@@ -127,7 +147,7 @@ export default function AccessibilityMenu() {
               id="a11y-menu"
               role="menu"
               aria-hidden={!open}
-              className={`absolute right-0 ${attachClass} min-w-[260px] rounded-xl shadow-2xl p-6 bg-white transition-all duration-300 ease-[cubic-bezier(0.4,2,0.6,1)] ${
+              className={`absolute right-0 ${attachClass} min-w-[260px] rounded-xl shadow-2xl p-6 bg-white transition-all duration-300 ease-[cubic-bezier(0.4,2,0.6,1)] max-h-[60vh] overflow-auto ${
                 open ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'
               }`}
             >

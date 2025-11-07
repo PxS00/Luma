@@ -5,7 +5,6 @@ import {
   MdWbSunny, MdRecordVoiceOver, MdTextFields, MdRestore,
 } from 'react-icons/md';
 import { BsCircleHalf } from 'react-icons/bs';
-import { FaHands } from 'react-icons/fa';
 
 export const DEFAULT_A11Y: A11yPrefs = {
   fontScale: 1,
@@ -24,7 +23,6 @@ export const A11Y_MENU_ITEMS = [
   { key: 'invert',    label: 'Contraste Negativo',    icon: MdOutlineInvertColors },
   { key: 'light',     label: 'Fundo Claro',           icon: MdWbSunny },
   { key: 'tts',       label: 'Narração de Texto',     icon: MdRecordVoiceOver },
-  { key: 'libras',    label: 'Tradução em Libras',    icon: FaHands },
   { key: 'readable',  label: 'Fonte Mais Legível',    icon: MdTextFields },
   { key: 'reset',     label: 'Restaurar Padrão',      icon: MdRestore },
 ] as const;
