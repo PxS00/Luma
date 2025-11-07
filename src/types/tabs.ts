@@ -18,6 +18,11 @@ export type Modo = 'app' | 'nav';
 export interface UseTabsProps {
   defaultMode?: Modo;
   idBase?: string;
+  /**
+   * Quando true, alterna automaticamente a tab ativa conforme o tamanho da tela (mobile/desktop).
+   * Padrão: false (respeita sempre o defaultMode e mudanças explícitas do componente)
+   */
+  autoDetect?: boolean;
 }
 
 /**
@@ -44,5 +49,9 @@ export interface ChooseModeTabsProps {
   idBase?: string;
   className?: string;
   unmountInactive?: boolean;
+  /** Quando true, alterna automaticamente conforme largura da janela (mobile/desktop) */
+  autoDetect?: boolean;
+  /** Quando true, esconde os botões de escolha e seleciona o modo automaticamente */
+  hideControls?: boolean;
   onChangeMode?: (mode: 'app' | 'nav') => void;
 }

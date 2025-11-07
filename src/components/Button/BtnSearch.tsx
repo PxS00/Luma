@@ -4,19 +4,20 @@ import type { BtnSearchProps } from '@/types/button';
  * Botão de pesquisa com ícone de lupa
  * Usado para abrir o campo de busca no header
  */
-export default function BtnSearch({ onClick }: BtnSearchProps) {
+export default function BtnSearch({ onClick, ...rest }: BtnSearchProps) {
   return (
     <button
       onClick={onClick}
-      className='
-        inline-flex items-center justify-center
+      {...rest}
+      className={
+        `inline-flex items-center justify-center
         h-8 w-8 sm:h-12 sm:w-12
         shrink-0 flex-none leading-none
         rounded-xl bg-white/15 hover:bg-white/25 text-white
         focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70
-        transition
-      '
-      aria-label='Abrir pesquisa'
+        transition` + (rest.className ? ` ${rest.className}` : '')
+      }
+      aria-label={rest['aria-label'] ?? 'Abrir pesquisa'}
     >
       <svg
         viewBox='0 0 24 24'

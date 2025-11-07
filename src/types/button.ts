@@ -53,11 +53,13 @@ export interface BtnNavProps {
   to: string;
   children: ReactNode;
   className?: string;
+  'aria-label'?: string;
+  variant?: 'pill' | 'icon';
 }
 
 /**
  * Props para botão de pesquisa
  */
-export interface BtnSearchProps {
+export interface BtnSearchProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   onClick?: () => void;
 }

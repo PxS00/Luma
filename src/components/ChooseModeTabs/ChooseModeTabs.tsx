@@ -16,64 +16,69 @@ export default function ChooseModeTabs({
   idBase = 'mode',
   className = '',
   unmountInactive = false,
-  onChangeMode, // <- PEGANDO A PROP AQUI
+  onChangeMode,
+  autoDetect = true,
+  hideControls = false,
 }: ChooseModeTabsProps) {
   const { setActiveTab, listRef, tabId, panelId, isActive, onKeyDown } = useTabs({
     defaultMode,
     idBase,
+    autoDetect,
   });
 
   return (
     <div className={className}>
-      <div
-        ref={listRef}
-        role='tablist'
-        aria-label='Escolha como quer cadastrar'
-        onKeyDown={onKeyDown}
-        className='flex flex-wrap justify-center gap-3'
-      >
-        {/* App */}
-        <BtnAcao
-          variant='primary'
-          role='tab'
-          id={tabId('app')}
-          aria-selected={isActive('app')}
-          aria-controls={panelId('app')}
-          tabIndex={isActive('app') ? 0 : -1}
-          onClick={() => {
-            setActiveTab('app');
-            onChangeMode?.('app'); // <- usa a prop daqui
-          }}
-          className={`rounded-xl border border-borderColor ${
-            isActive('app')
-              ? 'bg-backBtn text-white hover:bg-hoverBtn'
-              : 'bg-navBtn text-fontTertiary hover:bg-navHoverBtn hover:text-white'
-          }`}
+      {!hideControls && (
+        <div
+          ref={listRef}
+          role='tablist'
+          aria-label='Escolha como quer cadastrar'
+          onKeyDown={onKeyDown}
+          className='flex flex-wrap justify-center gap-3'
         >
-          {labelApp}
-        </BtnAcao>
+          {/* App */}
+          <BtnAcao
+            variant='primary'
+            role='tab'
+            id={tabId('app')}
+            aria-selected={isActive('app')}
+            aria-controls={panelId('app')}
+            tabIndex={isActive('app') ? 0 : -1}
+            onClick={() => {
+              setActiveTab('app');
+              onChangeMode?.('app');
+            }}
+            className={`rounded-xl border border-borderColor ${
+              isActive('app')
+                ? 'bg-backBtn text-white hover:bg-hoverBtn'
+                : 'bg-navBtn text-fontTertiary hover:bg-navHoverBtn hover:text-white'
+            }`}
+          >
+            {labelApp}
+          </BtnAcao>
 
-        {/* Navegador */}
-        <BtnAcao
-          variant='primary'
-          role='tab'
-          id={tabId('nav')}
-          aria-selected={isActive('nav')}
-          aria-controls={panelId('nav')}
-          tabIndex={isActive('nav') ? 0 : -1}
-          onClick={() => {
-            setActiveTab('nav');
-            onChangeMode?.('nav');
-          }}
-          className={`rounded-xl border border-borderColor ${
-            isActive('nav')
-              ? 'bg-backBtn text-white hover:bg-hoverBtn'
-              : 'bg-navBtn text-fontTertiary hover:bg-navHoverBtn hover:text-white'
-          }`}
-        >
-          {labelNav}
-        </BtnAcao>
-      </div>
+          {/* Navegador */}
+          <BtnAcao
+            variant='primary'
+            role='tab'
+            id={tabId('nav')}
+            aria-selected={isActive('nav')}
+            aria-controls={panelId('nav')}
+            tabIndex={isActive('nav') ? 0 : -1}
+            onClick={() => {
+              setActiveTab('nav');
+              onChangeMode?.('nav');
+            }}
+            className={`rounded-xl border border-borderColor ${
+              isActive('nav')
+                ? 'bg-backBtn text-white hover:bg-hoverBtn'
+                : 'bg-navBtn text-fontTertiary hover:bg-navHoverBtn hover:text-white'
+            }`}
+          >
+            {labelNav}
+          </BtnAcao>
+        </div>
+      )}
 
       {unmountInactive ? (
         <>

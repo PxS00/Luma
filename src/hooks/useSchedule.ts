@@ -1,11 +1,7 @@
 import type { Reminder } from '@/types/reminder';
 import { formatDate } from '@/utils/calendarUtils';
-import {
-  getUserRemindersFromStorage,
-  migrateOldReminders,
-  setUserRemindersToStorage,
-} from '@/utils/reminderStorage';
-import { getLoggedUser } from '@/utils/userStorage';
+import {setUserRemindersToStorage} from '@/utils/reminderStorage';
+import { getLoggedUser, getLoggedUserFull } from '@/utils/userStorage';
 import { useEffect, useState } from 'react';
 
 /**
@@ -85,30 +81,64 @@ export function useSchedule() {
    * Carrega os lembretes do usuário logado ao inicializar o componente
    */
   useEffect(() => {
-    const loadUserReminders = () => {
-      // Migra lembretes antigos sem userCpf (limpa dados incompatíveis)
-      migrateOldReminders();
+  const loadUserReminders = async () => {
+    const loggedFull = getLoggedUserFull();
+    const userId = loggedFull && loggedFull.id ? Number(loggedFull.id) : undefined;
+    const token = localStorage.getItem('token');
 
-      const loggedUserCpf = getLoggedUser();
-      if (loggedUserCpf) {
-        const userReminders = getUserRemindersFromStorage(loggedUserCpf);
-        setReminders(userReminders);
-      } else {
-        // Se não há usuário logado, limpa lembretes da interface
+    if (!userId) {
+      console.warn('Nenhum usuário logado; limpando lembretes.');
+      setReminders([]);
+      return;
+    }
+
+    try {
+      const res = await fetch('https://luma-wu46.onrender.com/EmailReminder', {
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        console.error('Erro ao buscar lembretes da API:', res.status, text);
         setReminders([]);
+        return;
       }
-    };
 
+      const data = await res.json();
+
+      // filtra só os lembretes do usuário logado
+      const userReminders = data
+        .filter((r: any) => r.userId === userId)
+        .map((r: any) => ({
+          date: r.dateReminder,
+          time: (r.timeReminder || '').slice(0, 5),
+          description: r.descriptionReminder,
+          userCpf: getLoggedUser(),
+          idReminder: r.idReminder ?? r.id ?? undefined,
+          userId: r.userId,
+        }));
+
+      setReminders(userReminders);
+    } catch (err) {
+      console.error('Erro ao carregar lembretes da API:', err);
+      setReminders([]);
+    }
+  };
+
+  loadUserReminders();
+
+  // Escuta login/logout
+  const handleAuthUpdate = () => {
     loadUserReminders();
+  };
 
-    // Escuta eventos de mudança de autenticação
-    const handleAuthUpdate = () => {
-      loadUserReminders();
-    };
+  window.addEventListener('auth-update', handleAuthUpdate);
+  return () => window.removeEventListener('auth-update', handleAuthUpdate);
+}, []);
 
-    window.addEventListener('auth-update', handleAuthUpdate);
-    return () => window.removeEventListener('auth-update', handleAuthUpdate);
-  }, []);
 
   /**
    * Sincroniza os lembretes do usuário logado com o localStorage sempre que houver mudanças
@@ -226,11 +256,11 @@ export function useSchedule() {
    * Automaticamente associa o lembrete ao usuário logado.
    * @param reminder - Objeto lembrete com date, time e description
    */
-  const handleSaveReminder = (reminder: Reminder) => {
+  const handleSaveReminder = async (reminder: Reminder): Promise<boolean> => {
     const loggedUserCpf = getLoggedUser();
     if (!loggedUserCpf) {
       console.error('Usuário não está logado');
-      return;
+      return false;
     }
 
     // Adiciona o CPF do usuário ao lembrete
@@ -239,27 +269,170 @@ export function useSchedule() {
       userCpf: loggedUserCpf,
     };
 
-    setReminders((prev) => {
-      // Se está editando, substitui o lembrete existente
-      if (editingReminder) {
-        return prev.map((r) =>
-          r.date === editingReminder.date &&
-          r.time === editingReminder.time &&
-          r.description === editingReminder.description &&
-          r.userCpf === editingReminder.userCpf
-            ? reminderWithUser
-            : r
-        );
-      }
-      // Se é novo, adiciona ao array
-      return [...prev, reminderWithUser];
-    });
+    // Determina se estamos editando um lembrete existente e tenta resolver um id efetivo
+    const editingIdFromState = editingReminder
+      ? reminders.find(
+          (r) =>
+            r.date === editingReminder.date &&
+            r.time === editingReminder.time &&
+            r.description === editingReminder.description &&
+            r.userCpf === editingReminder.userCpf &&
+            r.idReminder
+        )?.idReminder
+      : undefined;
 
-    // Reset do estado após salvar
-    setShowModal(false);
-    setEditingReminder(null);
-    setFormTime('');
-    setFormDescription('');
+  let effectiveEditingId = editingReminder?.idReminder ?? editingIdFromState;
+
+    // inicio do fluxo de envio (debug logs removidos em produção)
+
+    // Não fechar o modal nem resetar antes da resposta do servidor.
+    // A atualização do estado local (adicionar ou substituir) será feita APÓS o sucesso da requisição,
+    // para evitar que falhas no servidor deixem a UI inconsistente.
+
+  // Envia lembrete para a API externa (não bloqueia o fluxo local)
+  try {
+      const loggedFull = getLoggedUserFull();
+      const userId = loggedFull && loggedFull.id ? Number(loggedFull.id) : undefined;
+
+      if (!userId) {
+        console.warn('Não há userId disponível para envio do lembrete à API. Pulando envio.');
+        return true;
+      }
+
+      const token = localStorage.getItem('token');
+
+      const normalizedTime = reminder.time && reminder.time.length === 5 ? `${reminder.time}:00` : reminder.time;
+      const payload = {
+        userId,
+        dateReminder: reminder.date,
+        timeReminder: normalizedTime,
+        descriptionReminder: reminder.description,
+      } as any;
+
+      if (editingReminder && !effectiveEditingId) {
+        try {
+          const listRes = await fetch('https://luma-wu46.onrender.com/EmailReminder', {
+            headers: {
+              'Content-Type': 'application/json',
+              ...(token ? { Authorization: `Bearer ${token}` } : {}),
+            },
+          });
+          if (listRes.ok) {
+            const listData = await listRes.json().catch(() => []);
+            const match = (listData || []).find((r: any) =>
+              r.userId === userId &&
+              r.dateReminder === reminder.date &&
+              (r.timeReminder || '').slice(0, 5) === reminder.time &&
+              r.descriptionReminder === reminder.description
+            );
+            if (match) {
+              effectiveEditingId = match.idReminder ?? match.id ?? effectiveEditingId;
+            }
+          }
+        } catch (err) {
+          console.warn('Não foi possível resolver id do lembrete no servidor:', err);
+        }
+      }
+
+      if (effectiveEditingId) {
+        const idRem = Number(effectiveEditingId);
+        const res = await fetch(`https://luma-wu46.onrender.com/EmailReminder/${idRem}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          const text = await res.text();
+          console.error('Erro ao atualizar lembrete na API (PUT):', res.status, text);
+          return false;
+        }
+        setReminders((prev) =>
+          prev.map((r) => (String(r.idReminder) === String(idRem) ? { ...r, ...reminderWithUser, idReminder: idRem, userId } : r))
+        );
+        setShowModal(false);
+        setEditingReminder(null);
+        setFormTime('');
+        setFormDescription('');
+
+        return true;
+      }
+
+  // realizando POST para criar lembrete
+      const res = await fetch('https://luma-wu46.onrender.com/EmailReminder', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        // eslint-disable-next-line no-console
+        console.error('Erro ao enviar lembrete para API (POST):', res.status, text);
+        return false;
+      }
+
+      const created = await res.json().catch(() => null);
+      let createdId = created?.idReminder ?? created?.id ?? undefined;
+
+      if (!createdId) {
+        try {
+          const listRes = await fetch('https://luma-wu46.onrender.com/EmailReminder', {
+            headers: {
+              'Content-Type': 'application/json',
+              ...(token ? { Authorization: `Bearer ${token}` } : {}),
+            },
+          });
+          if (listRes.ok) {
+            const listData = await listRes.json().catch(() => []);
+            const match = (listData || []).find((r: any) =>
+              r.userId === userId &&
+              r.dateReminder === reminder.date &&
+              (r.timeReminder || '').slice(0, 5) === reminder.time &&
+              r.descriptionReminder === reminder.description
+            );
+            if (match) createdId = match.idReminder ?? match.id ?? createdId;
+          }
+        } catch (err) {
+          console.warn('Não foi possível localizar id do lembrete recém-criado:', err);
+        }
+      }
+
+      if (createdId) {
+        setReminders((prev) => {
+          const found = prev.some(
+            (r) =>
+              (r.idReminder && String(r.idReminder) === String(createdId)) ||
+              (!r.idReminder && r.date === reminder.date && r.time === reminder.time && r.description === reminder.description && r.userCpf === reminderWithUser.userCpf)
+          );
+          if (found) {
+            return prev.map((r) =>
+              (!r.idReminder && r.date === reminder.date && r.time === reminder.time && r.description === reminder.description && r.userCpf === reminderWithUser.userCpf)
+                ? { ...r, idReminder: createdId, userId }
+                : r
+            );
+          }
+          return [...prev, { ...reminderWithUser, idReminder: createdId, userId }];
+        });
+      } else {
+        setReminders((prev) => [...prev, { ...reminderWithUser, userId }]);
+      }
+      setShowModal(false);
+      setEditingReminder(null);
+      setFormTime('');
+      setFormDescription('');
+
+      return true;
+    } catch (err) {
+      console.error('Erro na requisição para enviar lembrete:', err);
+      return false;
+    }
   };
 
   /**
@@ -268,10 +441,15 @@ export function useSchedule() {
    * @param reminder - Lembrete a ser editado
    */
   const handleEditReminder = (reminder: Reminder) => {
-    setEditingReminder(reminder);
-    setSelectedDate(reminder.date);
-    setFormTime(reminder.time);
-    setFormDescription(reminder.description);
+    const found = reminders.find((r) =>
+      (r.idReminder && reminder.idReminder && String(r.idReminder) === String(reminder.idReminder)) ||
+      (r.date === reminder.date && r.time === reminder.time && r.description === reminder.description && r.userCpf === reminder.userCpf)
+    );
+    const toEdit = found ?? reminder;
+    setEditingReminder(toEdit);
+    setSelectedDate(toEdit.date);
+    setFormTime(toEdit.time);
+    setFormDescription(toEdit.description);
     setShowModal(true);
   };
 
@@ -279,18 +457,70 @@ export function useSchedule() {
    * Remove um lembrete da lista.
    * @param reminder - Lembrete a ser removido
    */
-  const handleRemoveReminder = (reminder: Reminder) => {
-    setReminders((prev) =>
-      prev.filter(
-        (r) =>
-          !(
-            r.date === reminder.date &&
-            r.time === reminder.time &&
-            r.description === reminder.description &&
-            r.userCpf === reminder.userCpf
-          )
-      )
-    );
+  const handleRemoveReminder = async (reminder: Reminder): Promise<boolean> => {
+    // Obtém userId salvo durante o login
+    const loggedFull = getLoggedUserFull();
+    const userId = loggedFull && loggedFull.id ? Number(loggedFull.id) : undefined;
+    const token = localStorage.getItem('token');
+
+    // Se não houver userId, não conseguimos pedir remoção no servidor.
+    if (!userId) {
+      console.warn('userId não encontrado; removendo localmente apenas.');
+      setReminders((prev) =>
+        prev.filter(
+          (r) =>
+            !(
+              r.date === reminder.date &&
+              r.time === reminder.time &&
+              r.description === reminder.description &&
+              r.userCpf === reminder.userCpf
+            )
+        )
+      );
+      return true;
+    }
+
+    try {
+      const payload = {
+        userId,
+        dateReminder: reminder.date,
+        timeReminder: reminder.time && reminder.time.length === 5 ? `${reminder.time}:00` : reminder.time,
+        descriptionReminder: reminder.description,
+      } as any;
+
+      const res = await fetch(`https://luma-wu46.onrender.com/EmailReminder/${userId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        console.error('Erro ao remover lembrete no servidor:', res.status, text);
+        return false;
+      }
+
+      // Se o servidor respondeu OK, remove localmente e retorna sucesso
+      setReminders((prev) =>
+        prev.filter(
+          (r) =>
+            !(
+              r.date === reminder.date &&
+              r.time === reminder.time &&
+              r.description === reminder.description &&
+              r.userCpf === reminder.userCpf
+            )
+        )
+      );
+
+      return true;
+    } catch (err) {
+      console.error('Erro na requisição de remoção do lembrete:', err);
+      return false;
+    }
   };
 
   // Dados computados para facilitar o uso nos componentes

@@ -26,9 +26,9 @@ export default function Formulario() {
     }
 
     // Esconde Header/Footer enquanto estiver nesta página
-    document.body.classList.add('hide-hf');
+    document.body.classList.add('hide-hf', 'form-gradient');
     return () => {
-      document.body.classList.remove('hide-hf');
+      document.body.classList.remove('hide-hf', 'form-gradient');
     };
   }, [tab, isCadastro, navigate]);
 

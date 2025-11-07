@@ -6,6 +6,7 @@ import Error from '@routes/Error';
 import Faq from '@routes/Faq';
 import Home from '@routes/Home';
 import Integrantes from '@routes/Integrantes';
+import Perfil from '@routes/Perfil';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
       { path: '/formulario', element: <Formulario /> },
       { path: '/formulario/:tab', element: <Formulario /> },
       { path: '/lembrete', element: <Schedule /> },
+      { path: '/perfil', element: <Perfil /> },
     ],
   },
 ]);

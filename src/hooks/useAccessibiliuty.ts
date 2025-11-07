@@ -17,8 +17,10 @@ export function useAccessibility() {
   useEffect(() => {
     const html = document.documentElement;
 
-    // zoom de fonte global (escala rem)
-    html.style.fontSize = `${prefs.fontScale * 100}%`;
+  // zoom de fonte global (escala rem)
+  // Se 'readable' estiver ativo, aplica um ganho extra de ~12%
+  const readableBoost = prefs.readable ? 1.12 : 1;
+  html.style.fontSize = `${prefs.fontScale * readableBoost * 100}%`;
 
     // flags via classes
     html.classList.toggle('a11y-grayscale', prefs.grayscale);
@@ -26,6 +28,13 @@ export function useAccessibility() {
     html.classList.toggle('a11y-invert',    prefs.invert);
     html.classList.toggle('a11y-light',     prefs.light);
     html.classList.toggle('a11y-readable',  prefs.readable);
+
+    // Aplica filtros combinados de forma cumulativa (evita conflito de CSS)
+    const filters: string[] = [];
+    if (prefs.grayscale) filters.push('grayscale(1)');
+    if (prefs.contrast)  filters.push('contrast(1.35)', 'saturate(1.2)');
+    if (prefs.invert)    filters.push('invert(1)', 'hue-rotate(180deg)');
+    html.style.filter = filters.length ? filters.join(' ') : 'none';
 
     save(STORAGE_KEY, prefs);
   }, [prefs]);
@@ -39,6 +48,53 @@ export function useAccessibility() {
     setPrefs(p => ({ ...p, [k]: !p[k] }));
   const reset = () => setPrefs(DEFAULT_A11Y);
 
+  // Define um modo exclusivo entre: none | grayscale | contrast | invert | light
+  type VisualMode = 'none' | 'grayscale' | 'contrast' | 'invert' | 'light';
+  const setExclusiveMode = (mode: VisualMode) => setPrefs(p => ({
+    ...p,
+    grayscale: mode === 'grayscale',
+    contrast:  mode === 'contrast',
+    invert:    mode === 'invert',
+    light:     mode === 'light',
+  }));
+
+  const getCurrentMode = (p: A11yPrefs): VisualMode => {
+    if (p.grayscale) return 'grayscale';
+    if (p.contrast)  return 'contrast';
+    if (p.invert)    return 'invert';
+    if (p.light)     return 'light';
+    return 'none';
+  };
+
+  // Avança ciclicamente entre os modos visuais, independente do botão clicado
+  const cycleVisualMode = () => setPrefs(p => {
+    const order: VisualMode[] = ['none', 'grayscale', 'contrast', 'invert', 'light'];
+    const cur = getCurrentMode(p);
+    const next = order[(order.indexOf(cur) + 1) % order.length];
+    return {
+      ...p,
+      grayscale: next === 'grayscale',
+      contrast:  next === 'contrast',
+      invert:    next === 'invert',
+      light:     next === 'light',
+    };
+  });
+
+  // Alterna de forma exclusiva: clicar no mesmo modo desativa todos; clicar em outro substitui
+  const toggleExclusiveMode = (mode: VisualMode) => setPrefs(p => {
+    const cur = getCurrentMode(p);
+    if (cur === mode) {
+      return { ...p, grayscale: false, contrast: false, invert: false, light: false };
+    }
+    return {
+      ...p,
+      grayscale: mode === 'grayscale',
+      contrast:  mode === 'contrast',
+      invert:    mode === 'invert',
+      light:     mode === 'light',
+    };
+  });
+
   // TTS (Web Speech API)
   const tts = () => {
     const sel = window.getSelection()?.toString().trim();
@@ -49,10 +105,33 @@ export function useAccessibility() {
     speechSynthesis.cancel(); speechSynthesis.speak(u);
   };
 
-  // VLibras (se o widget estiver no index.html)
+  // VLibras - Abre/fecha o widget de tradução em Libras
   const libras = () => {
-    (document.querySelector('div[vw-access-button] button') as HTMLButtonElement)?.click();
+    // Método 1: Tenta clicar no botão (se já existir)
+    const button = document.querySelector('[vw-access-button] button') as HTMLButtonElement;
+    if (button) {
+      button.click();
+      return;
+    }
+
+    // Método 2: Força a criação do botão fazendo o VLibras inicializar
+    try {
+      if (window.VLibras && window.VLibras.Widget) {
+        // Re-inicializa o widget para forçar a criação dos elementos
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+        
+        // Aguarda um pouco e tenta clicar novamente
+        setTimeout(() => {
+          const retryButton = document.querySelector('[vw-access-button] button') as HTMLButtonElement;
+          if (retryButton) {
+            retryButton.click();
+          }
+        }, 1000);
+      }
+    } catch (e) {
+      console.error('Erro ao inicializar VLibras:', e);
+    }
   };
 
-  return { prefs, setPrefs, incFont, decFont, toggle, reset, tts, libras };
+  return { prefs, setPrefs, incFont, decFont, toggle, reset, tts, libras, cycleVisualMode, setExclusiveMode, toggleExclusiveMode };
 }

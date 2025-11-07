@@ -23,7 +23,7 @@
 import { useSchedule } from '@/hooks/useSchedule';
 import React, { useEffect, useState } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import type { ReminderAction, ReminderHandlerFn } from '../../types/reminder';
+import type { ReminderAction, ReminderHandlerFn, Reminder } from '@/types/reminder';
 import type { ShowToastFn, ToastState } from '../../types/toast';
 import { formatDate, getDaysMatrix, getMonthName } from '../../utils/calendarUtils';
 import Toast from '../Toast/Toast';
@@ -90,20 +90,37 @@ export default function ScheduleComponent(): React.JSX.Element {
    * Wrappers para registrar ação de lembrete e disparar toast
    * Estas funções encapsulam as ações originais adicionando feedback visual
    */
-  const handleSaveReminderWithAction: ReminderHandlerFn = (reminder) => {
-    setModalError(null);
-    handleSaveReminder(reminder);
-    setReminderAction('add');
+  // Wrapper para salvar lembrete: usa o handler do hook `handleSaveReminder`
+  const handleSaveReminderWithAction = async (reminder: Reminder): Promise<boolean> => {
+    const success = await handleSaveReminder(reminder);
+    if (success) {
+      setReminderAction(editingReminder ? 'edit' : 'add');
+      showToast(
+        editingReminder ? 'Lembrete editado com sucesso!' : 'Lembrete adicionado com sucesso!',
+        'success'
+      );
+      return true;
+    }
+
+    showToast('Falha ao salvar lembrete no servidor. Tente novamente.', 'error');
+    return false;
   };
+
 
   const handleEditReminderWithAction: ReminderHandlerFn = (reminder) => {
     handleEditReminder(reminder);
-    setReminderAction('edit');
   };
 
-  const handleRemoveReminderWithAction: ReminderHandlerFn = (reminder) => {
-    handleRemoveReminder(reminder);
-    setReminderAction('remove');
+
+  const handleRemoveReminderWithAction: ReminderHandlerFn = async (reminder) => {
+    const success = await handleRemoveReminder(reminder);
+    if (success) {
+      setReminderAction('remove');
+      showToast('Lembrete removido com sucesso!', 'success');
+    } else {
+      // Não removeu no servidor — informa o usuário
+      showToast('Falha ao remover lembrete no servidor. Tente novamente.', 'error');
+    }
   };
 
   /**
@@ -148,7 +165,7 @@ export default function ScheduleComponent(): React.JSX.Element {
                 h-9 w-9 text-lg sm:h-10 sm:w-10 sm:text-xl lg:h-11 lg:w-11 lg:text-2xl`}
               onClick={isPrevDisabled ? undefined : prevMonth}
               aria-label='Mês anterior'
-              disabled={isPrevDisabled}
+              disabled={isPrevDisabled}  
             >
               <FaArrowLeft />
             </button>

@@ -27,7 +27,6 @@ export default function AuxilioTeleconsulta() {
       <div className='mx-auto w-full max-w-screen-lg px-5 py-5 flex flex-col items-center gap-5'>
         <IntroTele />
 
-        {/* Tabs para alternar entre tutorial do App e do Navegador */}
         <EscolhaModoTabs
           defaultMode='app'
           labelApp='Usar App'
@@ -35,6 +34,9 @@ export default function AuxilioTeleconsulta() {
           app={<MobileTele />}
           nav={<DeskTele />}
           className='w-full'
+          autoDetect
+          hideControls
+          unmountInactive
         />
       </div>
     </main>

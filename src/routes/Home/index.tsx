@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import BoasVindasSection from '@/components/HomeComponents/BoasVindasSection';
 import AcessosSection from '@/components/HomeComponents/AcessoSection';
 import DiagnosticoSection from '@/components/HomeComponents/DiagnosticoSection';
+import InfoBoxesSection from '@/components/HomeComponents/InfoBoxesSection';
+import FeedbackSection from '@/components/HomeComponents/FeedbackSection';
 
 // Modal (stepper genérico)
 import DiagnosticModal, { type DiagnosticStep } from '@/components/HomeComponents/DiagnosticoModal';
@@ -27,16 +29,18 @@ export default function Home() {
   ];
 
   return (
-    <main className="conteudo" aria-label="Conteúdo principal da página inicial">
-      <BoasVindasSection />
-      <AcessosSection />
-      <DiagnosticoSection onOpen={() => setOpenDiag(true)} />
+  <main className="mx-auto w-full max-w-screen-lg px-4" aria-label="Conteúdo principal da página inicial">
+  <BoasVindasSection />
+  <InfoBoxesSection />
+    <AcessosSection />
+  <DiagnosticoSection onOpen={() => setOpenDiag(true)} />
       <DiagnosticModal
         open={openDiag}
         onClose={() => setOpenDiag(false)}
         steps={steps}
         title="Diagnóstico de Dispositivos"
       />
+      <FeedbackSection />
     </main>
   );
 }

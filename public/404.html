@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>404 — Página não encontrada • Luma</title>
+    <style>
+      :root{
+        --backPrimary: #FAFAFA;
+        --backSecondary: #FFFFFF;
+        --fontPrimary: #1F2937;
+        --fontSecondary: #4A4A4A;
+        --fontTertiary: #6B7280;
+        --backBtn: #B91C1C;
+        --hoverBtn: #5E0F0F;
+        --borderColor: #D1D5DB;
+        --clikColor: #B91C1C;
+      }
+      html,body{height:100%;margin:0}
+      body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;display:flex;align-items:center;justify-content:center;background:var(--backPrimary);color:var(--fontPrimary)}
+      .card{background:var(--backSecondary);max-width:760px;padding:36px;border-radius:10px;box-shadow:0 6px 20px rgba(16,24,40,0.06);text-align:center;border:1px solid var(--borderColor)}
+      .logo{height:56px;width:56px}
+      h1{margin:8px 0 6px;font-size:28px;color:var(--fontPrimary)}
+      p{margin:0;color:var(--fontSecondary)}
+      .actions{margin-top:20px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+      .btn-primary{background:var(--backBtn);color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:700}
+      .btn-primary:hover{background:var(--hoverBtn)}
+      .btn-ghost{background:transparent;border:1px solid var(--borderColor);padding:10px 14px;border-radius:8px;color:var(--fontPrimary);text-decoration:none}
+      .report{background:transparent;color:var(--clikColor);padding:10px 14px;border-radius:8px;text-decoration:underline}
+    </style>
+  </head>
+  <body>
+    <div class="card" role="main" aria-labelledby="err-title">
+      <div style="display:flex;align-items:center;gap:12px;justify-content:center">
+        <img src="/favicon.svg" alt="Luma" class="logo" />
+        <div style="text-align:left">
+          <h1 id="err-title">404 — Página não encontrada</h1>
+          <p>Ops! A página que você tentou acessar não existe ou foi removida.</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="btn-primary" href="/">Ir para a Home</a>
+        <a class="btn-ghost" href="javascript:history.back()">Voltar</a>
+        <a class="report" href="mailto:suporte@seudominio.com?subject=404%20-%20Página%20não%20encontrada">Reportar problema</a>
+      </div>
+    </div>
+  </body>
+</html>

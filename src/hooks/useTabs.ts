@@ -32,34 +32,25 @@ import { useEffect, useRef, useState } from 'react';
 export function useTabs({
   defaultMode = 'app',
   idBase = 'modo',
+  autoDetect = false,
 }: UseTabsProps = {}): UseTabsReturn {
   // Estado da tab ativa
   const [activeTab, setActiveTab] = useState<Modo>(defaultMode);
 
-  // Efeito para detectar mobile/desktop e ajustar o modo automaticamente
+  // Efeito opcional para detectar mobile/desktop e ajustar o modo automaticamente
   useEffect(() => {
-    /**
-     * Detecta se é dispositivo móvel baseado no tamanho da tela
-     * @returns true se for mobile (largura <= 991px)
-     */
-    const isMobile = () => window.innerWidth <= 991;
+    if (!autoDetect) return; // respeita defaultMode quando autoDetect=false
 
-    /**
-     * Handler para redimensionamento da janela
-     */
+    const isMobile = () => window.innerWidth <= 991;
     const handleResize = () => {
       setActiveTab(isMobile() ? 'app' : 'nav');
     };
 
-    // Define modo inicial
+    // Define modo inicial apenas quando autoDetect está ativo
     handleResize();
-
-    // Adiciona listener para mudanças de tamanho
     window.addEventListener('resize', handleResize);
-
-    // Cleanup
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [autoDetect]);
   // Ref para o container da lista de tabs (usado para navegação por teclado)
   const listRef = useRef<HTMLDivElement>(null);
 

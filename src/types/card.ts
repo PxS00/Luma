@@ -14,4 +14,5 @@ export interface AcessoCardProps {
   description: string;
   href: string;
   external?: boolean;
+  ctaLabel?: string;
 }

@@ -18,10 +18,11 @@ export const HOME_CARDS: HomeCard[] = [
     description: 'Ajuda para se cadastrar no Portal do Paciente.',
   },
   {
-    label: 'Integrantes',
-    href: '/integrantes',
+    label: 'Lembrete',
+    href: '/lembrete',
     Icon: IoPeopleSharp,
-    title: 'Conheça os Integrantes',
-    description: 'Veja quem são os alunos desenvolvedores.',
+    title: 'Faça o seu lembrete',
+    description: 'Crie e acesse seus lembretes para consultas e compromissos.',
+    ctaLabel: 'Ir para Lembretes',
   },
 ];

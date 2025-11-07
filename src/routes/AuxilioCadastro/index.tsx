@@ -29,6 +29,9 @@ export default function AuxilioCadastro() {
           app={<MobileCadastro />}
           nav={<DeskCadastro />}
           className='w-full'
+          autoDetect
+          hideControls
+          unmountInactive
         />
       </div>
     </main>

@@ -19,6 +19,12 @@ export type LoginFormData = {
   dataNascimento: string;
 };
 
+export type LoggedUser = {
+  cpf: string;
+  passwordDate: string;
+  id?: string;
+};
+
 /**
  * Estado de validação dos campos do formulário
  * Indica se cada campo está válido ou não

@@ -16,7 +16,9 @@ type FaceCheckProps = {
  * Usa MediaPipe via react-use-face-detection. Mantida sua lógica original.
  */
 export default function FaceCheck({ onPass, onResult }: FaceCheckProps) {
-  // Dimensões base do preview
+  // Dimensões base do preview (usadas pela câmera). Visualmente o preview
+  // será responsivo via CSS (max-width + aspect-ratio) para evitar overflow
+  // em telas pequenas.
   const width = 640;
   const height = 480;
 
@@ -124,15 +126,13 @@ export default function FaceCheck({ onPass, onResult }: FaceCheckProps) {
       className='w-full flex flex-col items-center gap-4'
     >
       <header className='text-center'>
-        {/* Se não usa tokens, troque por: text-slate-800 / text-slate-600 */}
-        <h1 className='text-2xl font-semibold text-foreground'>Teste de Enquadramento</h1>
+        <h1 className='text-lg sm:text-2xl font-semibold text-foreground'>Teste de Enquadramento</h1>
         <p className='text-sm text-foreground/70'>Autorize o uso da câmera para iniciarmos o teste.</p>
       </header>
 
-      {/* Vídeo + overlays */}
+      {/* Vídeo + overlays - responsivo: usa aspect-ratio para escalar em mobile */}
       <div
-        className='relative rounded-lg overflow-hidden bg-black'
-        style={{ width, height }}
+        className='relative rounded-lg overflow-hidden bg-black w-full max-w-[360px] sm:max-w-[640px] aspect-4/3'
         aria-live='polite'
       >
         {/* Moldura guia */}
@@ -185,11 +185,11 @@ export default function FaceCheck({ onPass, onResult }: FaceCheckProps) {
           border-border -> border-slate-200
           text-foreground -> text-slate-800
       */}
-      <div className='w-full max-w-3x1 p-4 rounded-lg bg-surface shadow border border-border min-h-24'>
-        <p className={`text-base font-medium ${uiGuidance.ok ? 'text-green-600' : 'text-yellow-700'}`}>
+      <div className='w-full max-w-3xl p-3 sm:p-6 rounded-lg bg-surface shadow border border-border min-h-20'>
+        <p className={`text-base sm:text-lg font-medium ${uiGuidance.ok ? 'text-green-600' : 'text-yellow-700'}`}>
           {isLoading ? 'Carregando modelo de detecção…' : uiGuidance.status}
         </p>
-        <ul className='mt-2 list-disc pl-5 text-sm text-foreground/80'>
+        <ul className='mt-2 list-disc pl-5 text-sm sm:text-base text-foreground/80'>
           {uiGuidance.tips.map((t, i) => (
             <li key={`tip-${i}`}>{t}</li>
           ))}

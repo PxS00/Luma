@@ -1,12 +1,19 @@
 import BtnAcao from '@/components/Button/BtnAcao';
 import FormField from '@/components/Form/FormField';
 import InputField from '@/components/Form/InputField';
+import { useAuth } from '@/hooks/useAuth';
 import type { CadastroFormData } from '@/types/form';
-import { saveUserToStorage, setLoggedUser } from '@/utils/userStorage';
+import {
+  getUsersFromStorage,
+  saveUserToStorage,
+  setAllUsersToStorage,
+  setLoggedUser,
+  getLoggedUserFull,
+} from '@/utils/userStorage';
 import { formatCPF, formatPhone, validateCPF } from '@/utils/validators';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 /**
  * Formulário de Cadastro
@@ -14,6 +21,9 @@ import { useNavigate } from 'react-router-dom';
  */
 export default function FormCadastro() {
   const navigate = useNavigate();
+  const { isLoggedIn, userData } = useAuth();
+  const [searchParams] = useSearchParams();
+  const isEditMode = useMemo(() => searchParams.get('edit') === '1', [searchParams]);
   const [errorMessage, setErrorMessage] = useState('');
 
   const {
@@ -32,6 +42,21 @@ export default function FormCadastro() {
     },
   });
 
+  // Prefill when in edit mode and user is logged in
+  useEffect(() => {
+    if (isEditMode && isLoggedIn && userData) {
+      // Assuming stored date is already yyyy-mm-dd
+      // Ensure CPF/phone stay formatted
+      reset({
+        nome: userData.nome || '',
+        cpf: userData.cpf || '',
+        dataNascimento: userData.dataNascimento || '',
+        email: userData.email || '',
+        telefone: userData.telefone || '',
+      });
+    }
+  }, [isEditMode, isLoggedIn, userData, reset]);
+
   /**
    * Manipula o envio do formulário de cadastro
    * Salva dados no localStorage e atualiza estado de autenticação
@@ -40,12 +65,111 @@ export default function FormCadastro() {
   const onSubmit = async (data: CadastroFormData) => {
     setErrorMessage('');
 
-    try {
-      // Salva novo usuário e faz login automaticamente
-      saveUserToStorage(data);
-      setLoggedUser(data.cpf);
+    const onlyDigits = (v: string) => v.replace(/\D/g, '');
 
-      // Notifica componentes sobre mudança de autenticação
+    try {
+      const payload = {
+        cpf: onlyDigits(data.cpf),
+        name: data.nome,
+        email: data.email || '',
+        birthDate: data.dataNascimento,
+        phone: data.telefone,
+      };
+    
+      if (isEditMode) {
+        const logged = getLoggedUserFull();
+        const userId = logged?.id;
+        if (!userId) {
+          setErrorMessage('ID do usuário não encontrado para edição.');
+          return;
+        }
+
+        const token = localStorage.getItem('token');
+
+        const res = await fetch(`https://luma-wu46.onrender.com/user/${userId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+          body: JSON.stringify(payload),
+        });
+
+        const responseData = await res.json().catch(() => null);
+
+        if (!res.ok) {
+          const msg =
+            (responseData && (responseData.message || responseData.error)) ||
+            'Erro ao atualizar usuário.';
+          setErrorMessage(msg);
+          return;
+        }
+
+        try {
+          const users = getUsersFromStorage();
+          const normCpf = payload.cpf;
+          const updated = users.map((u) =>
+            u.cpf.replace(/\D/g, '') === normCpf
+              ? {
+                  nome: data.nome,
+                  cpf: normCpf,
+                  dataNascimento: data.dataNascimento,
+                  email: data.email || '',
+                  telefone: data.telefone,
+                }
+              : u
+          );
+          if (!updated.find((u) => u.cpf.replace(/\D/g, '') === normCpf)) {
+            updated.push({
+              nome: data.nome,
+              cpf: normCpf,
+              dataNascimento: data.dataNascimento,
+              email: data.email || '',
+              telefone: data.telefone,
+            });
+          }
+          setAllUsersToStorage(updated);
+        } catch (err) {
+          console.warn('Falha ao atualizar usuário localmente:', err);
+        }
+        window.dispatchEvent(new CustomEvent('auth-update'));
+        reset();
+        navigate('/perfil', { replace: true, state: { message: 'Dados atualizados com sucesso!' } });
+        return;
+      }
+
+      // Caso seja criação 
+      const res = await fetch('https://luma-wu46.onrender.com/user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const responseData = await res.json();
+
+      if (!res.ok) {
+        const msg =
+          (responseData && (responseData.message || responseData.error)) ||
+          (res.status === 409 ? 'Usuário já existe.' : 'Erro ao cadastrar usuário.');
+        setErrorMessage(msg);
+        return;
+      }
+
+      const token = responseData?.token || responseData?.accessToken;
+      if (token) {
+        localStorage.setItem('token', token);
+      }
+
+      try {
+        saveUserToStorage({
+          ...data,
+          cpf: payload.cpf,
+        });
+      } catch (err) {
+        console.error('Falha ao salvar usuário localmente:', err);
+      }
+
+      setLoggedUser(payload.cpf);
       window.dispatchEvent(new CustomEvent('auth-update'));
 
       reset();
@@ -53,15 +177,16 @@ export default function FormCadastro() {
         replace: true,
         state: { message: 'Cadastro realizado com sucesso!' },
       });
-    } catch (_error) {
-      setErrorMessage('Erro ao realizar cadastro. Tente novamente.');
+    } catch (error) {
+      console.error('Erro ao realizar cadastro:', error);
+      setErrorMessage('Erro de conexão. Tente novamente.');
     }
   };
 
   return (
     <main>
       <h1 className='text-center mb-5 text-fontPrimary text-2xl font-bold '>
-        Registre seu Cadastro
+        {isEditMode ? 'Atualizar dados' : 'Registre seu Cadastro'}
       </h1>
 
       <div className='alerta-obrigatorio bg-[color-mix(in_oklab,theme(colors.backBtn)_15%,white)] border-l-[5px] border-l-clikColor p-[10px_14px] mb-4 rounded-[5px] text-xs text-fontTertiary '>
@@ -216,17 +341,17 @@ export default function FormCadastro() {
           disabled={isSubmitting}
           className='w-full mt-[15px] text-lg '
         >
-          {isSubmitting ? 'ENVIANDO...' : 'ENVIAR'}
+          {isSubmitting ? (isEditMode ? 'SALVANDO...' : 'ENVIANDO...') : isEditMode ? 'SALVAR' : 'ENVIAR'}
         </BtnAcao>
       </form>
 
       <BtnAcao
         type='button'
         id='botao-nao-cadastrar'
-        onClick={() => navigate('/')}
-        className='w-full mt-[10px] text-lg bg-gray-300 text-fontTertiary hover:bg-gray-400'
+        onClick={() => navigate(isEditMode ? '/perfil' : '/')}
+  className='w-full mt-2.5 text-lg bg-gray-300 text-fontTertiary hover:bg-gray-400'
       >
-        Não quero me cadastrar
+        {isEditMode ? 'Cancelar' : 'Não quero me cadastrar'}
       </BtnAcao>
 
       {errorMessage && (

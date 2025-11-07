@@ -1,5 +1,4 @@
 import { useAuth } from '@/hooks/useAuth';
-import BtnInterno from '../Button/BtnInterno';
 
 /**
  * Seção de boas-vindas da página inicial
@@ -9,6 +8,18 @@ import BtnInterno from '../Button/BtnInterno';
 export default function BoasVindasSection() {
   const { isLoggedIn, userData } = useAuth();
 
+  // Retorna uma saudação baseada na hora atual
+  const getGreeting = () => {
+    try {
+      const hour = new Date().getHours();
+      if (hour >= 5 && hour < 12) return 'Bom dia';
+      if (hour >= 12 && hour < 18) return 'Boa tarde';
+      return 'Boa noite';
+    } catch (_) {
+      return 'Olá';
+    }
+  };
+
   return (
     <section className='w-full'>
       {/* Container alinhado com header/cards */}
@@ -17,7 +28,7 @@ export default function BoasVindasSection() {
         <div className='flex flex-col items-center text-center gap-4 py-6 sm:py-8 lg:py-12'>
           <div className='texto max-w-3xl'>
             {isLoggedIn && userData ? (
-              // Mensagem personalizada para usuário logado
+              // Mensagem personalizada para usuário logado (original)
               <>
                 <h2
                   className='
@@ -25,7 +36,7 @@ export default function BoasVindasSection() {
                     text-fontPrimary font-semibold mb-3
                   '
                 >
-                  Bem-vindo(a), {userData.nome}!
+                  {getGreeting()}, {userData.nome}!
                 </h2>
 
                 <p
@@ -61,19 +72,12 @@ export default function BoasVindasSection() {
                 >
                   Estamos aqui para te acompanhar em cada etapa do seu atendimento online no
                   Hospital das Clínicas. Se quiser, você pode preencher um breve formulário para que
-                  possamos oferecer um suporte ainda mais personalizado. É só clicar no botão abaixo
-                  quando estiver pronta!
+                  possamos oferecer um suporte ainda mais personalizado. Acesse pelo menu Perfil
+                  quando estiver pronta.
                 </p>
               </>
             )}
           </div>
-
-          {/* Botão só aparece quando não está logado */}
-          {!isLoggedIn && (
-            <BtnInterno to='/formulario' className='bg-clikColor hover:bg-hoverBtn'>
-              Preencher Formulário
-            </BtnInterno>
-          )}
         </div>
       </div>
     </section>
