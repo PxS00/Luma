@@ -51,8 +51,8 @@ export function validateCPF(cpf: string): boolean {
  */
 export function formatPhone(phone: string): string {
   const cleanPhone = phone.replace(/\D/g, '');
-  // Limita a 12 dígitos para incluir telefones fixos como 0800
-  const limitedPhone = cleanPhone.slice(0, 12);
+  // Limita a 11 dígitos (DDD + número com 8/9 dígitos)
+  const limitedPhone = cleanPhone.slice(0, 11);
   if (limitedPhone.length < 10) return limitedPhone;
   // Aplica máscara para telefones com 8 ou 9 dígitos no número
   if (limitedPhone.length === 10) {
@@ -60,8 +60,8 @@ export function formatPhone(phone: string): string {
   } else if (limitedPhone.length === 11) {
     return limitedPhone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
   } else {
-    // Para 0800 e similares
-    return limitedPhone.replace(/(\d{4})(\d{3})(\d{4})/, '$1 $2 $3');
+    // Não deve chegar aqui por causa do slice acima, mas retorna o valor limpo
+    return limitedPhone;
   }
 }
 
@@ -71,7 +71,7 @@ export function formatPhone(phone: string): string {
  * @returns true se válido, false se inválido
  */
 export function validatePhone(phone: string): boolean {
-  // Remove caracteres não numéricos e verifica o comprimento (10 a 12 dígitos)
+  // Remove caracteres não numéricos e verifica se possui exatamente 11 dígitos
   const cleanPhone = phone.replace(/\D/g, '');
-  return cleanPhone.length >= 10 && cleanPhone.length <= 12;
+  return cleanPhone.length === 11;
 }
