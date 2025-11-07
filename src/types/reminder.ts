@@ -44,8 +44,10 @@ export type ReminderHandlerFn = (reminder: Reminder) => void;
  * ```
  */
 export type Reminder = {
-  date: string; // formato ISO yyyy-mm-dd
-  time: string; // formato HH:mm
+  date: string;
+  time: string; 
   description: string;
-  userCpf: string; // CPF do usuário para filtrar lembretes
+  userCpf: string; 
+  idReminder?: number;
+  userId?: number;
 };

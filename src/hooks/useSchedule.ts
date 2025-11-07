@@ -114,9 +114,11 @@ export function useSchedule() {
         .filter((r: any) => r.userId === userId)
         .map((r: any) => ({
           date: r.dateReminder,
-          time: r.timeReminder.slice(0, 5),
+          time: (r.timeReminder || '').slice(0, 5),
           description: r.descriptionReminder,
           userCpf: getLoggedUser(),
+          idReminder: r.idReminder ?? r.id ?? undefined,
+          userId: r.userId,
         }));
 
       setReminders(userReminders);
@@ -267,30 +269,28 @@ export function useSchedule() {
       userCpf: loggedUserCpf,
     };
 
-    setReminders((prev) => {
-      // Se está editando, substitui o lembrete existente
-      if (editingReminder) {
-        return prev.map((r) =>
-          r.date === editingReminder.date &&
-          r.time === editingReminder.time &&
-          r.description === editingReminder.description &&
-          r.userCpf === editingReminder.userCpf
-            ? reminderWithUser
-            : r
-        );
-      }
-      // Se é novo, adiciona ao array
-      return [...prev, reminderWithUser];
-    });
+    // Determina se estamos editando um lembrete existente e tenta resolver um id efetivo
+    const editingIdFromState = editingReminder
+      ? reminders.find(
+          (r) =>
+            r.date === editingReminder.date &&
+            r.time === editingReminder.time &&
+            r.description === editingReminder.description &&
+            r.userCpf === editingReminder.userCpf &&
+            r.idReminder
+        )?.idReminder
+      : undefined;
 
-    // Reset do estado após salvar localmente
-    setShowModal(false);
-    setEditingReminder(null);
-    setFormTime('');
-    setFormDescription('');
+  let effectiveEditingId = editingReminder?.idReminder ?? editingIdFromState;
 
-    // Envia lembrete para a API externa (não bloqueia o fluxo local)
-    try {
+    // inicio do fluxo de envio (debug logs removidos em produção)
+
+    // Não fechar o modal nem resetar antes da resposta do servidor.
+    // A atualização do estado local (adicionar ou substituir) será feita APÓS o sucesso da requisição,
+    // para evitar que falhas no servidor deixem a UI inconsistente.
+
+  // Envia lembrete para a API externa (não bloqueia o fluxo local)
+  try {
       const loggedFull = getLoggedUserFull();
       const userId = loggedFull && loggedFull.id ? Number(loggedFull.id) : undefined;
 
@@ -300,14 +300,68 @@ export function useSchedule() {
       }
 
       const token = localStorage.getItem('token');
+
+      const normalizedTime = reminder.time && reminder.time.length === 5 ? `${reminder.time}:00` : reminder.time;
       const payload = {
         userId,
         dateReminder: reminder.date,
-        // API espera segundos (ex: 17:00:00)
-        timeReminder: reminder.time && reminder.time.length === 5 ? `${reminder.time}:00` : reminder.time,
+        timeReminder: normalizedTime,
         descriptionReminder: reminder.description,
       } as any;
 
+      if (editingReminder && !effectiveEditingId) {
+        try {
+          const listRes = await fetch('https://luma-wu46.onrender.com/EmailReminder', {
+            headers: {
+              'Content-Type': 'application/json',
+              ...(token ? { Authorization: `Bearer ${token}` } : {}),
+            },
+          });
+          if (listRes.ok) {
+            const listData = await listRes.json().catch(() => []);
+            const match = (listData || []).find((r: any) =>
+              r.userId === userId &&
+              r.dateReminder === reminder.date &&
+              (r.timeReminder || '').slice(0, 5) === reminder.time &&
+              r.descriptionReminder === reminder.description
+            );
+            if (match) {
+              effectiveEditingId = match.idReminder ?? match.id ?? effectiveEditingId;
+            }
+          }
+        } catch (err) {
+          console.warn('Não foi possível resolver id do lembrete no servidor:', err);
+        }
+      }
+
+      if (effectiveEditingId) {
+        const idRem = Number(effectiveEditingId);
+        const res = await fetch(`https://luma-wu46.onrender.com/EmailReminder/${idRem}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          const text = await res.text();
+          console.error('Erro ao atualizar lembrete na API (PUT):', res.status, text);
+          return false;
+        }
+        setReminders((prev) =>
+          prev.map((r) => (String(r.idReminder) === String(idRem) ? { ...r, ...reminderWithUser, idReminder: idRem, userId } : r))
+        );
+        setShowModal(false);
+        setEditingReminder(null);
+        setFormTime('');
+        setFormDescription('');
+
+        return true;
+      }
+
+  // realizando POST para criar lembrete
       const res = await fetch('https://luma-wu46.onrender.com/EmailReminder', {
         method: 'POST',
         headers: {
@@ -319,9 +373,60 @@ export function useSchedule() {
 
       if (!res.ok) {
         const text = await res.text();
-        console.error('Erro ao enviar lembrete para API:', res.status, text);
+        // eslint-disable-next-line no-console
+        console.error('Erro ao enviar lembrete para API (POST):', res.status, text);
         return false;
       }
+
+      const created = await res.json().catch(() => null);
+      let createdId = created?.idReminder ?? created?.id ?? undefined;
+
+      if (!createdId) {
+        try {
+          const listRes = await fetch('https://luma-wu46.onrender.com/EmailReminder', {
+            headers: {
+              'Content-Type': 'application/json',
+              ...(token ? { Authorization: `Bearer ${token}` } : {}),
+            },
+          });
+          if (listRes.ok) {
+            const listData = await listRes.json().catch(() => []);
+            const match = (listData || []).find((r: any) =>
+              r.userId === userId &&
+              r.dateReminder === reminder.date &&
+              (r.timeReminder || '').slice(0, 5) === reminder.time &&
+              r.descriptionReminder === reminder.description
+            );
+            if (match) createdId = match.idReminder ?? match.id ?? createdId;
+          }
+        } catch (err) {
+          console.warn('Não foi possível localizar id do lembrete recém-criado:', err);
+        }
+      }
+
+      if (createdId) {
+        setReminders((prev) => {
+          const found = prev.some(
+            (r) =>
+              (r.idReminder && String(r.idReminder) === String(createdId)) ||
+              (!r.idReminder && r.date === reminder.date && r.time === reminder.time && r.description === reminder.description && r.userCpf === reminderWithUser.userCpf)
+          );
+          if (found) {
+            return prev.map((r) =>
+              (!r.idReminder && r.date === reminder.date && r.time === reminder.time && r.description === reminder.description && r.userCpf === reminderWithUser.userCpf)
+                ? { ...r, idReminder: createdId, userId }
+                : r
+            );
+          }
+          return [...prev, { ...reminderWithUser, idReminder: createdId, userId }];
+        });
+      } else {
+        setReminders((prev) => [...prev, { ...reminderWithUser, userId }]);
+      }
+      setShowModal(false);
+      setEditingReminder(null);
+      setFormTime('');
+      setFormDescription('');
 
       return true;
     } catch (err) {
@@ -336,10 +441,15 @@ export function useSchedule() {
    * @param reminder - Lembrete a ser editado
    */
   const handleEditReminder = (reminder: Reminder) => {
-    setEditingReminder(reminder);
-    setSelectedDate(reminder.date);
-    setFormTime(reminder.time);
-    setFormDescription(reminder.description);
+    const found = reminders.find((r) =>
+      (r.idReminder && reminder.idReminder && String(r.idReminder) === String(reminder.idReminder)) ||
+      (r.date === reminder.date && r.time === reminder.time && r.description === reminder.description && r.userCpf === reminder.userCpf)
+    );
+    const toEdit = found ?? reminder;
+    setEditingReminder(toEdit);
+    setSelectedDate(toEdit.date);
+    setFormTime(toEdit.time);
+    setFormDescription(toEdit.description);
     setShowModal(true);
   };
 

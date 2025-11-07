@@ -45,7 +45,7 @@ export default function FormLogin() {
         passwordDate: birthIso,
       };
 
-      console.log('Login payload:', payload);
+      
 
       const res = await fetch('https://luma-wu46.onrender.com/login', {
         method: 'POST',
@@ -60,7 +60,7 @@ export default function FormLogin() {
       } catch {
         responseData = null;
       }
-      console.log('Login response status:', res.status, 'body:', text);
+      
 
       if (!res.ok) {
         const msg =

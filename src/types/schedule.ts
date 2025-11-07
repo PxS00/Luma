@@ -27,7 +27,7 @@ export type ReminderModalProps = {
   setFormTime: (v: string) => void;
   formDescription: string;
   setFormDescription: (v: string) => void;
-  onSave: (reminder: Reminder) => void;
+  onSave: (reminder: Reminder) => Promise<boolean>;
   onEdit: (reminder: Reminder) => void;
   onRemove: (reminder: Reminder) => void;
   error?: string | null;

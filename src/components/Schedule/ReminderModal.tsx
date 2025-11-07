@@ -2,6 +2,7 @@
  * Componente ReminderModal
  * Modal para adicionar ou editar lembretes de consulta médica.
  */
+import React from 'react';
 import type { ReminderModalProps } from '@/types/schedule';
 import { getLoggedUser } from '@/utils/userStorage';
 import ReminderList from './ReminderList';
@@ -22,6 +23,7 @@ export default function ReminderModal({
   error,
 }: ReminderModalProps) {
   if (!show) return null;
+  const [saveError, setSaveError] = React.useState<string | null>(null);
   return (
     <div className='fixed inset-0 z-50 flex items-center justify-center bg-transparent backdrop-blur-sm'>
       <div
@@ -49,24 +51,31 @@ export default function ReminderModal({
           </div>
         )}
         <form
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
             if (!selectedDate || !formTime.trim() || !formDescription.trim()) {
               return;
             }
-            
+
             const loggedUserCpf = getLoggedUser();
             if (!loggedUserCpf) {
-              console.error('Usuário não está logado');
               return;
             }
-            
-            onSave({
-              date: selectedDate,
-              time: formTime,
-              description: formDescription,
-              userCpf: loggedUserCpf,
-            });
+
+            try {
+              const result = await onSave({
+                date: selectedDate,
+                time: formTime,
+                description: formDescription,
+                userCpf: loggedUserCpf,
+              });
+              if (result === false) {
+                setSaveError('Falha ao enviar ao servidor. Tente novamente.');
+                return;
+              }
+            } catch (err) {
+              setSaveError('Erro na comunicação com o servidor. Tente novamente.');
+            }
           }}
           className='flex flex-col gap-4 w-full'
         >
@@ -104,6 +113,11 @@ export default function ReminderModal({
         <div className='w-full mt-4'>
           <ReminderList reminders={remindersOfDay} onEdit={onEdit} onRemove={onRemove} />
         </div>
+        {saveError && (
+          <div className='w-full mt-3 p-3 rounded-lg bg-red-100 text-red-700 text-center font-semibold border border-red-300'>
+            {saveError}
+          </div>
+        )}
       </div>
     </div>
   );
