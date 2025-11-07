@@ -1,6 +1,7 @@
 import AccessibilityMenu from '@/components/AccessibilityMenu/AccessibilityMenu';
 import Footer from '@/components/Footer/Footer';
 import Header from '@/components/Header/Header';
+import VLibrasInit from '@/components/VLibrasInit/VLibrasInit';
 import { Outlet } from 'react-router-dom';
 
 /**
@@ -18,6 +19,7 @@ export default function App() {
 
       <Footer />
       <AccessibilityMenu />
+      <VLibrasInit />
     </div>
   );
 }

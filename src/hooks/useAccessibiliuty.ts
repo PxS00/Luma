@@ -105,9 +105,32 @@ export function useAccessibility() {
     speechSynthesis.cancel(); speechSynthesis.speak(u);
   };
 
-  // VLibras (se o widget estiver no index.html)
+  // VLibras - Abre/fecha o widget de tradução em Libras
   const libras = () => {
-    (document.querySelector('div[vw-access-button] button') as HTMLButtonElement)?.click();
+    // Método 1: Tenta clicar no botão (se já existir)
+    const button = document.querySelector('[vw-access-button] button') as HTMLButtonElement;
+    if (button) {
+      button.click();
+      return;
+    }
+
+    // Método 2: Força a criação do botão fazendo o VLibras inicializar
+    try {
+      if (window.VLibras && window.VLibras.Widget) {
+        // Re-inicializa o widget para forçar a criação dos elementos
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+        
+        // Aguarda um pouco e tenta clicar novamente
+        setTimeout(() => {
+          const retryButton = document.querySelector('[vw-access-button] button') as HTMLButtonElement;
+          if (retryButton) {
+            retryButton.click();
+          }
+        }, 1000);
+      }
+    } catch (e) {
+      console.error('Erro ao inicializar VLibras:', e);
+    }
   };
 
   return { prefs, setPrefs, incFont, decFont, toggle, reset, tts, libras, cycleVisualMode, setExclusiveMode, toggleExclusiveMode };

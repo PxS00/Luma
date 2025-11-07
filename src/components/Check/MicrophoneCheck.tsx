@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useVoiceVisualizer, VoiceVisualizer } from 'react-voice-visualizer';
 
 /**
@@ -16,6 +17,15 @@ export default function MicrophoneCheck() {
   const recorderControls = useVoiceVisualizer();
 
   const { isRecordingInProgress } = recorderControls;
+
+  // responsivo: reduz a altura do visualizador em telas pequenas para evitar scroll
+  const [isSmall, setIsSmall] = useState<boolean>(typeof window !== 'undefined' ? window.innerWidth < 640 : false);
+  useEffect(() => {
+    const onResize = () => setIsSmall(window.innerWidth < 640);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+  const vizHeight = isSmall ? 100 : 200;
 
   return (
     <section
@@ -40,11 +50,11 @@ export default function MicrophoneCheck() {
         </p>
       </header>
 
-      {/* Visualizador de áudio */}
-      <div className='w-full max-w-2xl'>
+      {/* Visualizador de áudio (tamanho responsivo para mobile) */}
+      <div className='w-full max-w-[360px] sm:max-w-3xl'>
         <VoiceVisualizer
           controls={recorderControls}
-          height={200}
+          height={vizHeight}
           width='100%'
           backgroundColor='#FAFAFA'
           mainBarColor='#B91C1C'
@@ -60,7 +70,7 @@ export default function MicrophoneCheck() {
       </div>
 
       {/* Instruções */}
-      <div className='w-full max-w-2xl p-6 rounded-lg bg-backSecondary shadow border border-borderColor'>
+      <div className='w-full max-w-[360px] sm:max-w-3xl p-3 sm:p-6 rounded-lg bg-backSecondary shadow border border-borderColor'>
         <h3 className='text-lg font-semibold text-fontTertiary mb-3'>Instruções para o teste</h3>
         <ul className='space-y-2 text-sm text-fontSecondary'>
           <li className='flex items-start gap-2'>

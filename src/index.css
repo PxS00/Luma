@@ -149,4 +149,50 @@
     background-color: #ffffff !important;
     color: #111827 !important;
   }
+
+  /* VLibras Widget - Customizar o botão padrão para combinar com nosso design */
+  div[vw-access-button] {
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    z-index: 9998 !important;
+  }
+
+  /* Customizar o botão do VLibras */
+  div[vw-access-button] button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border-radius: 50% !important;
+    width: 56px !important;
+    height: 56px !important;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4) !important;
+    border: none !important;
+    transition: all 0.3s ease !important;
+  }
+
+  div[vw-access-button] button:hover {
+    transform: scale(1.1) !important;
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6) !important;
+  }
+
+  /* Garantir que o widget VLibras fique acima de outros elementos quando ativo */
+  div[vw-plugin-wrapper] {
+    z-index: 9999 !important;
+  }
+
+  /* Estilização adicional do widget VLibras */
+  div[vw-plugin-wrapper].active {
+    display: block !important;
+  }
+
+  /* Garantir que o widget seja visível e interativo */
+  [vw] {
+    opacity: 1 !important;
+  }
+
+  /* Posicionamento fixo do widget no canto da tela */
+  [vw-plugin-wrapper] .vw-plugin-top-wrapper {
+    position: fixed !important;
+    right: 0 !important;
+    bottom: 0 !important;
+  }
 }
