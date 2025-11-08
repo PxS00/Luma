@@ -51,7 +51,7 @@ export default function Perfil() {
             <p className='text-fontTertiary max-w-xl'>Para acessar e gerenciar seus dados de perfil, por favor faça login ou crie uma conta. É rápido e seguro.</p>
 
             <div className='flex gap-3 justify-center mt-2'>
-              <BtnInterno to='/formulario/cadastro?edit=1' className='bg-backBtn hover:bg-hoverBtn text-white inline-flex items-center gap-2'>
+              <BtnInterno to='/formulario/cadastro' className='bg-backBtn hover:bg-hoverBtn text-white inline-flex items-center gap-2'>
                 <MdEdit size={18} aria-hidden='true' />
                 <span>Entrar / Cadastrar</span>
               </BtnInterno>

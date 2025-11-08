@@ -8,6 +8,7 @@ import {
   saveUserToStorage,
   setAllUsersToStorage,
   setLoggedUser,
+  setLoggedUserFull,
   getLoggedUserFull,
 } from '@/utils/userStorage';
 import { formatCPF, formatPhone, validateCPF } from '@/utils/validators';
@@ -64,9 +65,10 @@ export default function FormCadastro() {
    * Salva dados no localStorage e atualiza estado de autenticação
    * @param data - Dados do formulário validados
    */
-  const onSubmit = async (data: CadastroFormData) => {
-    setErrorMessage('');
-    if (!isEditMode) setIsNavigatingToHome(true);
+ const onSubmit = async (data: CadastroFormData) => {
+   setErrorMessage('');
+   // mostra spinner de navegação enquanto processa (mesmo padrão do FormLogin)
+   setIsNavigatingToHome(true);
 
     const onlyDigits = (v: string) => v.replace(/\D/g, '');
 
@@ -84,6 +86,7 @@ export default function FormCadastro() {
         const userId = logged?.id;
         if (!userId) {
           setErrorMessage('ID do usuário não encontrado para edição.');
+          setIsNavigatingToHome(false);
           return;
         }
 
@@ -137,7 +140,11 @@ export default function FormCadastro() {
         }
         window.dispatchEvent(new CustomEvent('auth-update'));
         reset();
-        navigate('/perfil', { replace: true, state: { message: 'Dados atualizados com sucesso!' } });
+        // mantém o spinner ativo um instante curto para sensação de resposta e depois navega
+        setTimeout(() => {
+          setIsNavigatingToHome(false);
+          navigate('/perfil', { replace: true, state: { message: 'Dados atualizados com sucesso!' } });
+        }, 200);
         return;
       }
 
@@ -155,7 +162,6 @@ export default function FormCadastro() {
           (responseData && (responseData.message || responseData.error)) ||
           (res.status === 409 ? 'Usuário já existe.' : 'Erro ao cadastrar usuário.');
         setErrorMessage(msg);
-        setIsNavigatingToHome(false);
         return;
       }
 
@@ -164,21 +170,95 @@ export default function FormCadastro() {
         localStorage.setItem('token', token);
       }
 
+      // tenta sincronizar com o mesmo fluxo do FormLogin: buscar usuários e salvar o usuário logado completo
       try {
-        saveUserToStorage({
-          ...data,
-          cpf: payload.cpf,
+        const userRes = await fetch('https://luma-wu46.onrender.com/user', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
         });
+
+        if (userRes.ok) {
+          const users = (await userRes.json()) as Array<any>;
+
+          const normalizeCpf = (v: string = '') => String(v ?? '').replace(/\D/g, '');
+          const normalizeDate = (v: string = '') => {
+            if (!v) return '';
+            const s = String(v);
+            if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+            try {
+              return new Date(s).toISOString().split('T')[0];
+            } catch {
+              return s;
+            }
+          };
+
+          const birthIso = /^\d{4}-\d{2}-\d{2}$/.test(data.dataNascimento)
+            ? data.dataNascimento
+            : new Date(data.dataNascimento).toISOString().split('T')[0];
+
+          const found = users.find(
+            (u) =>
+              normalizeCpf(u.cpf) === normalizeCpf(payload.cpf) &&
+              normalizeDate(u.birthDate) === normalizeDate(birthIso)
+          );
+
+          // salva token e informações locais similar ao login
+          if (found) {
+            try {
+              setLoggedUserFull({
+                id: String(found.id),
+                cpf: String(found.cpf),
+                passwordDate: normalizeDate(found.birthDate),
+              });
+
+              saveUserToStorage({
+                nome: String(found.name || found.nome || ''),
+                cpf: String(found.cpf),
+                dataNascimento: normalizeDate(found.birthDate),
+                email: found.email || '',
+                telefone: (found.phone as string) || '',
+              });
+            } catch (err) {
+              console.warn('Falha ao salvar usuário localmente após cadastro:', err);
+            }
+            window.dispatchEvent(new CustomEvent('auth-update'));
+          } else {
+            // fallback: grava apenas o CPF e os dados do form
+            try {
+              saveUserToStorage({ ...data, cpf: payload.cpf });
+            } catch (err) {
+              console.error('Falha ao salvar usuário localmente:', err);
+            }
+            setLoggedUser(payload.cpf);
+            window.dispatchEvent(new CustomEvent('auth-update'));
+          }
+        } else {
+          // se falhar ao buscar usuários, ainda salva local e marca como logado (comportamento tolerante)
+          try {
+            saveUserToStorage({ ...data, cpf: payload.cpf });
+          } catch (err) {
+            console.error('Falha ao salvar usuário localmente:', err);
+          }
+          setLoggedUser(payload.cpf);
+          window.dispatchEvent(new CustomEvent('auth-update'));
+        }
       } catch (err) {
-        console.error('Falha ao salvar usuário localmente:', err);
+        console.warn('Erro ao sincronizar usuário após cadastro:', err);
+        try {
+          saveUserToStorage({ ...data, cpf: payload.cpf });
+        } catch (e) {
+          console.error('Falha ao salvar usuário localmente:', e);
+        }
+        setLoggedUser(payload.cpf);
+        window.dispatchEvent(new CustomEvent('auth-update'));
       }
-
-      setLoggedUser(payload.cpf);
-      window.dispatchEvent(new CustomEvent('auth-update'));
-
 
       reset();
       setTimeout(() => {
+        setIsNavigatingToHome(false);
         navigate('/', {
           replace: true,
           state: { message: 'Cadastro realizado com sucesso!' },
@@ -186,7 +266,7 @@ export default function FormCadastro() {
       }, 300);
     } catch (error) {
       console.error('Erro ao realizar cadastro:', error);
-      setErrorMessage('Não foi possível concluir o cadastro. Verifique os dados informados ou tente novamente');
+      setErrorMessage('Não foi possível concluir o cadastro. Verifique os dados informados ou tente novamente.');
       setIsNavigatingToHome(false);
     }
   };
