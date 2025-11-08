@@ -34,7 +34,7 @@ export default function ChooseModeTabs({
           role='tablist'
           aria-label='Escolha como quer cadastrar'
           onKeyDown={onKeyDown}
-          className='flex flex-wrap justify-center gap-3'
+          className='flex flex-wrap justify-center gap-3 mb-4'
         >
           {/* App */}
           <BtnAcao
@@ -48,10 +48,10 @@ export default function ChooseModeTabs({
               setActiveTab('app');
               onChangeMode?.('app');
             }}
-            className={`rounded-xl border border-borderColor ${
+            className={`rounded-xl border-2 font-bold ${
               isActive('app')
-                ? 'bg-backBtn text-white hover:bg-hoverBtn'
-                : 'bg-navBtn text-fontTertiary hover:bg-navHoverBtn hover:text-white'
+                ? 'bg-backBtn text-white border-backBtn hover:bg-hoverBtn'
+                : 'bg-gray-200 text-gray-700 border-gray-400 hover:bg-gray-300'
             }`}
           >
             {labelApp}
@@ -69,10 +69,10 @@ export default function ChooseModeTabs({
               setActiveTab('nav');
               onChangeMode?.('nav');
             }}
-            className={`rounded-xl border border-borderColor ${
+            className={`rounded-xl border-2 font-bold ${
               isActive('nav')
-                ? 'bg-backBtn text-white hover:bg-hoverBtn'
-                : 'bg-navBtn text-fontTertiary hover:bg-navHoverBtn hover:text-white'
+                ? 'bg-backBtn text-white border-backBtn hover:bg-hoverBtn'
+                : 'bg-gray-200 text-gray-700 border-gray-400 hover:bg-gray-300'
             }`}
           >
             {labelNav}
@@ -87,7 +87,7 @@ export default function ChooseModeTabs({
               id={panelId('app')}
               role='tabpanel'
               aria-labelledby={tabId('app')}
-              className='w-full mt-2'
+              className='w-full'
             >
               {app}
             </section>
@@ -97,7 +97,7 @@ export default function ChooseModeTabs({
               id={panelId('nav')}
               role='tabpanel'
               aria-labelledby={tabId('nav')}
-              className='w-full mt-2'
+              className='w-full'
             >
               {nav}
             </section>
@@ -110,7 +110,7 @@ export default function ChooseModeTabs({
             role='tabpanel'
             aria-labelledby={tabId('app')}
             hidden={!isActive('app')}
-            className='w-full mt-2'
+            className='w-full'
           >
             {app}
           </section>
@@ -120,7 +120,7 @@ export default function ChooseModeTabs({
             role='tabpanel'
             aria-labelledby={tabId('nav')}
             hidden={!isActive('nav')}
-            className='w-full mt-2'
+            className='w-full'
           >
             {nav}
           </section>

@@ -181,7 +181,17 @@ export default function FormCadastro() {
         });
 
         if (userRes.ok) {
-          const users = (await userRes.json()) as Array<any>;
+          interface UserResponse {
+            id: string | number;
+            cpf: string;
+            birthDate: string;
+            name?: string;
+            nome?: string;
+            email?: string;
+            phone?: string;
+          }
+          
+          const users = (await userRes.json()) as UserResponse[];
 
           const normalizeCpf = (v: string = '') => String(v ?? '').replace(/\D/g, '');
           const normalizeDate = (v: string = '') => {
@@ -377,11 +387,12 @@ export default function FormCadastro() {
           />
         </FormField>
 
-        <FormField label='E-mail'>
+        <FormField label='E-mail' required>
           <Controller
             name='email'
             control={control}
             rules={{
+              required: 'E-mail é obrigatório',
               pattern: {
                 value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                 message: 'E-mail inválido',
@@ -395,6 +406,7 @@ export default function FormCadastro() {
                 value={field.value || ''}
                 onChange={field.onChange}
                 placeholder='seuemail@email.com'
+                required
                 maxLength={100}
                 isValid={errors.email ? false : !!field.value}
                 errorMessage={errors.email?.message}
@@ -442,7 +454,7 @@ export default function FormCadastro() {
         type='button'
         id='botao-nao-cadastrar'
         onClick={() => navigate(isEditMode ? '/perfil' : '/')}
-  className='w-full mt-2.5 text-lg bg-gray-300 text-fontTertiary hover:bg-gray-400'
+        className='w-full mt-2.5 text-lg bg-gray-300 text-fontTertiary hover:bg-gray-400'
       >
         {isEditMode ? 'Cancelar' : 'Não quero me cadastrar'}
       </BtnAcao>

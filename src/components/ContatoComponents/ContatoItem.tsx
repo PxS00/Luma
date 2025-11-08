@@ -14,10 +14,7 @@ export default function ContatoItem({ item }: ContatoItemProps) {
           <dl
             className='
     divide-y divide-borderColor
-    rounded-md        
-    bg-white/40      
-    shadow-sm        
-    p-3 sm:p-4 md:p-5
+    p-0
   '
           >
             {/* Presencial */}

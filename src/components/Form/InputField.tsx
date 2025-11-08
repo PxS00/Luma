@@ -21,7 +21,7 @@ export default function InputField({
 }: InputFieldProps) {
   const getInputClasses = () => {
     const base =
-      'w-full p-2 rounded-[5px] border border-gray-300 bg-[#FFF8E1] text-xl text-fontTertiary  focus:outline-none focus:ring-2 focus:ring-backBtn';
+      'w-full p-2 rounded-[5px] border border-gray-300 bg-white text-xl text-fontTertiary  focus:outline-none focus:ring-2 focus:ring-backBtn';
 
     if (type === 'email' && value === '') {
       return base;

@@ -30,7 +30,6 @@ export default function Formulario() {
       aria-label='Conteúdo principal de formulário'
       className='
         containerNarrow w-full min-h-screen
-        bg-linear-to-b from-fromColor to-toColor
         flex justify-center items-start sm:items-center
         py-8 sm:py-12 lg:py-16
       '
