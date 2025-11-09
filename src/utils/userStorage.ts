@@ -57,7 +57,7 @@ export function getLoggedUser(): string | null {
   try {
     const parsed = JSON.parse(data);
     if (parsed && typeof parsed === 'object' && 'cpf' in parsed) {
-      return String((parsed as any).cpf);
+      return String((parsed as { cpf: string }).cpf);
     }
     if (typeof parsed === 'string') return parsed;
     return null;
@@ -72,8 +72,6 @@ export function getLoggedUser(): string | null {
 export function removeLoggedUser(): void {
   localStorage.removeItem(LOGGED_USER_KEY);
 }
-
-
 
 /**
  * Salva o usuário logado completo no localStorage.

@@ -118,7 +118,7 @@ O projeto inclui uma biblioteca completa de imagens tutoriais para:
 ```
 LumaHC/
 ├── 📁 public/                          # Arquivos públicos estáticos
-│   └── favicon.svg                     # Ícone do site
+│   ├── favicon.svg                     # Ícone do site
 │   ├── 404.html                        # Página de erro 404
 │   ├── 500.html                        # Página de erro 500
 │   └── 📁 mediapipe/                   # Arquivos do MediaPipe
@@ -254,7 +254,7 @@ LumaHC/
 
 ---
 
-## � Configuração da API Backend
+## 🔧 Configuração da API Backend
 
 ### 🌐 API em Produção (Render)
 A aplicação está configurada para usar a API hospedada no Render:
@@ -281,7 +281,7 @@ Para funcionalidade completa, incluindo envio automático de emails:
 
 ---
 
-## �🛠️ Instalação e Configuração
+## ️ Instalação e Configuração
 
 ### 📋 Pré-requisitos
 
@@ -339,7 +339,7 @@ pnpm fix              # Corrige lint + formato
 
 ## 🌟 Funcionalidades Detalhadas
 
-### � Integração com API Backend
+### 🔌 Integração com API Backend
 - **Deploy no Render**: https://luma-wu46.onrender.com
 - **Endpoints REST**: 
   - `POST /user` - Cadastro de usuários
@@ -352,7 +352,7 @@ pnpm fix              # Corrige lint + formato
 - **⚠️ Limitação**: O envio automático de emails de lembrete funciona completamente apenas quando o Quarkus está rodando localmente
 - **Tecnologia**: Java com Quarkus Framework
 
-###�📅 Sistema de Agendamento
+### � Sistema de Agendamento
 - **Calendário Interativo**: Navegação entre meses
 - **Lembretes Personalizados**: Criação, edição e exclusão
 - **Integração com API**: Sincronização de lembretes com backend
@@ -391,7 +391,7 @@ pnpm fix              # Corrige lint + formato
 
 ---
 
-## � Segurança e Considerações
+## 🔒 Segurança e Considerações
 
 ### ⚠️ Armazenamento de Dados (Projeto Acadêmico)
 Este é um **MVP desenvolvido para fins educacionais**. As seguintes práticas foram utilizadas para simplificar o desenvolvimento:
@@ -422,7 +422,7 @@ O sistema atual usa **CPF + Data de Nascimento** como credenciais. Esta é uma a
 
 ---
 
-## ���🔗 Links Importantes
+##  Links Importantes
 
 ### 📂 Repositório GitHub
 **🔗 [LumaHC](https://github.com/Challenge-2025-1-TDSPG/LumaHC)**
