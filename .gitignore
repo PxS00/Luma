@@ -12,8 +12,6 @@ lerna-debug.log*
 
 # ---------------------------------
 # DEPENDÊNCIAS E LOCK FILES
-# (Se sua turma/prof preferir, mantenha APENAS 1 lock:
-#  pnpm-lock.yaml OU yarn.lock OU package-lock.json)
 pnpm-lock.yaml
 yarn.lock
 package-lock.json
@@ -71,8 +69,7 @@ Thumbs.db
 *.sw?
 
 # ---------------------------------
-# ARQUIVOS GRANDES COMUNS (opcional)
-# (Evite versionar binários; use Git LFS se precisar)
+# ARQUIVOS GRANDES COMUNS
 *.mp4
 *.mov
 *.avi
@@ -82,9 +79,6 @@ Thumbs.db
 *.psd
 *.ai
 *.fig
-
-# Se subir só front em produção, evite source maps pesados:
-# *.map
 
 # ---------------------------------
 # GITHUB / VERCEL
