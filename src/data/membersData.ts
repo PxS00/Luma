@@ -5,7 +5,7 @@ export const members: Member[] = [
   {
     name: 'Alexander Dennis Isidro Mamani',
     rm: 'RM 565554',
-    class: '1-TADSPG',
+    class: '1-TDSPG',
     img: Alex,
     linkedin: 'https://www.linkedin.com/in/alexander-dennis-a3b48824b/',
     github: 'https://github.com/alex-isidro',
@@ -15,7 +15,7 @@ export const members: Member[] = [
   {
     name: 'Kelson Zhang',
     rm: 'RM 563748',
-    class: '1-TADSPG',
+    class: '1-TDSPG',
     img: Kelson,
     linkedin: 'https://www.linkedin.com/in/kelson-zhang-211456323/',
     github: 'https://github.com/KelsonZh0',
@@ -25,7 +25,7 @@ export const members: Member[] = [
   {
     name: 'Lucas Rossoni Dieder',
     rm: 'RM 563770',
-    class: '1-TADSPG',
+    class: '1-TDSPG',
     img: Lucas,
     linkedin: 'https://www.linkedin.com/in/lucas-rossoni-dieder-32242a353/',
     github: 'https://github.com/PxS00',
